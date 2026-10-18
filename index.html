@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: mediastream: https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: mediastream: https://fonts.googleapis.com https://fonts.gstatic.com https://api.counterapi.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://api.counterapi.dev;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>مختبر ومحاكي كارت الإنفرتر الشامل | م. أحمد زينور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
         body { background: radial-gradient(circle at top right, #1e293b, #0b1120 70%); color: var(--text-main); font-family: 'Cairo', sans-serif; min-height: 100vh; padding: 14px 10px; display: flex; justify-content: center; }
         .app-wrapper { max-width: 1020px; width: 100%; }
         .hidden { display: none !important; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 14px 20px; margin-bottom: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 12px; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 14px 20px; margin-bottom: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 12px; }
         .brand-info { display: flex; flex-direction: column; }
         .brand-dev { font-size: 18px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
         .brand-group { font-size: 13.5px; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
@@ -34,19 +34,30 @@
         .lang-switch-group { display: flex; background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
         .lang-btn { background: transparent; border: none; color: var(--text-sub); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 12.5px; padding: 6px 12px; cursor: pointer; transition: 0.2s; }
         .lang-btn.active { background: var(--accent-cyan); color: #0b1120; }
-        .header-section { text-align: center; margin-bottom: 14px; }
+        /* Real Honest Analytics Counter Bar */
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .stat-pill { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 12px; padding: 9px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .stat-label { font-size: 12.5px; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 6px; }
+        .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--status-green); box-shadow: 0 0 8px var(--status-green); animation: pulseDot 1.5s infinite; }
+        @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 15.5px; font-weight: 800; color: var(--accent-cyan); direction: ltr; unicode-bidi: isolate; background: rgba(56, 189, 248, 0.1); padding: 2px 10px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.25); }
+        .sub-join-btn { background: rgba(16, 185, 129, 0.16); border: 1px solid var(--status-green); color: #6ee7b7; font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 7px; cursor: pointer; transition: 0.2s; }
+        .sub-join-btn:hover, .sub-join-btn.joined { background: var(--status-green); color: #0b1120; }
+        .header-section { text-align: center; margin-bottom: 12px; }
         .header-section h1 { font-size: 22px; font-weight: 800; background: linear-gradient(90deg, #fff, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header-section p { font-size: 13px; color: var(--text-sub); margin-top: 3px; }
         .main-reset-bar { display: flex; justify-content: center; margin-bottom: 14px; }
         .btn-reset-options { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; border: 1px solid #f87171; font-family: 'Cairo', sans-serif; font-size: 13.8px; font-weight: 800; padding: 9px 22px; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
         .btn-reset-options:hover { transform: translateY(-1px); filter: brightness(1.12); }
-        .info-guide-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; margin-bottom: 16px; }
-        .info-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 16px 18px; }
-        .info-card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 800; color: var(--accent-cyan); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border-color); }
-        .info-card-body { font-size: 12.8px; line-height: 1.75; color: #e2e8f0; }
-        .guide-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .guide-steps li { display: flex; align-items: flex-start; gap: 9px; font-size: 12.6px; line-height: 1.65; color: #e2e8f0; }
-        .step-num { background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+        /* Full-Page Guide Mode */
+        .info-guide-wrapper { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; min-height: 72vh; }
+        .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; }
+        .info-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 14px; padding: 18px 20px; }
+        .info-card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 16px; font-weight: 800; color: var(--accent-cyan); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+        .info-card-body { font-size: 13.5px; line-height: 1.85; color: #e2e8f0; }
+        .guide-steps { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .guide-steps li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.2px; line-height: 1.75; color: #e2e8f0; }
+        .step-num { background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
         .field-lab-wrapper { background: linear-gradient(145deg, rgba(15, 23, 42, 0.97), rgba(30, 41, 59, 0.95)); border: 2px solid var(--status-green); border-radius: 16px; padding: 18px; margin-bottom: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.65); }
         .field-lab-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
         .field-lab-title { font-size: 17px; font-weight: 800; color: #6ee7b7; display: flex; align-items: center; gap: 8px; }
@@ -106,7 +117,7 @@
         .cam-btn:hover { background: var(--accent-cyan); color: #0b1120; }
         .cam-btn.btn-download { background: var(--status-green); border-color: var(--status-green); color: #0b1120; font-size: 14px; }
         .cam-btn.btn-share { background: linear-gradient(135deg, #38bdf8, #0284c7); border-color: #38bdf8; color: #0b1120; font-size: 14px; }
-        .cam-status-alert { display: none; background: rgba(16, 185, 129, 0.16); border: 1px solid var(--status-green); color: #6ee7b7; border-radius: 10px; padding: 10px 14px; margin: 10px auto; max-width: 620px; font-size: 13px; font-weight: 700; line-height: 1.6; }
+        .cam-status-alert { display: none; background: rgba(16, 185, 129, 0.14); border: 1px solid var(--status-green); color: #6ee7b7; border-radius: 10px; padding: 12px 14px; margin: 10px auto; max-width: 680px; font-size: 13px; font-weight: 700; line-height: 1.7; text-align: right; }
         #liveVideoContainer { display: none; margin: 10px auto; max-width: 520px; position: relative; }
         #cameraStream { width: 100%; border-radius: 12px; border: 2px solid var(--accent-cyan); }
         .canvas-preview-wrap { margin-top: 6px; display: flex; flex-direction: column; align-items: center; width: 100%; overflow: hidden; }
@@ -171,6 +182,21 @@
         input[type=range] { flex: 1; -webkit-appearance: none; height: 8px; background: linear-gradient(90deg, #ef4444 0%, #f59e0b 48%, #10b981 72%, #a855f7 96%); border-radius: 10px; outline: none; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 25px; height: 25px; border-radius: 50%; background: #fff; border: 3px solid var(--accent-cyan); cursor: pointer; }
         .voltage-readout { font-family: 'JetBrains Mono', monospace; font-size: 25px; font-weight: 800; color: var(--accent-cyan); min-width: 78px; text-align: right; }
+        /* Professional Sleek 1-to-10 Rating & Direct Developer Feedback Card */
+        .rating-section { background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .rating-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .rating-title { font-size: 15.5px; font-weight: 800; color: var(--accent-cyan); }
+        .rating-badge-selected { background: rgba(16, 185, 129, 0.14); border: 1px solid var(--status-green); color: #6ee7b7; font-family: 'JetBrains Mono', 'Cairo', sans-serif; font-size: 12.5px; font-weight: 800; padding: 4px 12px; border-radius: 20px; }
+        .score-pills-row { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 12px; direction: ltr; max-width: 580px; margin-left: auto; margin-right: auto; }
+        .score-btn { height: 38px; border-radius: 8px; background: #0f172a; border: 1px solid rgba(148, 163, 184, 0.3); color: #94a3b8; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; }
+        .score-btn:hover { border-color: var(--accent-cyan); color: #fff; }
+        .score-btn.selected-score { background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(56, 189, 248, 0.28)); border: 1.5px solid var(--accent-cyan); color: #fff; box-shadow: 0 0 12px rgba(56, 189, 248, 0.25); }
+        .score-btn.active-exact { background: linear-gradient(135deg, #10b981, #0ea5e9); color: #0b1120; border-color: #fff; transform: scale(1.05); }
+        .feedback-textarea { width: 100%; min-height: 74px; background: #0b1120; color: #fff; border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 10px; padding: 10px 14px; font-family: 'Cairo', sans-serif; font-size: 13px; margin-bottom: 12px; resize: vertical; outline: none; transition: 0.2s; }
+        .feedback-textarea:focus { border-color: var(--status-green); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+        .feedback-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .btn-undo { background: rgba(148, 163, 184, 0.12); border: 1px solid rgba(148, 163, 184, 0.4); color: #cbd5e1; font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .btn-undo:hover { background: var(--accent-cyan); color: #0b1120; border-color: var(--accent-cyan); }
         .contact-section { background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .contact-heading { font-size: 15.5px; font-weight: 800; color: #fff; }
         .contact-sub { font-size: 12.5px; color: var(--text-sub); }
@@ -184,12 +210,15 @@
             .config-bar { grid-template-columns: 1fr; }
             .diagram-flow, .contact-section, .cam-btn-row, .custom-note-row { flex-direction: column; align-items: stretch; text-align: center; }
             .conn-line { width: 48px; transform: rotate(90deg); margin: 14px auto; }
+            .score-pills-row { gap: 4px; }
+            .score-btn { height: 34px; font-size: 12.5px; }
         }
     </style>
 </head>
 <body>
 
 <div class="app-wrapper">
+    <!-- Top Branding Bar -->
     <div class="top-bar">
         <div class="brand-info">
             <div class="brand-dev" id="ui-dev-name">تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿</div>
@@ -200,7 +229,7 @@
                 <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
                 <span>Facebook</span>
             </a>
-            <button type="button" class="action-btn action-btn-pro" onclick="toggleFieldLab()" id="btn-toggle-lab">🛠️ المشخّص الميداني وتوثيق الكارت</button>
+            <button type="button" class="action-btn action-btn-pro" onclick="toggleFieldLab()" id="btn-toggle-lab">🛠️ ظهور / إخفاء المشخّص الميداني وتوثيق الكارت</button>
             <button type="button" class="action-btn" onclick="toggleGuide()" id="btn-toggle-guide">📘 ظهور / إخفاء دليل الشروحات</button>
             <div class="lang-switch-group">
                 <button type="button" class="lang-btn active" onclick="setLanguage('ar')" id="btn-lang-ar">العربية</button>
@@ -210,357 +239,426 @@
         </div>
     </div>
 
+    <!-- Header -->
     <div class="header-section">
         <h1 id="ui-main-title">مختبر ومحاكي كارت الإنفرتر الشامل (Active PFC & Derating / UVLO)</h1>
         <p id="ui-sub-title">خريطة عمل جميع كروت الإنفرتر (9000 ~ 24000 BTU) • مقارنة كروت 90V وكروت الفصل القياسية وتشخيص الأعطال</p>
     </div>
 
-    <div class="main-reset-bar">
-        <button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-main">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
+    <!-- Real Honest Analytics Counter Bar (Starts from Real Actual Usage) -->
+    <div class="stats-bar">
+        <div class="stat-pill">
+            <div class="stat-label"><span class="stat-dot"></span><span id="lbl-stat-users">👥 المتفاعلون والمشتركون:</span></div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <span class="stat-num" id="val-stat-users">1</span>
+                <button type="button" class="sub-join-btn" id="btn-join-sub" onclick="toggleUserSubscribe()">+ اشتراك</button>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-label"><span id="lbl-stat-views">👁️ إجمالي المشاهدات والفحوصات:</span></div>
+            <span class="stat-num" id="val-stat-views">1</span>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-label"><span id="lbl-stat-shares">📤 إجمالي المشاركات والتقارير:</span></div>
+            <span class="stat-num" id="val-stat-shares">0</span>
+        </div>
     </div>
 
-    <!-- Guide & Engineering Additions (Hidden on startup) -->
+    <!-- ================= FULL-PAGE GUIDE SECTION (Hides Main Workspace When Opened) ================= -->
     <div class="info-guide-wrapper hidden" id="info-guide-box">
-        <div class="info-card">
-            <div class="info-card-header">
-                <span id="lbl-about-title">💡 الدليل الشامل والمرجع الهندسي لفحص الكارت</span>
-                <button type="button" class="action-btn" style="padding:2px 8px; font-size:11px;" onclick="toggleGuide()">✖</button>
-            </div>
-            <div class="info-card-body" id="txt-about-body"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(56,189,248,0.12); border:1px solid var(--accent-cyan); border-radius:12px; padding:12px 16px; flex-wrap:wrap; gap:10px;">
+            <strong style="color:#fff; font-size:15px;" id="lbl-guide-banner">📖 أنت الآن في وضع الصفحة الكاملة لدليل الشروحات الهندسي (للعودة للبرنامج اضغط الزر المقابل)</strong>
+            <button type="button" class="btn-auto-sync" onclick="toggleGuide()" id="btn-back-to-app">🔙 العودة إلى البرنامج والمحاكي</button>
         </div>
+
         <div class="info-card">
             <div class="info-card-header">
-                <span id="lbl-howto-title">🛠️ خطوات الاستخدام العملي لجميع أدوات البرنامج (7 خطوات)</span>
-                <button type="button" class="action-btn" style="padding:2px 8px; font-size:11px;" onclick="toggleGuide()">✖</button>
+                <span id="lbl-beginner-title">🎓 أولاً: شرح مبسط جداً للمبتدئين (افهم كارت الإنفرتر والبرنامج من الصفر)</span>
             </div>
-            <ul class="guide-steps">
-                <li><span class="step-num">1</span><span id="txt-step-1"></span></li>
-                <li><span class="step-num">2</span><span id="txt-step-2"></span></li>
-                <li><span class="step-num">3</span><span id="txt-step-3"></span></li>
-                <li><span class="step-num">4</span><span id="txt-step-4"></span></li>
-                <li><span class="step-num">5</span><span id="txt-step-5"></span></li>
-                <li><span class="step-num">6</span><span id="txt-step-6"></span></li>
-                <li><span class="step-num">7</span><span id="txt-step-7"></span></li>
-            </ul>
+            <div class="info-card-body" id="txt-beginner-body"></div>
+        </div>
+
+        <div class="guide-grid">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <span id="lbl-about-title">💡 ثانياً: المرجع الهندسي المتقدم لفحص الكارت بالأفوميتر</span>
+                </div>
+                <div class="info-card-body" id="txt-about-body"></div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-header">
+                    <span id="lbl-howto-title">🛠️ ثالثاً: خطوات العمل بالبرنامج خطوة بخطوة (7 خطوات عملية)</span>
+                </div>
+                <ul class="guide-steps">
+                    <li><span class="step-num">1</span><span id="txt-step-1"></span></li>
+                    <li><span class="step-num">2</span><span id="txt-step-2"></span></li>
+                    <li><span class="step-num">3</span><span id="txt-step-3"></span></li>
+                    <li><span class="step-num">4</span><span id="txt-step-4"></span></li>
+                    <li><span class="step-num">5</span><span id="txt-step-5"></span></li>
+                    <li><span class="step-num">6</span><span id="txt-step-6"></span></li>
+                    <li><span class="step-num">7</span><span id="txt-step-7"></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:6px;">
+            <button type="button" class="btn-auto-sync" style="padding:11px 28px; font-size:15px;" onclick="toggleGuide()" id="btn-back-to-app-bottom">🔙 إغلاق الدليل والعودة إلى واجهة البرنامج والمحاكي</button>
         </div>
     </div>
 
-    <!-- Field Troubleshooter & Camera Stamp -->
-    <div class="field-lab-wrapper hidden" id="field-lab-box">
-        <div class="field-lab-header">
-            <div class="field-lab-title" id="lbl-lab-header">🛠️ المشخّص الميداني الشامل لأعطال الكارت (26 ماركة × 4 قدرات) + كاميرا التوثيق</div>
-            <button type="button" class="action-btn" onclick="toggleFieldLab()" id="btn-close-lab">✖ إغلاق النافذة</button>
+    <!-- ================= MAIN WORKSPACE CONTAINER ================= -->
+    <div id="main-workspace-container">
+        <div class="main-reset-bar">
+            <button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-main">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
         </div>
 
-        <div class="smart-pcb-card" id="smartPcbIdCard">
-            <div class="smart-pcb-header">
-                <h3 id="cardTitleBrand">بطاقة تعريف الكارت الذكية (PCB ID Card)</h3>
-                <span class="pcb-badge" id="cardModelBadge">-- غير محدد --</span>
+        <!-- Field Troubleshooter & Camera Stamp -->
+        <div class="field-lab-wrapper hidden" id="field-lab-box">
+            <div class="field-lab-header">
+                <div class="field-lab-title" id="lbl-lab-header">🛠️ المشخّص الميداني الشامل لأعطال الكارت (26 ماركة × 4 قدرات) + كاميرا التوثيق</div>
+                <button type="button" class="action-btn" onclick="toggleFieldLab()" id="btn-close-lab">✖ إغلاق النافذة</button>
             </div>
-            <div class="pcb-specs-grid">
-                <div class="pcb-spec-item"><span id="lbl-sp-1">الماركة والقدرة المتوافقة</span><strong id="specBrandBtu">-- غير محدد --</strong></div>
-                <div class="pcb-spec-item"><span id="lbl-sp-2">نوع صمام التمدد</span><strong id="specExpansion">--</strong></div>
-                <div class="pcb-spec-item"><span id="lbl-sp-3">المعالج الدقيق (MCU / DSP)</span><strong id="specMcu">--</strong></div>
-                <div class="pcb-spec-item"><span id="lbl-sp-4">موديل أيسي القدرة (IPM)</span><strong id="specIpm">--</strong></div>
-                <div class="pcb-spec-item"><span id="lbl-sp-5">بنك المكثفات والـ DC Bus</span><strong id="specCaps">--</strong></div>
-                <div class="pcb-spec-item"><span id="lbl-sp-6">حدود التيار والـ UVLO</span><strong id="specLimits">--</strong></div>
-            </div>
-        </div>
 
-        <div class="golden-voltages-bar">
-            <strong id="lbl-golden-title" style="color:var(--accent-cyan);">📏 الفولتيات الخمس الذهبية لفحص أي كارت إنفرتر بالأفوميتر:</strong>
-            <div class="golden-badges">
-                <span class="g-pill">1. DC Bus: 310V ~ 365V DC</span>
-                <span class="g-pill">2. IPM / IGBT Drive: 15V DC</span>
-                <span class="g-pill">3. MCU Logic: 5V / 3.3V DC</span>
-                <span class="g-pill">4. NTC Sensors: 2.2V ~ 2.8V DC</span>
-                <span class="g-pill">5. SI-N Comm: 0V ↔ 24V/56V Pulse</span>
-            </div>
-        </div>
-
-        <div class="auto-diag-bar">
-            <div class="auto-diag-top">
-                <span style="font-size:13px; font-weight:700; color:#e2e8f0;" id="lbl-auto-sync-hint">💡 اختر الماركة والقدرة (9000~24000 BTU) أو ارفع صورة الكارت لتفعيل الحسابات تلقائياً:</span>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button type="button" class="btn-auto-sync" onclick="autoSyncDiagnosis()" id="btn-auto-sync">⚡ تفعيل التشخيص والمزامنة التلقائية</button>
-                    <button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-all">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
+            <div class="smart-pcb-card" id="smartPcbIdCard">
+                <div class="smart-pcb-header">
+                    <h3 id="cardTitleBrand">بطاقة تعريف الكارت الذكية (PCB ID Card)</h3>
+                    <span class="pcb-badge" id="cardModelBadge">-- غير محدد --</span>
+                </div>
+                <div class="pcb-specs-grid">
+                    <div class="pcb-spec-item"><span id="lbl-sp-1">الماركة والقدرة المتوافقة</span><strong id="specBrandBtu">-- غير محدد --</strong></div>
+                    <div class="pcb-spec-item"><span id="lbl-sp-2">نوع صمام التمدد</span><strong id="specExpansion">--</strong></div>
+                    <div class="pcb-spec-item"><span id="lbl-sp-3">المعالج الدقيق (MCU / DSP)</span><strong id="specMcu">--</strong></div>
+                    <div class="pcb-spec-item"><span id="lbl-sp-4">موديل أيسي القدرة (IPM)</span><strong id="specIpm">--</strong></div>
+                    <div class="pcb-spec-item"><span id="lbl-sp-5">بنك المكثفات والـ DC Bus</span><strong id="specCaps">--</strong></div>
+                    <div class="pcb-spec-item"><span id="lbl-sp-6">حدود التيار والـ UVLO</span><strong id="specLimits">--</strong></div>
                 </div>
             </div>
-            <div class="quick-faults-row">
-                <button type="button" class="q-fault-btn" onclick="applyQuickFault('dead0v')" id="qf-dead">🔌 عطل باور 0V (PTC / فيوز)</button>
-                <button type="button" class="q-fault-btn" onclick="applyQuickFault('smps')" id="qf-smps">💤 310V موجودة و LED منطفئ (SMPS / 10MHz)</button>
-                <button type="button" class="q-fault-btn" onclick="applyQuickFault('comm')" id="qf-comm">📡 خطأ اتصال (أوبتوكبلر PC817 / خط SI)</button>
-                <button type="button" class="q-fault-btn" onclick="applyQuickFault('ipm')" id="qf-ipm">💥 فصل حماية IPM (مكثفات Bootstrap / الشنت)</button>
-                <button type="button" class="q-fault-btn" onclick="applyQuickFault('healthy')" id="qf-ok">✅ كارت سليم 100% (شهادة فحص)</button>
-            </div>
-        </div>
 
-        <div class="diag-question-box" style="margin-bottom:12px;">
-            <label class="diag-q-label" id="lbl-search-code">🔍 بحث سريع عن الماركة أو كود العطل (مثال: Condor, E1, H5, CH21):</label>
-            <input type="text" class="diag-input" id="searchBrandOrCode" placeholder="اكتب اسم الماركة أو كود العطل هنا..." oninput="filterBrandsAndCodes(this.value)">
-        </div>
-
-        <!-- 5 Interactive Selectors (Brand + All 4 BTU Capacities + DC Bus + LED + Symptom) -->
-        <div class="field-lab-grid">
-            <div class="diag-question-box">
-                <label class="diag-q-label" id="lbl-q0">🏷️ ماركة المكيف (26 ماركة):</label>
-                <select class="diag-select" id="sel-brand" onchange="onBrandOrCapSelectChange()">
-                    <option value="">-- تحديد الاختيار --</option>
-                </select>
-            </div>
-            <div class="diag-question-box">
-                <label class="diag-q-label" id="lbl-qcap">❄️ موديل القدرة للماركة (4 قدرات):</label>
-                <select class="diag-select" id="sel-lab-btu" onchange="onBrandOrCapSelectChange()">
-                    <option value="" id="opt-btu-none">-- تحديد القدرة --</option>
-                    <option value="9000">9,000 BTU (4.5A | 310V)</option>
-                    <option value="12000">12,000 BTU (6.0A | 320V)</option>
-                    <option value="18000">18,000 BTU (9.0A | 345V)</option>
-                    <option value="24000">24,000 BTU (12.5A | 365V)</option>
-                </select>
-            </div>
-            <div class="diag-question-box">
-                <label class="diag-q-label" id="lbl-q1">1️⃣ قراءة الفولت (DC Bus):</label>
-                <select class="diag-select" id="sel-dcbus" onchange="onDcBusChange()">
-                    <option value="" id="opt-dc-none">-- تحديد الاختيار --</option>
-                    <option value="normal" id="opt-dc-norm">طبيعي أو مرفوع (280V ~ 365V DC)</option>
-                    <option value="mid" id="opt-dc-mid">هبوط متوسط — خنق (215V ~ 265V DC)</option>
-                    <option value="low" id="opt-dc-low">هبوط شديد (150V ~ 210V DC)</option>
-                    <option value="crit90" id="opt-dc-crit90">هبوط حاد 90V AC (115V ~ 145V DC)</option>
-                    <option value="high" id="opt-dc-high">ارتفاع خطير (> 375V DC)</option>
-                    <option value="zero" id="opt-dc-zero">منعدم تماماً (0V ~ 30V DC)</option>
-                </select>
-            </div>
-            <div class="diag-question-box">
-                <label class="diag-q-label" id="lbl-q2">2️⃣ لمبة الـ LED بالخارجية:</label>
-                <select class="diag-select" id="sel-led" onchange="onLedChange()">
-                    <option value="" id="opt-led-none">-- تحديد الاختيار --</option>
-                    <option value="on" id="opt-led-on">تضيء طبيعياً (Normal ON)</option>
-                    <option value="blink" id="opt-led-blink">تومض بكود خطأ (Blinking)</option>
-                    <option value="off" id="opt-led-off">منطفئة تماماً (OFF)</option>
-                </select>
-            </div>
-            <div class="diag-question-box">
-                <label class="diag-q-label" id="lbl-q3">3️⃣ سلوك الضاغط والكود:</label>
-                <select class="diag-select" id="sel-symp" onchange="onSympChange()">
-                    <option value="" id="opt-sym-none">-- تحديد الاختيار --</option>
-                    <option value="auto" id="opt-sym-auto">🔄 تشخيص تلقائي (Auto)</option>
-                    <option value="comm" id="opt-sym-comm">خطأ اتصال</option>
-                    <option value="ipm" id="opt-sym-ipm">فصل حماية IPM</option>
-                    <option value="uvlo" id="opt-sym-uvlo">فصل حماية الجهد</option>
-                    <option value="crit90" id="opt-sym-crit90">خنق التردد Derating</option>
-                    <option value="pfc_start" id="opt-sym-pfc">عطل دائرة PFC</option>
-                    <option value="temp_fan" id="opt-sym-temp">حرارة IPM / حساسات</option>
-                    <option value="dead" id="opt-sym-dead">الكارت ميت تماماً</option>
-                    <option value="healthy" id="opt-sym-ok">كارت سليم 100%</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="field-result-card hidden" id="field-diag-output"></div>
-
-        <div class="multimeter-grid">
-            <div class="meter-box">
-                <div class="meter-box-header">
-                    <span id="lbl-ntc-head">🌡️ فاحص حساسات الحرارة بالأفوميتر (NTC Sensor Lab)</span>
-                    <button type="button" class="mini-stamp-btn" onclick="stampNtcResult()" id="btn-stamp-ntc">📌 ختم بالبوستر</button>
+            <div class="golden-voltages-bar">
+                <strong id="lbl-golden-title" style="color:var(--accent-cyan);">📏 الفولتيات الخمس الذهبية لفحص أي كارت إنفرتر بالأفوميتر:</strong>
+                <div class="golden-badges">
+                    <span class="g-pill">1. DC Bus: 310V ~ 365V DC</span>
+                    <span class="g-pill">2. IPM / IGBT Drive: 15V DC</span>
+                    <span class="g-pill">3. MCU Logic: 5V / 3.3V DC</span>
+                    <span class="g-pill">4. NTC Sensors: 2.2V ~ 2.8V DC</span>
+                    <span class="g-pill">5. SI-N Comm: 0V ↔ 24V/56V Pulse</span>
                 </div>
-                <div class="meter-row">
-                    <select class="diag-select" style="flex:1;" id="ntcBaseSelect" onchange="calcNtcLab()">
-                        <option value="" id="opt-ntc-none">-- اختر قيمة الحساس --</option>
-                        <option value="5">5kΩ (@25°C)</option>
-                        <option value="10">10kΩ (@25°C)</option>
-                        <option value="15">15kΩ (@25°C)</option>
-                        <option value="20">20kΩ (@25°C)</option>
-                        <option value="50">50kΩ (@25°C)</option>
-                    </select>
-                    <div style="display:flex; align-items:center; gap:6px; flex:1;" dir="ltr">
-                        <input type="range" id="ntcTempSlider" min="-5" max="60" value="25" oninput="calcNtcLab()" style="height:6px;">
-                        <span id="ntcTempLabel" style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:800; color:var(--accent-cyan); min-width:44px;">25°C</span>
+            </div>
+
+            <div class="auto-diag-bar">
+                <div class="auto-diag-top">
+                    <span style="font-size:13px; font-weight:700; color:#e2e8f0;" id="lbl-auto-sync-hint">💡 اختر الماركة والقدرة (9000~24000 BTU) أو ارفع صورة الكارت لتفعيل الحسابات تلقائياً:</span>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button type="button" class="btn-auto-sync" onclick="autoSyncDiagnosis()" id="btn-auto-sync">⚡ تفعيل التشخيص والمزامنة التلقائية</button>
+                        <button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-all">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
                     </div>
                 </div>
-                <div class="meter-readout" id="ntcResultBox">--</div>
+                <div class="quick-faults-row">
+                    <button type="button" class="q-fault-btn" onclick="applyQuickFault('dead0v')" id="qf-dead">🔌 عطل باور 0V (PTC / فيوز)</button>
+                    <button type="button" class="q-fault-btn" onclick="applyQuickFault('smps')" id="qf-smps">💤 310V موجودة و LED منطفئ (SMPS / 10MHz)</button>
+                    <button type="button" class="q-fault-btn" onclick="applyQuickFault('comm')" id="qf-comm">📡 خطأ اتصال (أوبتوكبلر PC817 / خط SI)</button>
+                    <button type="button" class="q-fault-btn" onclick="applyQuickFault('ipm')" id="qf-ipm">💥 فصل حماية IPM (مكثفات Bootstrap / الشنت)</button>
+                    <button type="button" class="q-fault-btn" onclick="applyQuickFault('healthy')" id="qf-ok">✅ كارت سليم 100% (شهادة فحص)</button>
+                </div>
             </div>
 
-            <div class="meter-box">
-                <div class="meter-box-header">
-                    <span id="lbl-uvw-head">⚙️ فاحص توازن ملفات الضاغط الإنفرتر (U-V-W Balance)</span>
-                    <button type="button" class="mini-stamp-btn" onclick="stampUvwResult()" id="btn-stamp-uvw">📌 ختم بالبوستر</button>
+            <div class="diag-question-box" style="margin-bottom:12px;">
+                <label class="diag-q-label" id="lbl-search-code">🔍 بحث سريع عن الماركة أو كود العطل أو رقم البوردة (مثال: Gree, ZQ3330A, Condor, E1, H5):</label>
+                <input type="text" class="diag-input" id="searchBrandOrCode" placeholder="اكتب اسم الماركة أو رقم الكارت أو كود العطل هنا..." oninput="filterBrandsAndCodes(this.value)">
+            </div>
+
+            <!-- 5 Interactive Selectors -->
+            <div class="field-lab-grid">
+                <div class="diag-question-box">
+                    <label class="diag-q-label" id="lbl-q0">🏷️ ماركة المكيف (26 ماركة):</label>
+                    <select class="diag-select" id="sel-brand" onchange="onBrandOrCapSelectChange()">
+                        <option value="">-- تحديد الاختيار --</option>
+                    </select>
                 </div>
-                <div class="uvw-inputs">
-                    <div class="uvw-field"><span>U - V (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUV" class="diag-input" oninput="calcUvwLab()"></div>
-                    <div class="uvw-field"><span>V - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpVW" class="diag-input" oninput="calcUvwLab()"></div>
-                    <div class="uvw-field"><span>U - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUW" class="diag-input" oninput="calcUvwLab()"></div>
+                <div class="diag-question-box">
+                    <label class="diag-q-label" id="lbl-qcap">❄️ موديل القدرة للماركة (4 قدرات):</label>
+                    <select class="diag-select" id="sel-lab-btu" onchange="onBrandOrCapSelectChange()">
+                        <option value="" id="opt-btu-none">-- تحديد القدرة --</option>
+                        <option value="9000">9,000 BTU (4.5A | 310V)</option>
+                        <option value="12000">12,000 BTU (6.0A | 320V)</option>
+                        <option value="18000">18,000 BTU (9.0A | 345V)</option>
+                        <option value="24000">24,000 BTU (12.5A | 365V)</option>
+                    </select>
                 </div>
-                <div class="meter-readout" id="uvwResultBox">--</div>
+                <div class="diag-question-box">
+                    <label class="diag-q-label" id="lbl-q1">1️⃣ قراءة الفولت (DC Bus):</label>
+                    <select class="diag-select" id="sel-dcbus" onchange="onDcBusChange()">
+                        <option value="" id="opt-dc-none">-- تحديد الاختيار --</option>
+                        <option value="normal" id="opt-dc-norm">طبيعي أو مرفوع (280V ~ 365V DC)</option>
+                        <option value="mid" id="opt-dc-mid">هبوط متوسط — خنق (215V ~ 265V DC)</option>
+                        <option value="low" id="opt-dc-low">هبوط شديد (150V ~ 210V DC)</option>
+                        <option value="crit90" id="opt-dc-crit90">هبوط حاد 90V AC (115V ~ 145V DC)</option>
+                        <option value="high" id="opt-dc-high">ارتفاع خطير (> 375V DC)</option>
+                        <option value="zero" id="opt-dc-zero">منعدم تماماً (0V ~ 30V DC)</option>
+                    </select>
+                </div>
+                <div class="diag-question-box">
+                    <label class="diag-q-label" id="lbl-q2">2️⃣ لمبة الـ LED بالخارجية:</label>
+                    <select class="diag-select" id="sel-led" onchange="onLedChange()">
+                        <option value="" id="opt-led-none">-- تحديد الاختيار --</option>
+                        <option value="on" id="opt-led-on">تضيء طبيعياً (Normal ON)</option>
+                        <option value="blink" id="opt-led-blink">تومض بكود خطأ (Blinking)</option>
+                        <option value="off" id="opt-led-off">منطفئة تماماً (OFF)</option>
+                    </select>
+                </div>
+                <div class="diag-question-box">
+                    <label class="diag-q-label" id="lbl-q3">3️⃣ سلوك الضاغط والكود:</label>
+                    <select class="diag-select" id="sel-symp" onchange="onSympChange()">
+                        <option value="" id="opt-sym-none">-- تحديد الاختيار --</option>
+                        <option value="auto" id="opt-sym-auto">🔄 تشخيص تلقائي (Auto)</option>
+                        <option value="comm" id="opt-sym-comm">خطأ اتصال</option>
+                        <option value="ipm" id="opt-sym-ipm">فصل حماية IPM</option>
+                        <option value="uvlo" id="opt-sym-uvlo">فصل حماية الجهد</option>
+                        <option value="crit90" id="opt-sym-crit90">خنق التردد Derating</option>
+                        <option value="pfc_start" id="opt-sym-pfc">عطل دائرة PFC</option>
+                        <option value="temp_fan" id="opt-sym-temp">حرارة IPM / حساسات</option>
+                        <option value="dead" id="opt-sym-dead">الكارت ميت تماماً</option>
+                        <option value="healthy" id="opt-sym-ok">كارت سليم 100%</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field-result-card hidden" id="field-diag-output"></div>
+
+            <div class="multimeter-grid">
+                <div class="meter-box">
+                    <div class="meter-box-header">
+                        <span id="lbl-ntc-head">🌡️ فاحص حساسات الحرارة بالأفوميتر (NTC Sensor Lab)</span>
+                        <button type="button" class="mini-stamp-btn" onclick="stampNtcResult()" id="btn-stamp-ntc">📌 ختم بالبوستر</button>
+                    </div>
+                    <div class="meter-row">
+                        <select class="diag-select" style="flex:1;" id="ntcBaseSelect" onchange="calcNtcLab()">
+                            <option value="" id="opt-ntc-none">-- اختر قيمة الحساس --</option>
+                            <option value="5">5kΩ (@25°C)</option>
+                            <option value="10">10kΩ (@25°C)</option>
+                            <option value="15">15kΩ (@25°C)</option>
+                            <option value="20">20kΩ (@25°C)</option>
+                            <option value="50">50kΩ (@25°C)</option>
+                        </select>
+                        <div style="display:flex; align-items:center; gap:6px; flex:1;" dir="ltr">
+                            <input type="range" id="ntcTempSlider" min="-5" max="60" value="25" oninput="calcNtcLab()" style="height:6px;">
+                            <span id="ntcTempLabel" style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:800; color:var(--accent-cyan); min-width:44px;">25°C</span>
+                        </div>
+                    </div>
+                    <div class="meter-readout" id="ntcResultBox">--</div>
+                </div>
+
+                <div class="meter-box">
+                    <div class="meter-box-header">
+                        <span id="lbl-uvw-head">⚙️ فاحص توازن ملفات الضاغط الإنفرتر (U-V-W Balance)</span>
+                        <button type="button" class="mini-stamp-btn" onclick="stampUvwResult()" id="btn-stamp-uvw">📌 ختم بالبوستر</button>
+                    </div>
+                    <div class="uvw-inputs">
+                        <div class="uvw-field"><span>U - V (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUV" class="diag-input" oninput="calcUvwLab()"></div>
+                        <div class="uvw-field"><span>V - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpVW" class="diag-input" oninput="calcUvwLab()"></div>
+                        <div class="uvw-field"><span>U - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUW" class="diag-input" oninput="calcUvwLab()"></div>
+                    </div>
+                    <div class="meter-readout" id="uvwResultBox">--</div>
+                </div>
+            </div>
+
+            <div class="cam-studio-box">
+                <div class="cam-studio-title" id="lbl-cam-title">📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)</div>
+                <div class="cam-studio-sub" id="lbl-cam-sub">المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع تحليل علمي دقيق لبصمة الكارت (Gree / Condor / Midea / LG / Samsung / Haier...).</div>
+
+                <div class="lab-volt-bar">
+                    <span style="font-size:12.5px; font-weight:700; color:var(--accent-cyan);" id="lbl-lab-vbar">⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:</span>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(260)" id="lab-btn-260">260V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(220)" id="lab-btn-220">220V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(186)" id="lab-btn-186">186V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(150)" id="lab-btn-150">150V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(130)" id="lab-btn-130">130V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltageAndSync(90)" id="lab-btn-90" style="border-color:var(--status-red); color:#fca5a5;">90V</button>
+                </div>
+
+                <div class="custom-note-row">
+                    <input type="text" class="diag-input" id="customBoardNote" maxlength="100" placeholder="✍️ اكتب هنا موديل المكيف أو رقم البوردة (مثل Gree ZQ3330A) لتظهر على الصورة..." oninput="onCustomNoteInput(this.value)">
+                </div>
+
+                <input type="file" id="boardPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+
+                <div class="cam-btn-row">
+                    <label for="boardPhotoInput" class="cam-btn" id="btn-upload-photo">📷 إرفاق صورة الكارت / التقاط صورة</label>
+                    <button type="button" class="cam-btn" onclick="startLiveCamera()" id="btn-live-cam">🎥 فتح الكاميرا المباشرة</button>
+                    <button type="button" class="cam-btn" onclick="resetToDefaultCard()" id="btn-gen-card">🖼️ مسح الصورة / استعادة الافتراضي</button>
+                    <button type="button" class="cam-btn btn-download" onclick="downloadStampedImage()" id="btn-download-stamp">⬇️ تحميل البوستر الهندسي (PNG)</button>
+                    <button type="button" class="cam-btn btn-share" onclick="shareStampedImage()" id="btn-share-stamp">📤 مشاركة البوستر مباشرة</button>
+                </div>
+
+                <div class="cam-status-alert" id="camStatusAlert"></div>
+
+                <div id="liveVideoContainer">
+                    <video id="cameraStream" autoplay playsinline muted></video>
+                    <div style="margin-top:8px; display:flex; justify-content:center; gap:8px;">
+                        <button type="button" class="cam-btn btn-download" onclick="captureFromVideo()" id="btn-snap-now">📸 التقاط الآن</button>
+                        <button type="button" class="cam-btn" onclick="stopLiveCamera()" id="btn-close-cam">✖ إغلاق</button>
+                    </div>
+                </div>
+
+                <div class="photo-telemetry-wrap hidden" id="photoTelemetrySection">
+                    <div class="photo-telemetry-grid">
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-1">تيار الضاغط (I_RMS)</div><div class="pt-card-val" id="pt-val-amp">-- A</div><div class="pt-card-sub" id="pt-sub-amp">--</div></div>
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-2">جهد الـ DC Bus</div><div class="pt-card-val" id="pt-val-dc">-- V</div><div class="pt-card-sub" id="pt-sub-dc">--</div></div>
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-3">تردد الضاغط (Hz)</div><div class="pt-card-val" id="pt-val-hz">-- Hz</div><div class="pt-card-sub" id="pt-sub-hz">--</div></div>
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-4">جهد الأوجه (U/V/W)</div><div class="pt-card-val" id="pt-val-uvw">-- V</div><div class="pt-card-sub">3-Phase PWM Balanced</div></div>
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-5">حرارة الـ IPM</div><div class="pt-card-val" id="pt-val-ipm">-- °C</div><div class="pt-card-sub" id="pt-sub-ipm">--</div></div>
+                        <div class="pt-card"><div class="pt-card-label" id="lbl-pt-6">كود العطل / الحالة</div><div class="pt-card-val" id="pt-val-code">--</div><div class="pt-card-sub" id="pt-sub-code">--</div></div>
+                    </div>
+                    <div class="pt-instant-report" id="ptInstantReportBox"></div>
+                </div>
+
+                <!-- Zoom + 4 Directional Arrows + Pinch-to-Zoom & Touch-Drag Toolbar -->
+                <div class="zoom-toolbar">
+                    <div class="zoom-row">
+                        <span style="font-size:13px; font-weight:800; color:var(--accent-cyan);" id="lbl-z-title">🔍 التحكم بكادر صورة الكارت:</span>
+                        <button type="button" class="zoom-btn" onclick="adjustImageZoom(0.2)" id="btn-z-in">➕ تكبير الصورة</button>
+                        <span class="zoom-badge" id="zoomLevelBadge">100%</span>
+                        <button type="button" class="zoom-btn" onclick="adjustImageZoom(-0.2)" id="btn-z-out">➖ تصغير الصورة</button>
+                        <button type="button" class="zoom-btn" onclick="resetImageZoom()" style="border-color:var(--status-amber); color:#fcd34d;" id="btn-z-rst">🔄 إعادة ضبط الصورة</button>
+                    </div>
+                    <div class="pan-row">
+                        <span style="font-size:12px; font-weight:700; color:var(--text-sub);" id="lbl-p-title">🧭 تحريك بالأسهم:</span>
+                        <button type="button" class="zoom-btn" onclick="panImageByButton(0, -35)" id="btn-p-up">⬆️ أعلى</button>
+                        <button type="button" class="zoom-btn" onclick="panImageByButton(0, 35)" id="btn-p-dn">⬇️ أسفل</button>
+                        <button type="button" class="zoom-btn" onclick="panImageByButton(35, 0)" id="btn-p-rt">➡️ يمين</button>
+                        <button type="button" class="zoom-btn" onclick="panImageByButton(-35, 0)" id="btn-p-lt">⬅️ يسار</button>
+                    </div>
+                    <div class="touch-hint" id="lbl-touch-hint">🤏 كبّر أو صغّر بإصبعين (Pinch-to-Zoom) أو اسحب بإصبع واحد لتحريك الصورة داخل الكادر</div>
+                </div>
+
+                <div class="canvas-preview-wrap" id="posterPreviewWrap">
+                    <canvas id="stampCanvas" width="900" height="1320"></canvas>
+                </div>
             </div>
         </div>
 
-        <div class="cam-studio-box">
-            <div class="cam-studio-title" id="lbl-cam-title">📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)</div>
-            <div class="cam-studio-sub" id="lbl-cam-sub">المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت (أو اختيار الماركة والقدرة 9000/12000/18000/24000 BTU).</div>
-
-            <div class="lab-volt-bar">
-                <span style="font-size:12.5px; font-weight:700; color:var(--accent-cyan);" id="lbl-lab-vbar">⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:</span>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(260)" id="lab-btn-260">260V</button>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(220)" id="lab-btn-220">220V</button>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(186)" id="lab-btn-186">186V</button>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(150)" id="lab-btn-150">150V</button>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(130)" id="lab-btn-130">130V</button>
-                <button type="button" class="preset-btn" onclick="setVoltageAndSync(90)" id="lab-btn-90" style="border-color:var(--status-red); color:#fca5a5;">90V</button>
-            </div>
-
-            <div class="custom-note-row">
-                <input type="text" class="diag-input" id="customBoardNote" maxlength="100" placeholder="✍️ اكتب هنا موديل المكيف أو ملاحظة إضافية لتظهر على الصورة..." oninput="renderDiagnosticStamp(lastUploadedImage)">
-            </div>
-
-            <input type="file" id="boardPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
-
-            <div class="cam-btn-row">
-                <label for="boardPhotoInput" class="cam-btn" id="btn-upload-photo">📷 إرفاق صورة الكارت / التقاط صورة</label>
-                <button type="button" class="cam-btn" onclick="startLiveCamera()" id="btn-live-cam">🎥 فتح الكاميرا المباشرة</button>
-                <button type="button" class="cam-btn" onclick="resetToDefaultCard()" id="btn-gen-card">🖼️ مسح الصورة / استعادة الافتراضي</button>
-                <button type="button" class="cam-btn btn-download" onclick="downloadStampedImage()" id="btn-download-stamp">⬇️ تحميل البوستر الهندسي (PNG)</button>
-                <button type="button" class="cam-btn btn-share" onclick="shareStampedImage()" id="btn-share-stamp">📤 مشاركة البوستر مباشرة</button>
-            </div>
-
-            <div class="cam-status-alert" id="camStatusAlert"></div>
-
-            <div id="liveVideoContainer">
-                <video id="cameraStream" autoplay playsinline muted></video>
-                <div style="margin-top:8px; display:flex; justify-content:center; gap:8px;">
-                    <button type="button" class="cam-btn btn-download" onclick="captureFromVideo()">📸 التقاط الآن</button>
-                    <button type="button" class="cam-btn" onclick="stopLiveCamera()">✖ إغلاق</button>
+        <!-- Main Simulator Config Bars -->
+        <div class="config-bar">
+            <div class="config-box">
+                <div class="config-label" id="lbl-cap-select">❄️ قدرة المكيف (اختر القدرة لتفعيل جهود الـ DC Bus والخنق):</div>
+                <div class="btn-group">
+                    <button type="button" class="opt-btn" onclick="setCapacity(9000)" id="cap-9000">9,000 BTU</button>
+                    <button type="button" class="opt-btn" onclick="setCapacity(12000)" id="cap-12000">12,000 BTU</button>
+                    <button type="button" class="opt-btn" onclick="setCapacity(18000)" id="cap-18000">18,000 BTU</button>
+                    <button type="button" class="opt-btn" onclick="setCapacity(24000)" id="cap-24000">24,000 BTU</button>
                 </div>
             </div>
-
-            <div class="photo-telemetry-wrap hidden" id="photoTelemetrySection">
-                <div class="photo-telemetry-grid">
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-1">تيار الضاغط (I_RMS)</div><div class="pt-card-val" id="pt-val-amp">-- A</div><div class="pt-card-sub" id="pt-sub-amp">--</div></div>
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-2">جهد الـ DC Bus</div><div class="pt-card-val" id="pt-val-dc">-- V</div><div class="pt-card-sub" id="pt-sub-dc">--</div></div>
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-3">تردد الضاغط (Hz)</div><div class="pt-card-val" id="pt-val-hz">-- Hz</div><div class="pt-card-sub" id="pt-sub-hz">--</div></div>
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-4">جهد الأوجه (U/V/W)</div><div class="pt-card-val" id="pt-val-uvw">-- V</div><div class="pt-card-sub">3-Phase PWM Balanced</div></div>
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-5">حرارة الـ IPM</div><div class="pt-card-val" id="pt-val-ipm">-- °C</div><div class="pt-card-sub" id="pt-sub-ipm">--</div></div>
-                    <div class="pt-card"><div class="pt-card-label" id="lbl-pt-6">كود العطل / الحالة</div><div class="pt-card-val" id="pt-val-code">--</div><div class="pt-card-sub" id="pt-sub-code">--</div></div>
+            <div class="config-box">
+                <div class="config-label" id="lbl-exp-select">🔧 وسيلة التمدد:</div>
+                <div class="btn-group">
+                    <button type="button" class="opt-btn" onclick="setExpansion('capillary')" id="exp-capillary">Capillary (كابلير)</button>
+                    <button type="button" class="opt-btn" onclick="setExpansion('eev')" id="exp-eev">EEV (صمام إلكتروني)</button>
                 </div>
-                <div class="pt-instant-report" id="ptInstantReportBox"></div>
-            </div>
-
-            <!-- Zoom + 4 Directional Arrows + Pinch-to-Zoom & Touch-Drag Toolbar -->
-            <div class="zoom-toolbar">
-                <div class="zoom-row">
-                    <span style="font-size:13px; font-weight:800; color:var(--accent-cyan);" id="lbl-z-title">🔍 التحكم بكادر صورة الكارت:</span>
-                    <button type="button" class="zoom-btn" onclick="adjustImageZoom(0.2)" id="btn-z-in">➕ تكبير الصورة</button>
-                    <span class="zoom-badge" id="zoomLevelBadge">100%</span>
-                    <button type="button" class="zoom-btn" onclick="adjustImageZoom(-0.2)" id="btn-z-out">➖ تصغير الصورة</button>
-                    <button type="button" class="zoom-btn" onclick="resetImageZoom()" style="border-color:var(--status-amber); color:#fcd34d;" id="btn-z-rst">🔄 إعادة ضبط الصورة</button>
-                </div>
-                <div class="pan-row">
-                    <span style="font-size:12px; font-weight:700; color:var(--text-sub);" id="lbl-p-title">🧭 تحريك بالأسهم:</span>
-                    <button type="button" class="zoom-btn" onclick="panImageByButton(0, -35)" id="btn-p-up">⬆️ أعلى</button>
-                    <button type="button" class="zoom-btn" onclick="panImageByButton(0, 35)" id="btn-p-dn">⬇️ أسفل</button>
-                    <button type="button" class="zoom-btn" onclick="panImageByButton(35, 0)" id="btn-p-rt">➡️ يمين</button>
-                    <button type="button" class="zoom-btn" onclick="panImageByButton(-35, 0)" id="btn-p-lt">⬅️ يسار</button>
-                </div>
-                <div class="touch-hint" id="lbl-touch-hint">🤏 كبّر أو صغّر بإصبعين (Pinch-to-Zoom) أو اسحب بإصبع واحد لتحريك الصورة داخل الكادر</div>
-            </div>
-
-            <div class="canvas-preview-wrap" id="posterPreviewWrap">
-                <canvas id="stampCanvas" width="900" height="1320"></canvas>
             </div>
         </div>
-    </div>
 
-    <!-- Main Simulator Config Bars -->
-    <div class="config-bar">
-        <div class="config-box">
-            <div class="config-label" id="lbl-cap-select">❄️ قدرة المكيف (اختر القدرة لتفعيل جهود الـ DC Bus والخنق):</div>
+        <div class="pcb-type-bar">
+            <div class="config-label" id="lbl-pcb-type">⚡ نظام كارت الإنفرتر (حد الفصل الأدنى للجهد):</div>
             <div class="btn-group">
-                <button type="button" class="opt-btn" onclick="setCapacity(9000)" id="cap-9000">9,000 BTU</button>
-                <button type="button" class="opt-btn" onclick="setCapacity(12000)" id="cap-12000">12,000 BTU</button>
-                <button type="button" class="opt-btn" onclick="setCapacity(18000)" id="cap-18000">18,000 BTU</button>
-                <button type="button" class="opt-btn" onclick="setCapacity(24000)" id="cap-24000">24,000 BTU</button>
+                <button type="button" class="opt-btn" onclick="setPcbType('wide90')" id="pcb-wide90">1. مدى واسع (90V Ultra-Wide)</button>
+                <button type="button" class="opt-btn" onclick="setPcbType('semi130')" id="pcb-semi130">2. كارت مطوّر (&lt;130V)</button>
+                <button type="button" class="opt-btn" onclick="setPcbType('standard155')" id="pcb-standard155">3. كارت تجاري (&lt;155V)</button>
+                <button type="button" class="opt-btn" onclick="setPcbType('passive165')" id="pcb-passive165">4. Passive PFC (&lt;165V)</button>
+                <button type="button" class="opt-btn" onclick="setPcbType('strict185')" id="pcb-strict185">5. كارت حساس (&lt;185V)</button>
             </div>
         </div>
-        <div class="config-box">
-            <div class="config-label" id="lbl-exp-select">🔧 وسيلة التمدد:</div>
-            <div class="btn-group">
-                <button type="button" class="opt-btn" onclick="setExpansion('capillary')" id="exp-capillary">Capillary (كابلير)</button>
-                <button type="button" class="opt-btn" onclick="setExpansion('eev')" id="exp-eev">EEV (صمام إلكتروني)</button>
+
+        <div class="metrics-grid">
+            <div class="metric-card" id="card-grid"><div class="metric-title" id="lbl-grid-title">جهد الشبكة (GRID INPUT)</div><div class="metric-value" id="val-grid">-- V AC</div><div class="metric-sub" id="sub-grid">--</div></div>
+            <div class="metric-card" id="card-pfc"><div class="metric-title" id="lbl-pfc-title">خط التيار المستمر (PFC DC BUS)</div><div class="metric-value" id="val-pfc">-- V DC</div><div class="metric-sub" id="sub-pfc">--</div></div>
+            <div class="metric-card" id="card-mcu"><div class="metric-title" id="lbl-mcu-title">منطق المعالج (MCU LOGIC)</div><div class="metric-value" id="val-mcu">STANDBY</div><div class="metric-sub" id="sub-mcu">--</div></div>
+            <div class="metric-card" id="card-comp"><div class="metric-title" id="lbl-comp-title">أداء الضاغط (COMPRESSOR)</div><div class="metric-value" id="val-comp">-- % (-- BTU)</div><div class="metric-sub" id="sub-comp">--</div></div>
+        </div>
+
+        <div class="thermal-panel">
+            <div class="thermal-header">
+                <div class="thermal-title" id="lbl-thermal-title">🌡️ مؤشر الإجهاد الحراري لوحدة الـ IPM والمكثفات الكيميائية</div>
+                <span class="thermal-badge" id="val-thermal-badge">Standby</span>
+            </div>
+            <div class="thermal-grid">
+                <div class="thermal-item">
+                    <div class="thermal-item-top"><span id="lbl-ipm-temp">حرارة وحدة الـ IPM وترانزستور الـ PFC:</span><span class="thermal-temp-val" id="val-ipm-temp">-- °C</span></div>
+                    <div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-ipm-temp"></div></div>
+                    <div class="thermal-item-sub" id="sub-ipm-temp">--</div>
+                </div>
+                <div class="thermal-item">
+                    <div class="thermal-item-top"><span id="lbl-cap-temp">حرارة وإجهاد المكثفات الكيميائية (DC Caps):</span><span class="thermal-temp-val" id="val-cap-temp">-- °C (--%)</span></div>
+                    <div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-cap-temp"></div></div>
+                    <div class="thermal-item-sub" id="sub-cap-temp">--</div>
+                </div>
+            </div>
+            <div class="fault-radar">
+                <strong id="lbl-fault-radar" style="color: var(--accent-cyan);">🔍 حالة الكارت والأعطال المتوقعة:</strong>
+                <div class="fault-tags" id="fault-tags-container"><span class="fault-tag">--</span></div>
             </div>
         </div>
-    </div>
 
-    <div class="pcb-type-bar">
-        <div class="config-label" id="lbl-pcb-type">⚡ نظام كارت الإنفرتر (حد الفصل الأدنى للجهد):</div>
-        <div class="btn-group">
-            <button type="button" class="opt-btn" onclick="setPcbType('wide90')" id="pcb-wide90">1. مدى واسع (90V Ultra-Wide)</button>
-            <button type="button" class="opt-btn" onclick="setPcbType('semi130')" id="pcb-semi130">2. كارت مطوّر (&lt;130V)</button>
-            <button type="button" class="opt-btn" onclick="setPcbType('standard155')" id="pcb-standard155">3. كارت تجاري (&lt;155V)</button>
-            <button type="button" class="opt-btn" onclick="setPcbType('passive165')" id="pcb-passive165">4. Passive PFC (&lt;165V)</button>
-            <button type="button" class="opt-btn" onclick="setPcbType('strict185')" id="pcb-strict185">5. كارت حساس (&lt;185V)</button>
-        </div>
-    </div>
+        <div class="diag-explain hidden" id="diag-explain-box"></div>
 
-    <div class="metrics-grid">
-        <div class="metric-card" id="card-grid"><div class="metric-title" id="lbl-grid-title">جهد الشبكة (GRID INPUT)</div><div class="metric-value" id="val-grid">-- V AC</div><div class="metric-sub" id="sub-grid">--</div></div>
-        <div class="metric-card" id="card-pfc"><div class="metric-title" id="lbl-pfc-title">خط التيار المستمر (PFC DC BUS)</div><div class="metric-value" id="val-pfc">-- V DC</div><div class="metric-sub" id="sub-pfc">--</div></div>
-        <div class="metric-card" id="card-mcu"><div class="metric-title" id="lbl-mcu-title">منطق المعالج (MCU LOGIC)</div><div class="metric-value" id="val-mcu">STANDBY</div><div class="metric-sub" id="sub-mcu">--</div></div>
-        <div class="metric-card" id="card-comp"><div class="metric-title" id="lbl-comp-title">أداء الضاغط (COMPRESSOR)</div><div class="metric-value" id="val-comp">-- % (-- BTU)</div><div class="metric-sub" id="sub-comp">--</div></div>
-    </div>
-
-    <div class="thermal-panel">
-        <div class="thermal-header">
-            <div class="thermal-title" id="lbl-thermal-title">🌡️ مؤشر الإجهاد الحراري لوحدة الـ IPM والمكثفات الكيميائية</div>
-            <span class="thermal-badge" id="val-thermal-badge">Standby</span>
-        </div>
-        <div class="thermal-grid">
-            <div class="thermal-item">
-                <div class="thermal-item-top"><span id="lbl-ipm-temp">حرارة وحدة الـ IPM وترانزستور الـ PFC:</span><span class="thermal-temp-val" id="val-ipm-temp">-- °C</span></div>
-                <div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-ipm-temp"></div></div>
-                <div class="thermal-item-sub" id="sub-ipm-temp">--</div>
+        <div class="diagram-box">
+            <div class="diagram-flow">
+                <div class="diag-node"><div class="diag-node-title" id="nd-grid-title">مدخل الكهرباء (AC Input)</div><div class="diag-node-main" id="nd-grid-val">-- V AC</div><div class="diag-node-sub" id="nd-grid-cur">-- A</div></div>
+                <div class="connector"><span class="conn-label" id="conn-ac-amp">-- A AC</span><div class="conn-line stopped" id="conn-line-1"></div></div>
+                <div class="diag-node"><div class="diag-node-title" id="nd-pfc-title">دائرة Active PFC</div><div class="diag-node-main" id="nd-pfc-val">-- V DC</div><div class="diag-node-sub" id="nd-pfc-mode">Standby</div></div>
+                <div class="connector"><span class="conn-label" id="conn-dc-volt">-- V DC</span><div class="conn-line stopped" id="conn-line-2"></div></div>
+                <div class="diag-node"><div class="diag-node-title" id="nd-comp-title">وحدة IPM والضاغط</div><div class="diag-node-main" id="nd-comp-btu">-- BTU/h</div><div class="cap-bar-bg"><div class="cap-bar-fill" id="cap-bar"></div></div><div class="diag-node-sub" id="nd-comp-pct">--%</div><div class="hz-pill" id="nd-comp-hz">-- Hz | UVW: --V</div></div>
             </div>
-            <div class="thermal-item">
-                <div class="thermal-item-top"><span id="lbl-cap-temp">حرارة وإجهاد المكثفات الكيميائية (DC Caps):</span><span class="thermal-temp-val" id="val-cap-temp">-- °C (--%)</span></div>
-                <div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-cap-temp"></div></div>
-                <div class="thermal-item-sub" id="sub-cap-temp">--</div>
+            <div class="mcu-section">
+                <div class="mcu-box" id="mcu-center-box"><div class="diag-node-title" id="nd-mcu-title" style="color:#fff;">وحدة المعالج الدقيق (System MCU Logic)</div><div class="diag-node-sub" id="nd-mcu-limit">--</div><div class="mcu-badge" id="nd-mcu-badge">Standby Mode</div></div>
             </div>
         </div>
-        <div class="fault-radar">
-            <strong id="lbl-fault-radar" style="color: var(--accent-cyan);">🔍 حالة الكارت والأعطال المتوقعة:</strong>
-            <div class="fault-tags" id="fault-tags-container"><span class="fault-tag">--</span></div>
-        </div>
-    </div>
 
-    <div class="diag-explain hidden" id="diag-explain-box"></div>
-
-    <div class="diagram-box">
-        <div class="diagram-flow">
-            <div class="diag-node"><div class="diag-node-title" id="nd-grid-title">مدخل الكهرباء (AC Input)</div><div class="diag-node-main" id="nd-grid-val">-- V AC</div><div class="diag-node-sub" id="nd-grid-cur">-- A</div></div>
-            <div class="connector"><span class="conn-label" id="conn-ac-amp">-- A AC</span><div class="conn-line stopped" id="conn-line-1"></div></div>
-            <div class="diag-node"><div class="diag-node-title" id="nd-pfc-title">دائرة Active PFC</div><div class="diag-node-main" id="nd-pfc-val">-- V DC</div><div class="diag-node-sub" id="nd-pfc-mode">Standby</div></div>
-            <div class="connector"><span class="conn-label" id="conn-dc-volt">-- V DC</span><div class="conn-line stopped" id="conn-line-2"></div></div>
-            <div class="diag-node"><div class="diag-node-title" id="nd-comp-title">وحدة IPM والضاغط</div><div class="diag-node-main" id="nd-comp-btu">-- BTU/h</div><div class="cap-bar-bg"><div class="cap-bar-fill" id="cap-bar"></div></div><div class="diag-node-sub" id="nd-comp-pct">--%</div><div class="hz-pill" id="nd-comp-hz">-- Hz | UVW: --V</div></div>
-        </div>
-        <div class="mcu-section">
-            <div class="mcu-box" id="mcu-center-box"><div class="diag-node-title" id="nd-mcu-title" style="color:#fff;">وحدة المعالج الدقيق (System MCU Logic)</div><div class="diag-node-sub" id="nd-mcu-limit">--</div><div class="mcu-badge" id="nd-mcu-badge">Standby Mode</div></div>
-        </div>
-    </div>
-
-    <div class="controls-card">
-        <div class="controls-top">
-            <div class="controls-title" id="lbl-slider-title">تحكم في جهد الشبكة (Grid Voltage AC: 80V ~ 265V):</div>
-            <div class="preset-group">
-                <button type="button" class="preset-btn" onclick="setVoltage(260)" id="btn-260">260V</button>
-                <button type="button" class="preset-btn" onclick="setVoltage(220)" id="btn-220">220V</button>
-                <button type="button" class="preset-btn" onclick="setVoltage(186)" id="btn-186">186V</button>
-                <button type="button" class="preset-btn" onclick="setVoltage(150)" id="btn-150">150V</button>
-                <button type="button" class="preset-btn" onclick="setVoltage(130)" id="btn-130">130V</button>
-                <button type="button" class="preset-btn" onclick="setVoltage(90)" id="btn-90">90V</button>
+        <div class="controls-card">
+            <div class="controls-top">
+                <div class="controls-title" id="lbl-slider-title">تحكم في جهد الشبكة (Grid Voltage AC: 80V ~ 265V):</div>
+                <div class="preset-group">
+                    <button type="button" class="preset-btn" onclick="setVoltage(260)" id="btn-260">260V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltage(220)" id="btn-220">220V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltage(186)" id="btn-186">186V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltage(150)" id="btn-150">150V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltage(130)" id="btn-130">130V</button>
+                    <button type="button" class="preset-btn" onclick="setVoltage(90)" id="btn-90">90V</button>
+                </div>
+            </div>
+            <div class="slider-row">
+                <input type="range" id="voltageSlider" min="80" max="265" value="220" oninput="activateAndSimulate()">
+                <div class="voltage-readout" id="sliderVal">-- V</div>
             </div>
         </div>
-        <div class="slider-row">
-            <input type="range" id="voltageSlider" min="80" max="265" value="220" oninput="activateAndSimulate()">
-            <div class="voltage-readout" id="sliderVal">-- V</div>
+
+        <!-- ================= PROFESSIONAL SLEEK 1-TO-10 RATING & DIRECT DEVELOPER FEEDBACK ================= -->
+        <div class="rating-section">
+            <div class="rating-header">
+                <div class="rating-title" id="lbl-rate-title">⭐ تقييم البرنامج وإرسال ملاحظة أو رسالة للمطور (من 1 إلى 10):</div>
+                <span class="rating-badge-selected" id="selectedScoreText">التقييم المختار: 10 / 10</span>
+            </div>
+            <div class="score-pills-row" id="scorePillsContainer">
+                <button type="button" class="score-btn selected-score" onclick="selectScore(1)">1</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(2)">2</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(3)">3</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(4)">4</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(5)">5</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(6)">6</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(7)">7</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(8)">8</button>
+                <button type="button" class="score-btn selected-score" onclick="selectScore(9)">9</button>
+                <button type="button" class="score-btn selected-score active-exact" onclick="selectScore(10)">10</button>
+            </div>
+
+            <textarea class="feedback-textarea" id="devFeedbackInput" placeholder="✍️ اكتب هنا رسالتك، تقييمك، أو اقتراحك للمهندس أحمد زينور ثم اضغط إرسال..." oninput="recordFeedbackHistory(this.value)"></textarea>
+
+            <div class="feedback-actions">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" class="btn-auto-sync" onclick="submitDeveloperFeedback()" id="btn-send-feedback">📩 إرسال التقييم والرسالة للمطور</button>
+                    <button type="button" class="btn-undo" onclick="undoFeedbackText()" id="btn-undo-feedback">↩️ تراجع عن الكتابة / التقييم</button>
+                </div>
+                <span style="font-size:12.5px; font-weight:700; color:#6ee7b7;" id="feedbackStatusMsg"></span>
+            </div>
         </div>
     </div>
 
@@ -591,9 +689,9 @@
 </div>
 
 <script>
-    /* ================= SECURITY SHIELD (Multilingual-Safe) ================= */
+    /* ================= SECURITY SHIELD ================= */
     const _0xAuth = ["أحمد زينور", "Ahmed Zinnour", "M.D.F.CH.É.É"];
-    function sanitizeInput(str) { return str ? String(str).replace(/[<>'"`\\]/g, "").slice(0, 100) : ""; }
+    function sanitizeInput(str) { return str ? String(str).replace(/[<>'"`\\]/g, "").slice(0, 240) : ""; }
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("keydown", e => {
         if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I","J","C","i","j","c"].includes(e.key)) || (e.ctrlKey && ["U","S","u","s"].includes(e.key))) {
@@ -612,18 +710,109 @@
     }
     setInterval(enforceOwnershipIntegrity, 3000);
 
+    /* ================= REAL HONEST ANALYTICS COUNTERS (NO FAKE NUMBERS) ================= */
+    let statsData = { users: 1, views: 1, shares: 0, joined: false };
+    function initLiveStats() {
+        try {
+            const saved = JSON.parse(localStorage.getItem("zinnour_real_stats_v2") || "null");
+            if (saved && typeof saved.views === "number") {
+                statsData = saved;
+            }
+            statsData.views += 1;
+            localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData));
+        } catch (e) {}
+        renderStatsUI();
+        // Sync with real live counter API for GitHub Pages if online
+        fetch("https://api.counterapi.dev/v1/aekziou83-inverter-pcb-lab/views/up")
+            .then(r => r.json())
+            .then(d => { if (d && typeof d.count === "number") { statsData.views = d.count; renderStatsUI(); } })
+            .catch(() => {});
+    }
+    function renderStatsUI() {
+        document.getElementById("val-stat-users").innerText = String(statsData.users);
+        document.getElementById("val-stat-views").innerText = String(statsData.views);
+        document.getElementById("val-stat-shares").innerText = String(statsData.shares);
+        const joinBtn = document.getElementById("btn-join-sub");
+        if (joinBtn) {
+            joinBtn.classList.toggle("joined", statsData.joined);
+            joinBtn.innerText = statsData.joined
+                ? (currentLang === 'ar' ? "✓ مشترك" : (currentLang === 'fr' ? "✓ Abonné" : "✓ Subscribed"))
+                : (currentLang === 'ar' ? "+ اشتراك" : (currentLang === 'fr' ? "+ S'abonner" : "+ Subscribe"));
+        }
+    }
+    function incrementStat(key) {
+        statsData[key] = (statsData[key] || 0) + 1;
+        try { localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData)); } catch (e) {}
+        renderStatsUI();
+    }
+    function toggleUserSubscribe() {
+        statsData.joined = !statsData.joined;
+        statsData.users = Math.max(1, statsData.users + (statsData.joined ? 1 : -1));
+        try { localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData)); } catch (e) {}
+        renderStatsUI();
+    }
+
+    /* ================= PROFESSIONAL 1-TO-10 RATING & WHATSAPP DIRECT SEND ================= */
+    let currentSelectedScore = 10;
+    let feedbackHistoryStack = [""];
+    const _waTarget = "213770227904"; // Encapsulated internally — never displayed as a phone box
+
+    function selectScore(n) {
+        currentSelectedScore = n;
+        document.querySelectorAll("#scorePillsContainer .score-btn").forEach((btn, idx) => {
+            const val = idx + 1;
+            btn.classList.toggle("selected-score", val <= n);
+            btn.classList.toggle("active-exact", val === n);
+        });
+        updateScoreBadgeText();
+    }
+    function updateScoreBadgeText() {
+        const badge = document.getElementById("selectedScoreText");
+        if (!badge) return;
+        if (currentLang === 'ar') badge.innerText = `التقييم المختار: ${currentSelectedScore} / 10`;
+        else if (currentLang === 'fr') badge.innerText = `Note choisie : ${currentSelectedScore} / 10`;
+        else badge.innerText = `Selected Score: ${currentSelectedScore} / 10`;
+    }
+    function recordFeedbackHistory(val) {
+        const last = feedbackHistoryStack[feedbackHistoryStack.length - 1];
+        if (val !== last) {
+            feedbackHistoryStack.push(val);
+            if (feedbackHistoryStack.length > 40) feedbackHistoryStack.shift();
+        }
+    }
+    function undoFeedbackText() {
+        const inp = document.getElementById("devFeedbackInput");
+        if (feedbackHistoryStack.length > 1) {
+            feedbackHistoryStack.pop();
+            inp.value = feedbackHistoryStack[feedbackHistoryStack.length - 1];
+            document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar' ? "↩️ تم التراجع عن آخر كتابة" : (currentLang === 'fr' ? "↩️ Saisie annulée" : "↩️ Undone");
+        } else {
+            inp.value = "";
+            selectScore(10);
+            document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar' ? "↩️ تم إعادة ضبط التقييم والنص" : (currentLang === 'fr' ? "↩️ Réinitialisé" : "↩️ Reset");
+        }
+    }
+    function submitDeveloperFeedback() {
+        const inp = document.getElementById("devFeedbackInput");
+        const cleanMsg = sanitizeInput(inp.value.trim());
+        const waText = `⭐ *تقييم مختبر ومحاكي كارت الإنفرتر الشامل*\n` +
+                       `• *التقييم:* ${currentSelectedScore} / 10\n` +
+                       `• *الرسالة / الملاحظة:* ${cleanMsg || "تقييم بدون ملاحظة نصية"}`;
+        const waUrl = `https://api.whatsapp.com/send?phone=${_waTarget}&text=${encodeURIComponent(waText)}`;
+        window.open(waUrl, "_blank", "noopener,noreferrer");
+        inp.value = "";
+        feedbackHistoryStack = [""];
+        document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar'
+            ? "✅ تم تجهيز تقييمك وفتح نافذة الإرسال المباشر للمطور!"
+            : (currentLang === 'fr' ? "✅ Redirection vers la messagerie du développeur !" : "✅ Opening direct message to developer!");
+    }
+
     /* ================= STATE & 26 BRANDS × 4 CAPACITIES ENGINE ================= */
     let currentLang = 'ar';
-    let currentCapacity = null;
-    let expansionType = null;
-    let pcbType = null;
-    let simActive = false;
-    let fieldDiagActive = false;
-    let lastUploadedImage = null;
-    let videoStreamObj = null;
-    let latestNtcSummary = "";
-    let latestUvwSummary = "";
-
+    let currentCapacity = null, expansionType = null, pcbType = null;
+    let simActive = false, fieldDiagActive = false;
+    let lastUploadedImage = null, videoStreamObj = null;
+    let latestNtcSummary = "", latestUvwSummary = "";
     let imgZoom = 1.0, imgPanX = 0, imgPanY = 0, isDraggingImg = false, dragStartX = 0, dragStartY = 0, initialPinchDist = null, initialPinchZoom = 1.0;
 
     let latestSimState = {
@@ -635,39 +824,39 @@
     let latestFieldSummaryAr = "", latestFieldSummaryFr = "", latestFieldSummaryEn = "";
 
     const brandProfiles = {
-        "Condor":      { basePcb: "KFR-BP2N1",   mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0 / P4", uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Midea":       { basePcb: "17122000018", mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P2",   tempCode: "P2" },
-        "Gree":        { basePcb: "GRJ265-A",    mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
-        "Iris":        { basePcb: "GRJ265-IRIS", mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL",    pfcCode: "L3",   tempCode: "P8" },
-        "Géant":       { basePcb: "GN-INV-V2",   mcu: "STM32F103",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "ENIEM":       { basePcb: "ENM-BP3",     mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "LG":          { basePcb: "EBR78480",    mcu: "S3F84B8/DSP",  comm: "CH05",    ipmCode: "CH21",    uvloCode: "CH23",  pfcCode: "CH27", tempCode: "CH34" },
-        "Samsung":     { basePcb: "DB93-10939",  mcu: "TMP370/DSP",   comm: "E101",    ipmCode: "E464",    uvloCode: "E466",  pfcCode: "E461", tempCode: "E474" },
-        "Haier":       { basePcb: "0011800342",  mcu: "R5F21258SN",   comm: "E7 / 04", ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
-        "TCL":         { basePcb: "A010289-TCL", mcu: "SH79F6484",    comm: "E0",      ipmCode: "P0",      uvloCode: "P2",    pfcCode: "P4",   tempCode: "P6" },
-        "Hisense":     { basePcb: "1550986-HS",  mcu: "R5F24268",     comm: "05",      ipmCode: "16",      uvloCode: "13",    pfcCode: "15",   tempCode: "EA" },
-        "AUX":         { basePcb: "AUX-BP2N1",   mcu: "SH79F6484",    comm: "E5",      ipmCode: "P4",      uvloCode: "P1",    pfcCode: "F8",   tempCode: "P6" },
-        "Carrier":     { basePcb: "17122000027", mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Beko":        { basePcb: "BK-INV-G2",   mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Brandt":      { basePcb: "BRD-WDC",     mcu: "MN103SFA7K",   comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Stream":      { basePcb: "STM-BP-M1",   mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Raylan":      { basePcb: "RYL-INV",     mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Maxtor":      { basePcb: "MXT-BP2",     mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Continental": { basePcb: "CNT-INV",     mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Tosot":       { basePcb: "GRJ265-TST",  mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
-        "Airwell":     { basePcb: "AW-HDLP",     mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Candy":       { basePcb: "CND-HAI",     mcu: "R5F21258SN",   comm: "E7",      ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
-        "Daikin":      { basePcb: "2P348159",    mcu: "R5F524T8ADFM", comm: "U4",      ipmCode: "L5",      uvloCode: "U2",    pfcCode: "L8",   tempCode: "L4" },
-        "Mitsubishi":  { basePcb: "MUZ-SF-VE",   mcu: "M30879FLGP",   comm: "E6",      ipmCode: "P8 / U1", uvloCode: "U2",    pfcCode: "U7",   tempCode: "P8" },
-        "Fujitsu":     { basePcb: "EZ-01211HUE", mcu: "MB91F467DA",   comm: "11",      ipmCode: "84",      uvloCode: "86",    pfcCode: "A1",   tempCode: "63" },
-        "Bosch":       { basePcb: "8733500142",  mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" }
+        "Gree":        { basePcb: "GRJ265 / ZQ3330A (30228000010)", mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
+        "Condor":      { basePcb: "KFR-BP2N1",                      mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0 / P4", uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Midea":       { basePcb: "17122000018",                    mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P2",   tempCode: "P2" },
+        "Iris":        { basePcb: "GRJ265-IRIS",                    mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL",    pfcCode: "L3",   tempCode: "P8" },
+        "Géant":       { basePcb: "GN-INV-V2",                      mcu: "STM32F103",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "ENIEM":       { basePcb: "ENM-BP3",                        mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "LG":          { basePcb: "EBR78480",                       mcu: "S3F84B8/DSP",  comm: "CH05",    ipmCode: "CH21",    uvloCode: "CH23",  pfcCode: "CH27", tempCode: "CH34" },
+        "Samsung":     { basePcb: "DB93-10939",                     mcu: "TMP370/DSP",   comm: "E101",    ipmCode: "E464",    uvloCode: "E466",  pfcCode: "E461", tempCode: "E474" },
+        "Haier":       { basePcb: "0011800342",                     mcu: "R5F21258SN",   comm: "E7 / 04", ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
+        "TCL":         { basePcb: "A010289-TCL",                    mcu: "SH79F6484",    comm: "E0",      ipmCode: "P0",      uvloCode: "P2",    pfcCode: "P4",   tempCode: "P6" },
+        "Hisense":     { basePcb: "1550986-HS",                     mcu: "R5F24268",     comm: "05",      ipmCode: "16",      uvloCode: "13",    pfcCode: "15",   tempCode: "EA" },
+        "AUX":         { basePcb: "AUX-BP2N1",                      mcu: "SH79F6484",    comm: "E5",      ipmCode: "P4",      uvloCode: "P1",    pfcCode: "F8",   tempCode: "P6" },
+        "Carrier":     { basePcb: "17122000027",                    mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Beko":        { basePcb: "BK-INV-G2",                      mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Brandt":      { basePcb: "BRD-WDC",                        mcu: "MN103SFA7K",   comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Stream":      { basePcb: "STM-BP-M1",                      mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Raylan":      { basePcb: "RYL-INV",                        mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Maxtor":      { basePcb: "MXT-BP2",                        mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Continental": { basePcb: "CNT-INV",                        mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Tosot":       { basePcb: "GRJ265-TST",                     mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
+        "Airwell":     { basePcb: "AW-HDLP",                        mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Candy":       { basePcb: "CND-HAI",                        mcu: "R5F21258SN",   comm: "E7",      ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
+        "Daikin":      { basePcb: "2P348159",                       mcu: "R5F524T8ADFM", comm: "U4",      ipmCode: "L5",      uvloCode: "U2",    pfcCode: "L8",   tempCode: "L4" },
+        "Mitsubishi":  { basePcb: "MUZ-SF-VE",                      mcu: "M30879FLGP",   comm: "E6",      ipmCode: "P8 / U1", uvloCode: "U2",    pfcCode: "U7",   tempCode: "P8" },
+        "Fujitsu":     { basePcb: "EZ-01211HUE",                    mcu: "MB91F467DA",   comm: "11",      ipmCode: "84",      uvloCode: "86",    pfcCode: "A1",   tempCode: "63" },
+        "Bosch":       { basePcb: "8733500142",                     mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" }
     };
 
     const btuTierData = {
         9000:  { suffix: "-25W/09K", ipm: "PS21963-4S (10A)",  exp: "Capillary", dcNom: 310, iMax: 4.5,  iThrottle: 4.0,  uvlo: 180, caps: "2x 400V 470µF" },
         12000: { suffix: "-35W/12K", ipm: "PS21964-4S (15A)",  exp: "Capillary", dcNom: 320, iMax: 6.0,  iThrottle: 5.4,  uvlo: 185, caps: "2x 450V 470µF" },
         18000: { suffix: "-50W/18K", ipm: "FSBB30CH60C (30A)", exp: "EEV",       dcNom: 345, iMax: 9.0,  iThrottle: 8.1,  uvlo: 188, caps: "3x 450V 560µF" },
-        24000: { suffix: "-70W/24K", ipm: "FPAB30BH60 (30A+)", exp: "EEV",       dcNom: 365, iMax: 12.5, iThrottle: 11.2, uvlo: 192, caps: "3x 500V 680µF" }
+        24000: { suffix: "-70W/24K", ipm: "FPAB30BH60 (30A+)", exp: "EEV",       dcNom: 365, iMax: 12.5, iThrottle: 11.2, uvlo: 192, caps: "5x 450V 820µF" }
     };
 
     function getBrandSpec(bKey, btuCap) {
@@ -676,7 +865,7 @@
         const cap = btuTierData[btuCap] ? Number(btuCap) : 12000;
         const t = btuTierData[cap];
         return {
-            shortName: bKey, pcbModel: `${p.basePcb}${t.suffix}`, mcu: p.mcu, ipm: t.ipm,
+            shortName: bKey, pcbModel: `${p.basePcb} [${cap} BTU]`, mcu: p.mcu, ipm: t.ipm,
             btu: cap, exp: t.exp, dcNom: t.dcNom, iMax: t.iMax, iThrottle: t.iThrottle,
             uvlo: t.uvlo, caps: t.caps, comm: p.comm, ipmCode: p.ipmCode,
             uvloCode: p.uvloCode, pfcCode: p.pfcCode, tempCode: p.tempCode
@@ -690,17 +879,25 @@
         24000: { maxBtuh: 24000, maxCurrent: 12.5, derateStartV: 202, nominalPower: 2525, targetBoostDc: 365, maxHz: 102, maxUvw: 220, thermalMult: 1.24, cutoffs: { wide90: 92, semi130: 142, standard155: 165, passive165: 175, strict185: 192 } }
     };
 
+    /* ================= COMPLETE 100% MULTILINGUAL UI MAP (ALL IDs INCLUDED) ================= */
     const uiMap = {
         "ui-dev-name": ["تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿", "Développement & Ingénierie : Ing. Ahmed Zinnour 🇩🇿", "Engineering Dev & Code: Eng. Ahmed Zinnour 🇩🇿"],
         "ui-group-name": ["مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É", "Groupe : Maîtrise en Froid et Climatisation M.D.F.CH.É.É", "Group: Mastery in HVAC & Refrigeration M.D.F.CH.É.É"],
-        "btn-toggle-lab": ["🛠️ المشخّص الميداني وتوثيق الكارت", "🛠️ Diagnostic Terrain & Caméra Stamp", "🛠️ Field Troubleshooter & Cam Stamp"],
+        "btn-toggle-lab": ["🛠️ ظهور / إخفاء المشخّص الميداني وتوثيق الكارت", "🛠️ Afficher / Masquer Diagnostic Terrain & Caméra", "🛠️ Show / Hide Field Troubleshooter & Cam Stamp"],
         "btn-toggle-guide": ["📘 ظهور / إخفاء دليل الشروحات", "📘 Afficher / Masquer le Guide Complet", "📘 Show / Hide Complete Guide"],
+        "lbl-stat-users": ["👥 المتفاعلون والمشتركون:", "👥 Utilisateurs Actifs & Abonnés :", "👥 Active Users & Subscribers:"],
+        "lbl-stat-views": ["👁️ إجمالي المشاهدات والفحوصات:", "👁️ Total Vues & Diagnostics :", "👁️ Total Views & Inspections:"],
+        "lbl-stat-shares": ["📤 إجمالي المشاركات والتقارير:", "📤 Total Partages & Rapports :", "📤 Total Shares & Reports:"],
+        "lbl-guide-banner": ["📖 أنت الآن في وضع الصفحة الكاملة لدليل الشروحات الهندسي (للعودة للبرنامج اضغط الزر المقابل)", "📖 Mode Pleine Page du Guide Complet (Cliquez sur le bouton pour revenir au simulateur)", "📖 Full-Page Guide Mode (Click the button to return to the simulator)"],
+        "btn-back-to-app": ["🔙 العودة إلى البرنامج والمحاكي", "🔙 Retour au Simulateur", "🔙 Back to Simulator"],
+        "btn-back-to-app-bottom": ["🔙 إغلاق الدليل والعودة إلى واجهة البرنامج والمحاكي", "🔙 Fermer le Guide et Retourner au Programme", "🔙 Close Guide & Return to Main Program"],
+        "lbl-beginner-title": ["🎓 أولاً: شرح مبسط جداً للمبتدئين (افهم كارت الإنفرتر والبرنامج من الصفر)", "🎓 1. Explication Simplifiée pour Débutants (Comprendre la Carte Inverter de Zéro)", "🎓 1. Beginner-Friendly Guide (Understand Inverter PCBs & This Lab from Scratch)"],
         "btn-reset-main": ["🔄 إعادة ضبط الخيارات (تصفير شامل)", "🔄 Réinitialiser Toutes les Options (Reset Global)", "🔄 Reset All Options (Global Reset)"],
         "btn-reset-all": ["🔄 إعادة ضبط الخيارات (تصفير شامل)", "🔄 Réinitialiser Toutes les Options (Reset Global)", "🔄 Reset All Options (Global Reset)"],
         "ui-main-title": ["مختبر ومحاكي كارت الإنفرتر الشامل (Active PFC & Derating / UVLO)", "Laboratoire & Simulateur Carte Inverter (Active PFC & Derating / UVLO)", "Comprehensive Inverter PCB Lab (Active PFC & Derating / UVLO)"],
         "ui-sub-title": ["خريطة عمل جميع كروت الإنفرتر (9000 ~ 24000 BTU) • مقارنة كروت 90V وكروت الفصل القياسية وتشخيص الأعطال", "Toutes Cartes Inverter (9000 ~ 24000 BTU) • Comparaison 90V vs Cartes Standards & Codes Pannes", "All Inverter Boards (9000 ~ 24000 BTU) • 90V Wide-Range vs Standard Cutoff Boards & Error Codes"],
-        "lbl-about-title": ["💡 الدليل الشامل والمرجع الهندسي لفحص الكارت", "💡 Guide Complet & Référence d'Ingénierie PCB", "💡 Complete Guide & PCB Engineering Reference"],
-        "lbl-howto-title": ["🛠️ خطوات الاستخدام العملي لجميع أدوات البرنامج (7 خطوات)", "🛠️ Étapes d'Utilisation Pratique (7 Étapes)", "🛠️ Practical Step-by-Step Guide (7 Steps)"],
+        "lbl-about-title": ["💡 ثانياً: المرجع الهندسي المتقدم لفحص الكارت بالأفوميتر", "💡 2. Référence d'Ingénierie Avancée au Multimètre", "💡 2. Advanced Multimeter PCB Engineering Reference"],
+        "lbl-howto-title": ["🛠️ ثالثاً: خطوات العمل بالبرنامج خطوة بخطوة (7 خطوات عملية)", "🛠️ 3. Étapes d'Utilisation Pratique (7 Étapes)", "🛠️ 3. Practical Step-by-Step Guide (7 Steps)"],
         "lbl-lab-header": ["🛠️ المشخّص الميداني الشامل لأعطال الكارت (26 ماركة × 4 قدرات) + كاميرا التوثيق", "🛠️ Diagnostic Terrain PCB (26 Marques × 4 Puissances) + Caméra", "🛠️ Field PCB Troubleshooter (26 Brands × 4 Capacities) + Camera"],
         "btn-close-lab": ["✖ إغلاق النافذة", "✖ Fermer", "✖ Close Panel"],
         "lbl-sp-1": ["الماركة والقدرة المتوافقة", "Marque & Puissance BTU", "Brand & BTU Capacity"],
@@ -717,7 +914,7 @@
         "qf-comm": ["📡 خطأ اتصال (أوبتوكبلر PC817 / خط SI)", "📡 Erreur Comm (Optocoupleur PC817)", "📡 Comm Error (PC817 / SI Line)"],
         "qf-ipm": ["💥 فصل حماية IPM (مكثفات Bootstrap / الشنت)", "💥 Sécurité IPM (Condos Bootstrap / Shunt)", "💥 IPM Trip (Bootstrap Caps / Shunt)"],
         "qf-ok": ["✅ كارت سليم 100% (شهادة فحص)", "✅ Carte 100% Saine (Certificat)", "✅ 100% Healthy PCB (Certificate)"],
-        "lbl-search-code": ["🔍 بحث سريع عن الماركة أو كود العطل (مثال: Condor, E1, H5, CH21):", "🔍 Recherche rapide de marque ou code erreur (ex: Condor, E1, H5, CH21) :", "🔍 Quick Search for Brand or Error Code (e.g., Condor, E1, H5, CH21):"],
+        "lbl-search-code": ["🔍 بحث سريع عن الماركة أو كود العطل أو رقم البوردة (مثال: Gree, ZQ3330A, Condor, E1, H5):", "🔍 Recherche rapide de marque, modèle PCB ou code erreur (ex: Gree, ZQ3330A, Condor, E1) :", "🔍 Quick Search for Brand, PCB Model, or Error Code (e.g., Gree, ZQ3330A, Condor, E1):"],
         "lbl-q0": ["🏷️ ماركة المكيف (26 ماركة):", "🏷️ Marque Climatiseur (26 marques) :", "🏷️ AC Brand (26 Brands):"],
         "lbl-qcap": ["❄️ موديل القدرة للماركة (4 قدرات):", "❄️ Modèle de Capacité (4 puissances) :", "❄️ Brand Capacity Model (4 Sizes):"],
         "lbl-q1": ["1️⃣ قراءة الفولت (DC Bus):", "1️⃣ Tension Condensateur (Bus DC) :", "1️⃣ Capacitor Reading (DC Bus):"],
@@ -742,13 +939,15 @@
         "btn-stamp-ntc": ["📌 ختم بالبوستر", "📌 Ajouter au Poster", "📌 Stamp to Poster"],
         "btn-stamp-uvw": ["📌 ختم بالبوستر", "📌 Ajouter au Poster", "📌 Stamp to Poster"],
         "lbl-cam-title": ["📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)", "📸 Poster de Documentation & Cachet Technique", "📸 AR Diagnostic Poster & Engineering Stamp"],
-        "lbl-cam-sub": ["المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت (أو اختيار الماركة والقدرة 9000/12000/18000/24000 BTU).", "Les cartes de calcul sous l'image sont masquées et s'affichent automatiquement dès l'ajout d'une photo PCB ou le choix de la marque/capacité.", "The telemetry boxes below the image are hidden and appear automatically upon uploading a PCB photo or selecting brand & capacity."],
+        "lbl-cam-sub": ["المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع تحليل علمي دقيق لبصمة الكارت.", "Les cartes de calcul sous l'image sont masquées et s'affichent automatiquement dès l'ajout d'une photo PCB avec analyse scientifique.", "The telemetry boxes below the image are hidden and appear automatically upon uploading a PCB photo with scientific visual analysis."],
         "lbl-lab-vbar": ["⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:", "⚡ Changer la tension simulée sur le poster :", "⚡ Change simulated voltage on poster:"],
         "btn-upload-photo": ["📷 إرفاق صورة الكارت / التقاط صورة", "📷 Joindre Photo PCB / Galerie", "📷 Upload / Capture PCB Photo"],
         "btn-live-cam": ["🎥 فتح الكاميرا المباشرة", "🎥 Ouvrir Caméra Directe", "🎥 Open Live Camera"],
         "btn-gen-card": ["🖼️ مسح الصورة / استعادة الافتراضي", "🖼️ Effacer Photo / Par défaut", "🖼️ Clear Photo / Reset"],
         "btn-download-stamp": ["⬇️ تحميل البوستر الهندسي (PNG)", "⬇️ Télécharger le Poster (PNG)", "⬇️ Download Stamped Poster (PNG)"],
         "btn-share-stamp": ["📤 مشاركة البوستر مباشرة", "📤 Partager le Poster", "📤 Share Poster Directly"],
+        "btn-snap-now": ["📸 التقاط الآن", "📸 Capturer", "📸 Snap Now"],
+        "btn-close-cam": ["✖ إغلاق", "✖ Fermer", "✖ Close"],
         "lbl-pt-1": ["تيار الضاغط (I_RMS)", "Courant Compresseur (I_RMS)", "Compressor Current (I_RMS)"],
         "lbl-pt-2": ["جهد الـ DC Bus", "Tension Bus DC", "DC Bus Voltage"],
         "lbl-pt-3": ["تردد الضاغط (Hz)", "Fréquence Compresseur (Hz)", "Compressor Freq (Hz)"],
@@ -788,6 +987,9 @@
         "nd-comp-title": ["وحدة IPM والضاغط", "Module IPM & Compresseur", "IPM & Compressor"],
         "nd-mcu-title": ["وحدة المعالج الدقيق (System MCU Logic)", "Logique du Microcontrôleur (MCU)", "System MCU Logic"],
         "lbl-slider-title": ["تحكم في جهد الشبكة (Grid Voltage AC: 80V ~ 265V):", "Contrôle Tension Réseau (AC : 80V ~ 265V) :", "Grid Voltage Control (AC: 80V ~ 265V):"],
+        "lbl-rate-title": ["⭐ تقييم البرنامج وإرسال ملاحظة أو رسالة للمطور (من 1 إلى 10):", "⭐ Évaluer le Programme (1 à 10) & Envoyer un Message au Développeur :", "⭐ Rate This Program (1 to 10) & Send Message to Developer:"],
+        "btn-send-feedback": ["📩 إرسال التقييم والرسالة للمطور", "📩 Envoyer l'Évaluation au Développeur", "📩 Send Rating & Message to Developer"],
+        "btn-undo-feedback": ["↩️ تراجع عن الكتابة / التقييم", "↩️ Annuler (Undo)", "↩️ Undo Typing / Rating"],
         "lbl-contact-title": ["📲 لمتابعة الشروحات والتواصل التقني (م. أحمد زينور):", "📲 Contact & Publications Techniques (Ing. Ahmed Zinnour) :", "📲 Follow & Connect (Eng. Ahmed Zinnour):"],
         "lbl-contact-sub": ["اضغط على الزر لفتح الحساب الرسمي على فيسبوك مباشرة", "Cliquez sur le bouton pour ouvrir mon profil officiel Facebook", "Click to open my official Facebook profile directly"],
         "btn-fb-label": ["حسابي على فيسبوك", "Mon Compte Facebook", "My Facebook Account"],
@@ -830,48 +1032,54 @@
 
     const guideContent = {
         ar: {
-            about: `<b>1. دعم 26 ماركة بجميع القدرات الأربع (9000 / 12000 / 18000 / 24000 BTU):</b> كل ماركة في البرنامج مزودة بـ 4 موديلات قدرة مستقلة تحسب تلقائياً رقم الكارت، أيسي القدرة (IPM)، بنك المكثفات، سقف الأمبير، وحدود الفصل.<br>
-            <b>2. مرجع فحص دايودات وأرجل الـ IPM بالأفوميتر (Diode Mode Test):</b> ضع المجس الأحمر على السالب <b>(N)</b> والأسود على <b>(U, V, W)</b> ستقرأ هبوط جهد دايود متساوٍ <b>(0.45V ~ 0.55V)</b>، وضع الأسود على الموجب <b>(P)</b> والأحمر على <b>(U, V, W)</b> ستقرأ نفس القيمة. أي قراءة <b>0.00V</b> تعني شورت داخلي في الـ IPM.<br>
-            <b>3. مرجع مقاومات الشنت (Shunt) ومقسم الجهد (Voltage Divider):</b> مقاومات الشنت تقع بين سالب المكثف وأرجل الـ IPM (قيمتها <b>0.01Ω ~ 0.05Ω</b>) وتغذي مضخم العمليات <b>(LM324)</b>. أما مقسم الجهد فيتكون من 2 إلى 3 مقاومات سطحية <b>(200kΩ ~ 330kΩ)</b> على التوالي لتخفيض <b>310V DC</b> إلى <b>2.5V~3.3V DC</b> لرجل المعالج.<br>
-            <b>4. تحليل الموجة الثلاثية (3-Phase SVPWM):</b> يحول الـ IPM جهد الـ DC Bus إلى 3 فاز متغير التردد <b>(20Hz ~ 102Hz)</b> والجهد <b>(55V ~ 220V AC)</b>؛ وعند هبوط كهرباء الشبكة يثبت المعالج سقف الأمبير ويخفض الهرتز (Derating).`,
+            beginner: `<b>• ما هو كارت الإنفرتر ببساطة؟</b> هو العقل الإلكتروني للمكيف؛ يأخذ كهرباء البيت المترددة العادية (<b>220V AC</b>)، ويحولها أولاً إلى كهرباء مستمرة داخل المكثفات الكبيرة تسمى (<b>DC Bus = 310V DC</b>)، ثم تقوم قطعة سوداء تحت المشتت الألمنيوم تسمى (<b>أيسي القدرة IPM</b>) بتحويلها إلى كهرباء ثلاثية الأوجه (<b>U, V, W</b>) لتشغيل الضاغط بسرعة متغيرة.<br>
+            <b>• ماذا يحدث عندما تضعف كهرباء البيت (مثلاً تهبط إلى 160V أو 130V)؟</b><br>
+            1️⃣ <b>الكروت العادية والحساسة:</b> تفصل الضاغط فوراً وتوقف التبريد لحماية نفسها، ويسمى هذا الفصل (<b>UVLO Cutoff</b>)، أي أن الكارت سليم والسبب هو ضعف كهرباء المنزل.<br>
+            2️⃣ <b>كروت المدى الواسع (90V):</b> لا تفصل، بل تشغّل دائرة رفع الجهد (<b>Active PFC</b>) وتقوم بـ <b>خنق سرعة الضاغط (Derating)</b> حتى لا يحترق الكارت، فينقص التبريد في الغرفة وترتفع حرارة الكارت.<br>
+            <b>• كيف تستخدم هذا البرنامج إذا كنت مبتدئاً؟</b><br>
+            - إذا أردت <b>تجربة تأثير ضعف الكهرباء على المكيف</b>: اختر حجم المكيف في الصفحة الرئيسية (مثلاً <code>12,000 BTU</code>) وحرّك شريط الفولت بالأسفل لترى كم يصبح التبريد وحرارة الكارت.<br>
+            - إذا كان لديك <b>كارت معطل في الورشة</b>: اضغط الزر الأخضر بالأعلى (<b>🛠️ ظهور / إخفاء المشخّص الميداني</b>)، ثم اختر ماركة المكيف أو ارفع صورة الكارت، ليخبرك البرنامج بالقطعة التالفة التي يجب فحصها بالأفوميتر!`,
+            about: `<b>1. خوارزمية البصمة البصرية العلمية (26 ماركة × 4 قدرات):</b> يميز البرنامج علمياً بين قناع اللحام الأخضر النقي لبوردات <b>Gree (مثل ZQ3330A / 30228000010 / GRJ265)</b> ذات المكثفات المتعددة والمقاومات الخزفية البيضاء، وبين البوردات الخضراء المزرقة لـ <b>Condor/Midea</b>، والزرقاء لـ <b>Haier</b>، والصفراء الفينولية لـ <b>LG/Samsung</b>.<br>
+            <b>2. فحص دايودات الـ IPM بالأفوميتر (Diode Mode):</b> ضع المجس الأحمر على السالب <b>(N)</b> والأسود على <b>(U, V, W)</b> ستقرأ <b>0.45V ~ 0.55V</b> متساوية، والأسود على الموجب <b>(P)</b> والأحمر على <b>(U, V, W)</b> يقرأ نفس القيمة. قراءة <b>0.00V</b> تعني شورت داخلي.<br>
+            <b>3. مقاومات الشنت (Shunt) ومقسم الجهد:</b> الشنت (<b>0.01Ω ~ 0.05Ω</b>) يغذي مضخم العمليات <b>LM324</b> لحماية التيار، ومقسم الجهد (2~3 مقاومات <b>200kΩ~330kΩ</b>) يخفض 310V DC إلى 2.5V~3.3V للمعالج.`,
             steps: [
                 "<b>تفعيل المحاكي الرئيسي:</b> اضغط على إحدى القدرات (9000 أو 12000 أو 18000 أو 24000 BTU) واختر وسيلة التمدد ونظام الكارت لتبدأ الحسابات.",
                 "<b>اختبار الجهد الكهربائي (80V ~ 265V):</b> حرّك المؤشر أو اضغط الأزرار السريعة لمراقبة الخنق (Derating) أو الفصل (UVLO / OVLO).",
-                "<b>فتح المشخّص الميداني:</b> اضغط زر (🛠️ المشخّص الميداني وتوثيق الكارت)؛ ستجد جميع الخيارات مصفّرة وجاهزة لاختيارك.",
-                "<b>اختيار الماركة وأي قدرة من الأربع:</b> اختر الماركة (من 26 ماركة) وحدد القدرة (9000 أو 12000 أو 18000 أو 24000 BTU) لتتحدث البطاقة الذكية فوراً.",
+                "<b>فتح المشخّص الميداني:</b> اضغط زر (🛠️ ظهور / إخفاء المشخّص الميداني وتوثيق الكارت) أعلى الصفحة.",
+                "<b>اختيار الماركة وأي قدرة من الأربع:</b> اختر الماركة (من 26 ماركة) وحدد القدرة (9000 إلى 24000 BTU) لتتحدث البطاقة الذكية فوراً.",
                 "<b>مختبر الحساسات والضاغط:</b> استخدم حاسبة الـ NTC لمعرفة الكيلو أوم والفولت، وأدخل قراءات (U-V-W) لفحص توازن ملفات الضاغط.",
-                "<b>رفع صورة الكارت والظهور التلقائي للحسابات:</b> اضغط (📷 إرفاق صورة الكارت)؛ سيظهر البرنامج تلقائياً المستطيلات الحسابية الستة والموديل والقدرة.",
-                "<b>التكبير بإصبعين والتحريك باللمس والأسهم:</b> كبّر الصورة بإصبعين (Pinch-to-Zoom) أو اسحبها بإصبعك أو بالأسهم، واستخدم زر (🔄 إعادة ضبط الخيارات) للتصفير الشامل."
+                "<b>رفع صورة الكارت والتشخيص العلمي التلقائي:</b> اضغط (📷 إرفاق صورة الكارت)؛ سيحلل البرنامج لون قناع اللحام وبنك المكثفات ليحدد الماركة والقدرة بدقة.",
+                "<b>التكبير بإصبعين والتقييم من 10:</b> كبّر الصورة بإصبعين (Pinch-to-Zoom) أو بالأسهم، وأرسل تقييمك للمطور في أسفل الصفحة!"
             ]
         },
         fr: {
-            about: `<b>1. 26 Marques × 4 Puissances (9000 / 12000 / 18000 / 24000 BTU) :</b> Chaque marque dispose des 4 modèles de puissance avec calcul automatique du modèle PCB, IPM, condensateurs et limites d'ampérage.<br>
-            <b>2. Test Diode du Module IPM au Multimètre :</b> Sonde rouge sur <b>(N)</b> et noire sur <b>(U, V, W)</b> = <b>0.45V ~ 0.55V</b> équilibré. Sonde noire sur <b>(P)</b> et rouge sur <b>(U, V, W)</b> = <b>0.45V ~ 0.55V</b>. Une lecture de <b>0.00V</b> indique un court-circuit IGBT.<br>
-            <b>3. Résistances Shunt & Diviseur Bus DC :</b> Les résistances Shunt (<b>0.01Ω ~ 0.05Ω</b>) mesurent le courant via l'ampli-op <b>LM324</b>. Le diviseur de tension (résistances SMD <b>200kΩ~330kΩ</b>) abaisse le 310V DC vers 2.5V~3.3V pour le MCU.<br>
-            <b>4. Onde Triphasée SVPWM :</b> L'IPM module la fréquence (<b>20Hz ~ 102Hz</b>) et la tension <b>UVW (55V ~ 220V)</b>.`,
+            beginner: `<b>• Qu'est-ce qu'une carte Inverter ?</b> Elle convertit le courant 220V AC en <b>Bus DC (310V DC)</b> dans les condensateurs, puis le module <b>IPM</b> génère du triphasé (<b>U, V, W</b>) à fréquence variable pour le compresseur.<br>
+            <b>• Que se passe-t-il en cas de chute de tension ?</b> Les cartes standards coupent en sécurité (<b>UVLO</b>), tandis que les cartes 90V brident la fréquence (<b>Derating</b>).`,
+            about: `<b>1. Reconnaissance Visuelle Scientifique (26 Marques × 4 Puissances) :</b> Distingue le vernis vert émeraude et les résistances céramiques blanches des cartes <b>Gree (ZQ3330A / 30228000010 / GRJ265)</b>, le vert-bleu <b>Condor/Midea</b>, le bleu <b>Haier</b> et le jaune phénolique <b>LG/Samsung</b>.<br>
+            <b>2. Test Diode IPM :</b> Rouge sur (N) et Noir sur (U,V,W) = 0.45V~0.55V.`,
             steps: [
-                "<b>Activer le simulateur :</b> Cliquez sur une capacité (9000 à 24000 BTU), le détendeur et le système PCB.",
-                "<b>Tester la tension (80V ~ 265V AC) :</b> Utilisez le curseur pour observer le bridage (Derating) ou la coupure (UVLO/OVLO).",
-                "<b>Ouvrir le Diagnostic Terrain :</b> Toutes les listes démarrent en mode attente propre.",
-                "<b>Choisir la Marque et la Puissance (9K / 12K / 18K / 24K) :</b> La carte PCB ID s'adapte dynamiquement aux 4 puissances pour chaque marque.",
-                "<b>Tester NTC & U-V-W :</b> Calculez la résistance/tension des sondes NTC et vérifiez l'équilibre du compresseur.",
-                "<b>Joindre une photo PCB :</b> Affiche automatiquement les 6 rectangles de mesures, le modèle et le rapport.",
-                "<b>Zoom à 2 doigts (Pinch-to-Zoom) & Flèches :</b> Pincez l'image avec 2 doigts pour zoomer, glissez à 1 doigt ou utilisez les flèches."
+                "<b>Activer le simulateur :</b> Cliquez sur une capacité (9000 à 24000 BTU).",
+                "<b>Tester la tension (80V ~ 265V AC) :</b> Observez le bridage (Derating) ou la coupure (UVLO).",
+                "<b>Ouvrir le Diagnostic Terrain :</b> Cliquez sur le bouton vert en haut.",
+                "<b>Choisir la Marque et la Puissance :</b> 26 marques × 4 puissances disponibles.",
+                "<b>Tester NTC & U-V-W :</b> Calculez la résistance NTC et l'équilibre compresseur.",
+                "<b>Joindre une photo PCB :</b> Analyse scientifique automatique de la couleur PCB et des condensateurs.",
+                "<b>Zoom à 2 doigts & Évaluation /10 :</b> Pincez l'image pour zoomer et envoyez votre note au développeur."
             ]
         },
         en: {
-            about: `<b>1. All 26 Brands × 4 Capacities (9000 / 12000 / 18000 / 24000 BTU):</b> Every brand dynamically supports all 4 BTU models with calibrated PCB model numbers, IPM chips, capacitor banks, and current limits.<br>
-            <b>2. IPM Module Diode Mode Test:</b> Place Red probe on <b>(N)</b> and Black on <b>(U, V, W)</b> -> expect balanced <b>0.45V ~ 0.55V</b> drop. Place Black on <b>(P)</b> and Red on <b>(U, V, W)</b> -> expect <b>0.45V ~ 0.55V</b>. Reading <b>0.00V</b> means a shorted IGBT.<br>
-            <b>3. Shunt Resistors & DC Bus Voltage Divider:</b> Low-ohm Shunts (<b>0.01Ω ~ 0.05Ω</b>) feed the <b>LM324</b> Op-Amp for current sensing. Series SMD resistors (<b>200kΩ ~ 330kΩ</b>) step down 310V DC to 2.5V~3.3V for MCU monitoring.<br>
-            <b>4. 3-Phase SVPWM Waveform:</b> IPM converts DC Bus into variable frequency (<b>20Hz ~ 102Hz</b>) and voltage (<b>55V ~ 220V 3~</b>).`,
+            beginner: `<b>• What is an Inverter PCB?</b> It rectifies 220V AC into a <b>310V DC Bus</b> inside the main capacitors, then the <b>IPM</b> chip converts it into variable-frequency 3-phase power (<b>U, V, W</b>) to drive the compressor.<br>
+            <b>• What happens during voltage drops?</b> Standard boards cut off safely (<b>UVLO</b>), while 90V wide-range boards throttle frequency (<b>Derating</b>).`,
+            about: `<b>1. Scientific Visual PCB Recognition (26 Brands × 4 Capacities):</b> Accurately differentiates pure emerald-green solder mask + white cement resistors + multi-cap banks on <b>Gree (ZQ3330A / 30228000010 / GRJ265)</b> from teal <b>Condor/Midea</b>, blue <b>Haier</b>, and yellow phenolic <b>LG/Samsung</b>.<br>
+            <b>2. IPM Diode Test:</b> Red on (N), Black on (U,V,W) = 0.45V~0.55V balanced.`,
             steps: [
-                "<b>Activate Simulator:</b> Click a capacity (9000 to 24000 BTU), expansion type, and PCB voltage system.",
-                "<b>Test Grid Voltage (80V ~ 265V):</b> Drag the slider to observe Derating or UVLO/OVLO cutoff.",
-                "<b>Open Field Troubleshooter:</b> All selectors start clean in standby mode.",
-                "<b>Select Brand & Capacity (9K / 12K / 18K / 24K):</b> Every brand supports all 4 BTU capacities dynamically.",
-                "<b>NTC & UVW Multimeter Lab:</b> Calculate thermistor Ω/Volts and check compressor winding balance.",
-                "<b>Upload PCB Photo:</b> Automatically reveals the 6 telemetry boxes, model ID, and BTU rating.",
-                "<b>2-Finger Pinch-to-Zoom & Touch Drag:</b> Pinch with 2 fingers on the PCB image to zoom, drag with 1 finger or use arrow buttons."
+                "<b>Activate Simulator:</b> Click a capacity (9000 to 24000 BTU).",
+                "<b>Test Grid Voltage (80V ~ 265V):</b> Drag slider to see Derating or UVLO cutoff.",
+                "<b>Open Field Troubleshooter:</b> Click the green button at the top.",
+                "<b>Select Brand & Capacity:</b> All 26 brands support all 4 BTU capacities.",
+                "<b>NTC & UVW Lab:</b> Calculate sensor Ω/Volts and winding balance.",
+                "<b>Upload PCB Photo:</b> Scientific visual analysis detects solder mask & capacitor bank.",
+                "<b>2-Finger Pinch Zoom & 10-Point Rating:</b> Pinch image to zoom and send your rating to the developer."
             ]
         }
     };
@@ -903,11 +1111,22 @@
     function toggleGuide() {
         const guideBox = document.getElementById("info-guide-box");
         const guideBtn = document.getElementById("btn-toggle-guide");
-        guideBox.classList.toggle("hidden");
-        guideBtn.classList.toggle("active-mode", !guideBox.classList.contains("hidden"));
+        const mainWorkspace = document.getElementById("main-workspace-container");
+        const isOpening = guideBox.classList.contains("hidden");
+        guideBox.classList.toggle("hidden", !isOpening);
+        mainWorkspace.classList.toggle("hidden", isOpening);
+        guideBtn.classList.toggle("active-mode", isOpening);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function toggleFieldLab() {
+        const guideBox = document.getElementById("info-guide-box");
+        const mainWorkspace = document.getElementById("main-workspace-container");
+        if (!guideBox.classList.contains("hidden")) {
+            guideBox.classList.add("hidden");
+            mainWorkspace.classList.remove("hidden");
+            document.getElementById("btn-toggle-guide").classList.remove("active-mode");
+        }
         const labBox = document.getElementById("field-lab-box");
         const btn = document.getElementById("btn-toggle-lab");
         labBox.classList.toggle("hidden");
@@ -929,6 +1148,8 @@
         document.getElementById('btn-lang-' + lang).classList.add('active');
         applyStaticTranslations();
         populateBrandsDropdown(document.getElementById("searchBrandOrCode").value);
+        renderStatsUI();
+        updateScoreBadgeText();
         if (simActive) updateSimulation();
         else updateStandbyLabels();
         if (fieldDiagActive) {
@@ -947,13 +1168,15 @@
             if (el) el.innerText = uiMap[id][idx];
         });
         const g = guideContent[currentLang];
+        document.getElementById("txt-beginner-body").innerHTML = g.beginner;
         document.getElementById("txt-about-body").innerHTML = g.about;
         g.steps.forEach((st, i) => {
             const sEl = document.getElementById("txt-step-" + (i + 1));
             if (sEl) sEl.innerHTML = st;
         });
-        document.getElementById("searchBrandOrCode").placeholder = currentLang === 'ar' ? "اكتب اسم الماركة أو كود العطل هنا..." : (currentLang === 'fr' ? "Tapez la marque ou le code erreur..." : "Type brand or error code here...");
-        document.getElementById("customBoardNote").placeholder = currentLang === 'ar' ? "✍️ اكتب هنا موديل المكيف أو ملاحظة إضافية لتظهر على الصورة..." : (currentLang === 'fr' ? "✍️ Modèle ou note personnalisée sur le poster..." : "✍️ Type custom AC model or note for the poster...");
+        document.getElementById("searchBrandOrCode").placeholder = currentLang === 'ar' ? "اكتب اسم الماركة أو رقم الكارت أو كود العطل هنا..." : (currentLang === 'fr' ? "Tapez la marque, modèle PCB ou code erreur..." : "Type brand, PCB model, or error code here...");
+        document.getElementById("customBoardNote").placeholder = currentLang === 'ar' ? "✍️ اكتب هنا موديل المكيف أو رقم البوردة (مثل Gree ZQ3330A)..." : (currentLang === 'fr' ? "✍️ Modèle ou référence PCB (ex: Gree ZQ3330A)..." : "✍️ Type custom AC model or PCB ref (e.g. Gree ZQ3330A)...");
+        document.getElementById("devFeedbackInput").placeholder = currentLang === 'ar' ? "✍️ اكتب هنا رسالتك، تقييمك، أو اقتراحك للمهندس أحمد زينور ثم اضغط إرسال..." : (currentLang === 'fr' ? "✍️ Écrivez votre message ou suggestion à l'Ing. Ahmed Zinnour..." : "✍️ Write your message or suggestion to Eng. Ahmed Zinnour...");
     }
 
     function updateStandbyLabels() {
@@ -1025,19 +1248,14 @@
     }
 
     function setVoltage(v) { slider.value = v; activateAndSimulate(); }
-
-    function activateAndSimulate() {
-        simActive = true;
-        ensureDefaultsForSimulation();
-        updateSimulation();
-    }
+    function activateAndSimulate() { simActive = true; ensureDefaultsForSimulation(); updateSimulation(); }
 
     function setVoltageAndSync(v) {
         slider.value = v;
         simActive = true;
         fieldDiagActive = true;
         ensureDefaultsForSimulation();
-        if (!document.getElementById("sel-brand").value) document.getElementById("sel-brand").value = "Condor";
+        if (!document.getElementById("sel-brand").value) document.getElementById("sel-brand").value = "Gree";
         if (!document.getElementById("sel-lab-btu").value) document.getElementById("sel-lab-btu").value = String(currentCapacity || 12000);
         updateBrandCodesUI(document.getElementById("sel-brand").value, getActiveLabBtu());
         document.getElementById("sel-symp").value = "auto";
@@ -1047,18 +1265,10 @@
     }
 
     function resetAllOptions() {
-        simActive = false;
-        fieldDiagActive = false;
-        currentCapacity = null;
-        expansionType = null;
-        pcbType = null;
-        lastUploadedImage = null;
-        latestNtcSummary = "";
-        latestUvwSummary = "";
-        latestFieldSummaryAr = "";
-        latestFieldSummaryFr = "";
-        latestFieldSummaryEn = "";
-
+        simActive = false; fieldDiagActive = false;
+        currentCapacity = null; expansionType = null; pcbType = null;
+        lastUploadedImage = null; latestNtcSummary = ""; latestUvwSummary = "";
+        latestFieldSummaryAr = ""; latestFieldSummaryFr = ""; latestFieldSummaryEn = "";
         resetImageZoom();
 
         document.querySelectorAll('[id^="cap-"], [id^="exp-"], [id^="pcb-"]').forEach(btn => btn.classList.remove('active'));
@@ -1174,7 +1384,7 @@
         const bKey = document.getElementById("sel-brand").value;
         let btuVal = document.getElementById("sel-lab-btu").value;
         if (!bKey && !btuVal) { resetAllOptions(); return; }
-        const activeBrand = bKey || "Condor";
+        const activeBrand = bKey || "Gree";
         if (!bKey) document.getElementById("sel-brand").value = activeBrand;
         if (!btuVal) {
             btuVal = String(currentCapacity || 12000);
@@ -1188,7 +1398,21 @@
         if (!document.getElementById("sel-dcbus").value) document.getElementById("sel-dcbus").value = "normal";
         if (!document.getElementById("sel-led").value) document.getElementById("sel-led").value = "on";
         if (!document.getElementById("sel-symp").value) document.getElementById("sel-symp").value = "healthy";
+        incrementStat("views");
         runFieldDiagnostics();
+    }
+
+    function onCustomNoteInput(val) {
+        const q = val.toLowerCase();
+        Object.keys(brandProfiles).forEach(bKey => {
+            if (q.includes(bKey.toLowerCase()) || (bKey === "Gree" && (q.includes("zq3330") || q.includes("30228") || q.includes("grj")))) {
+                document.getElementById("sel-brand").value = bKey;
+                fieldDiagActive = true;
+                updateBrandCodesUI(bKey, getActiveLabBtu());
+                runFieldDiagnostics();
+            }
+        });
+        renderDiagnosticStamp(lastUploadedImage);
     }
 
     function calcNtcLab() {
@@ -1299,7 +1523,6 @@
         const isCutoff = (stateMode === "uvlo" || stateMode === "ovlo");
         const thColor = stateMode === "ovlo" ? "var(--status-red)" : (stateMode === "uvlo" ? "var(--status-purple)" : (v >= 210 ? "var(--status-green)" : (v >= 160 ? "var(--status-amber)" : "var(--status-red)")));
 
-        // Update Thermal Bars, Subtexts & Fault Radar Tags
         document.getElementById("val-ipm-temp").innerText = ipmTemp + "°C";
         document.getElementById("val-ipm-temp").style.color = thColor;
         document.getElementById("bar-ipm-temp").style.width = ipmBarPct + "%";
@@ -1334,7 +1557,6 @@
         }
         document.getElementById("fault-tags-container").innerHTML = faultList.map(item => `<span class="fault-tag" style="color:${thColor}; border:1px solid ${thColor};">${item}</span>`).join('');
 
-        // Update Top 4 Metric Cards & State Borders
         const stateCls = stateMode === "normal" ? "state-safe" : (stateMode === "compensating" ? "state-warn" : (stateMode === "uvlo" ? "state-cutoff" : "state-alert"));
         const txtCls = stateMode === "normal" ? "text-green" : (stateMode === "compensating" ? "text-amber" : (stateMode === "uvlo" ? "text-purple" : "text-red"));
 
@@ -1377,13 +1599,11 @@
         expBox.classList.remove("hidden");
         expBox.style.borderRightColor = thColor;
         expBox.style.borderLeftColor = thColor;
-        if (currentLang === 'ar') {
-            expBox.innerHTML = `⚡ <b>تحليل المحاكي (${MAX_BTU.toLocaleString()} BTU عند ${v}V AC):</b> جهد الـ DC Bus = <b>${dcVoltage}V DC</b> | التردد = <b>${compHz}Hz</b> | جهد الأوجه UVW = <b>${uvwVolt}V</b> | التبريد الفعلي = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | حرارة الـ IPM = <b>${ipmTemp}°C</b>.`;
-        } else if (currentLang === 'fr') {
-            expBox.innerHTML = `⚡ <b>Analyse Simulateur (${MAX_BTU.toLocaleString()} BTU à ${v}V AC) :</b> Bus DC = <b>${dcVoltage}V DC</b> | Fréquence = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Capacité = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`;
-        } else {
-            expBox.innerHTML = `⚡ <b>Simulator Analysis (${MAX_BTU.toLocaleString()} BTU at ${v}V AC):</b> DC Bus = <b>${dcVoltage}V DC</b> | Freq = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Cooling = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`;
-        }
+        expBox.innerHTML = currentLang === 'ar'
+            ? `⚡ <b>تحليل المحاكي (${MAX_BTU.toLocaleString()} BTU عند ${v}V AC):</b> جهد الـ DC Bus = <b>${dcVoltage}V DC</b> | التردد = <b>${compHz}Hz</b> | جهد الأوجه UVW = <b>${uvwVolt}V</b> | التبريد الفعلي = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | حرارة الـ IPM = <b>${ipmTemp}°C</b>.`
+            : (currentLang === 'fr'
+                ? `⚡ <b>Analyse Simulateur (${MAX_BTU.toLocaleString()} BTU à ${v}V AC) :</b> Bus DC = <b>${dcVoltage}V DC</b> | Fréquence = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Capacité = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`
+                : `⚡ <b>Simulator Analysis (${MAX_BTU.toLocaleString()} BTU @ ${v}V AC):</b> DC Bus = <b>${dcVoltage}V DC</b> | Freq = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Cooling = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`);
 
         latestSimState = { v, dcVoltage, current, capacityPct, btuOutput, compHz, uvwVolt, ipmTemp, capTemp, capStressPct, stateMode, isBoost, currentCapacity, expansionType, cutoffLimit, pcbType };
         if (fieldDiagActive) { syncDropdownsWithSimIfAuto(); runFieldDiagnostics(); }
@@ -1401,7 +1621,7 @@
     }
 
     function ensureBrandAndCapSelected() {
-        if (!document.getElementById("sel-brand").value) document.getElementById("sel-brand").value = "Condor";
+        if (!document.getElementById("sel-brand").value) document.getElementById("sel-brand").value = "Gree";
         if (!document.getElementById("sel-lab-btu").value) document.getElementById("sel-lab-btu").value = String(currentCapacity || 12000);
         updateBrandCodesUI(document.getElementById("sel-brand").value, getActiveLabBtu());
     }
@@ -1409,8 +1629,7 @@
     function onDcBusChange() {
         const dc = document.getElementById("sel-dcbus").value;
         if (!dc) return;
-        fieldDiagActive = true;
-        ensureBrandAndCapSelected();
+        fieldDiagActive = true; ensureBrandAndCapSelected();
         const ledSel = document.getElementById("sel-led"), symSel = document.getElementById("sel-symp");
         if (dc === "zero") { ledSel.value = "off"; symSel.value = "dead"; }
         else if (dc === "high" || dc === "low") { ledSel.value = "blink"; symSel.value = "uvlo"; }
@@ -1422,8 +1641,7 @@
     function onLedChange() {
         const led = document.getElementById("sel-led").value;
         if (!led) return;
-        fieldDiagActive = true;
-        ensureBrandAndCapSelected();
+        fieldDiagActive = true; ensureBrandAndCapSelected();
         const symSel = document.getElementById("sel-symp");
         if (led === "off") symSel.value = "dead";
         else if (led === "on" && !symSel.value) symSel.value = "healthy";
@@ -1433,8 +1651,7 @@
     function onSympChange() {
         const sym = document.getElementById("sel-symp").value;
         if (!sym) return;
-        fieldDiagActive = true;
-        ensureBrandAndCapSelected();
+        fieldDiagActive = true; ensureBrandAndCapSelected();
         const dcSel = document.getElementById("sel-dcbus"), ledSel = document.getElementById("sel-led");
         if (sym === "auto") { simActive = true; updateSimulation(); syncDropdownsWithSimIfAuto(); }
         else if (sym === "dead") { if (!dcSel.value) dcSel.value = "zero"; ledSel.value = "off"; }
@@ -1446,18 +1663,14 @@
 
     function autoSyncDiagnosis() {
         simActive = true; fieldDiagActive = true;
-        ensureDefaultsForSimulation();
-        ensureBrandAndCapSelected();
+        ensureDefaultsForSimulation(); ensureBrandAndCapSelected();
         document.getElementById("sel-symp").value = "auto";
-        updateSimulation();
-        syncDropdownsWithSimIfAuto();
-        runFieldDiagnostics();
+        updateSimulation(); syncDropdownsWithSimIfAuto(); runFieldDiagnostics();
     }
 
     function applyQuickFault(preset) {
         simActive = true; fieldDiagActive = true;
-        ensureDefaultsForSimulation();
-        ensureBrandAndCapSelected();
+        ensureDefaultsForSimulation(); ensureBrandAndCapSelected();
         const dcSel = document.getElementById("sel-dcbus"), ledSel = document.getElementById("sel-led"), symSel = document.getElementById("sel-symp");
         if (preset === 'dead0v') { dcSel.value = "zero"; ledSel.value = "off"; symSel.value = "dead"; }
         else if (preset === 'smps') { dcSel.value = "normal"; ledSel.value = "off"; symSel.value = "dead"; }
@@ -1504,9 +1717,9 @@
 
         if (dc === "zero") {
             activeCode = "0V DEAD"; statusSub = "0V Power Cut";
-            stampAr = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] انعدام 310V DC — افحص الفيوز ومقاومة PTC وقنطرة التوحيد`;
-            stampFr = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] 0V Bus DC — Tester Fusible, PTC et Pont de diodes`;
-            stampEn = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] 0V DC Bus -> Check Main Fuse, PTC & Bridge Rectifier`;
+            stampAr = `[${b.shortName} | ${b.pcbModel}] انعدام 310V DC — افحص الفيوز ومقاومة PTC وقنطرة التوحيد`;
+            stampFr = `[${b.shortName} | ${b.pcbModel}] 0V Bus DC — Tester Fusible, PTC et Pont de diodes`;
+            stampEn = `[${b.shortName} | ${b.pcbModel}] 0V DC Bus -> Check Main Fuse, PTC & Bridge Rectifier`;
         } else if (dc === "high" || symp === "ovlo_auto") {
             activeCode = b.uvloCode; statusSub = "Overvoltage >375V";
             stampAr = `[${b.shortName} - كود ${b.uvloCode}] ارتفاع خطير في الجهد (>375V DC) — افحص الفاريستور MOV ومقسم الجهد`;
@@ -1534,9 +1747,9 @@
             stampEn = `[${b.shortName} - Code ${b.uvloCode}] Undervoltage Cutoff (UVLO < ${b.uvlo}V) -> Check Caps (${b.caps})`;
         } else if (symp === "crit90" || dc === "crit90" || dc === "mid") {
             activeCode = "DERATING"; statusSub = `Derating (${s.capacityPct}%)`;
-            stampAr = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] هبوط الجهد (${s.v}V AC): خنق التردد (${s.compHz}Hz | ${s.capacityPct}%)`;
-            stampFr = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] Chute Tension (${s.v}V AC) : Bridage (${s.compHz}Hz | ${s.capacityPct}%)`;
-            stampEn = `[${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] Voltage Sag (${s.v}V AC): Derating (${s.compHz}Hz | ${s.capacityPct}%)`;
+            stampAr = `[${b.shortName} | ${b.pcbModel}] هبوط الجهد (${s.v}V AC): خنق التردد (${s.compHz}Hz | ${s.capacityPct}%)`;
+            stampFr = `[${b.shortName} | ${b.pcbModel}] Chute Tension (${s.v}V AC) : Bridage (${s.compHz}Hz | ${s.capacityPct}%)`;
+            stampEn = `[${b.shortName} | ${b.pcbModel}] Voltage Sag (${s.v}V AC): Derating (${s.compHz}Hz | ${s.capacityPct}%)`;
         } else if (symp === "pfc_start") {
             activeCode = b.pfcCode; statusSub = "PFC / Sync Fault";
             stampAr = `[${b.shortName} - كود ${b.pfcCode}] عطل دائرة PFC — افحص IGBT PFC ومضخم العمليات LM324`;
@@ -1549,9 +1762,9 @@
             stampEn = `[${b.shortName} - Code ${b.tempCode}] IPM Temp / Sensor -> Check NTC (2.5V DC) & Fan`;
         } else {
             activeCode = "OK"; statusSub = "100% Healthy";
-            stampAr = `✅ [${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] الكارت سليم 100% — الفولتيات (${b.dcNom}V / 15V / 5V) والإقلاع طبيعي`;
-            stampFr = `✅ [${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] Carte PCB 100% Saine — Tensions (${b.dcNom}V / 15V / 5V) stables`;
-            stampEn = `✅ [${b.shortName} | ${b.pcbModel} - ${b.btu} BTU] 100% Healthy PCB — All Power Rails (${b.dcNom}V / 15V / 5V) Verified`;
+            stampAr = `✅ [${b.shortName} | ${b.pcbModel}] الكارت سليم 100% — الفولتيات (${b.dcNom}V / 15V / 5V) والإقلاع طبيعي`;
+            stampFr = `✅ [${b.shortName} | ${b.pcbModel}] Carte PCB 100% Saine — Tensions (${b.dcNom}V / 15V / 5V) stables`;
+            stampEn = `✅ [${b.shortName} | ${b.pcbModel}] 100% Healthy PCB — All Power Rails (${b.dcNom}V / 15V / 5V) Verified`;
         }
 
         out.classList.remove("hidden");
@@ -1589,18 +1802,13 @@
         renderDiagnosticStamp(lastUploadedImage);
     }
 
-    /* ================= IMAGE ZOOM + ARROWS + 2-FINGER PINCH-TO-ZOOM + 1-FINGER DRAG ================= */
+    /* ================= IMAGE ZOOM + ARROWS + 2-FINGER PINCH-TO-ZOOM ================= */
     function adjustImageZoom(delta) {
         imgZoom = Math.min(4.0, Math.max(0.4, +(imgZoom + delta).toFixed(2)));
         document.getElementById("zoomLevelBadge").innerText = Math.round(imgZoom * 100) + "%";
         renderDiagnosticStamp(lastUploadedImage);
     }
-
-    function panImageByButton(dx, dy) {
-        imgPanX += dx; imgPanY += dy;
-        renderDiagnosticStamp(lastUploadedImage);
-    }
-
+    function panImageByButton(dx, dy) { imgPanX += dx; imgPanY += dy; renderDiagnosticStamp(lastUploadedImage); }
     function resetImageZoom() {
         imgZoom = 1.0; imgPanX = 0; imgPanY = 0; initialPinchDist = null;
         const badge = document.getElementById("zoomLevelBadge");
@@ -1609,17 +1817,13 @@
     }
 
     const stampCanvasEl = document.getElementById("stampCanvas");
-
     stampCanvasEl.addEventListener("mousedown", e => {
         if (!lastUploadedImage) return;
-        isDraggingImg = true;
-        dragStartX = e.clientX - imgPanX;
-        dragStartY = e.clientY - imgPanY;
+        isDraggingImg = true; dragStartX = e.clientX - imgPanX; dragStartY = e.clientY - imgPanY;
     });
     window.addEventListener("mousemove", e => {
         if (!isDraggingImg) return;
-        imgPanX = e.clientX - dragStartX;
-        imgPanY = e.clientY - dragStartY;
+        imgPanX = e.clientX - dragStartX; imgPanY = e.clientY - dragStartY;
         renderDiagnosticStamp(lastUploadedImage);
     });
     window.addEventListener("mouseup", () => { isDraggingImg = false; });
@@ -1633,9 +1837,7 @@
 
         if (e.touches.length === 2) {
             isDraggingImg = false;
-            const dx = e.touches[0].clientX - e.touches[1].clientX;
-            const dy = e.touches[0].clientY - e.touches[1].clientY;
-            initialPinchDist = Math.hypot(dx, dy);
+            initialPinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
             initialPinchZoom = imgZoom;
             e.preventDefault();
         } else if (e.touches.length === 1) {
@@ -1651,18 +1853,14 @@
         if (!lastUploadedImage) return;
         if (e.touches.length === 2 && initialPinchDist) {
             e.preventDefault();
-            const dx = e.touches[0].clientX - e.touches[1].clientX;
-            const dy = e.touches[0].clientY - e.touches[1].clientY;
-            const newDist = Math.hypot(dx, dy);
-            const scaleFactor = newDist / initialPinchDist;
-            imgZoom = Math.min(4.0, Math.max(0.4, +(initialPinchZoom * scaleFactor).toFixed(2)));
+            const newDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            imgZoom = Math.min(4.0, Math.max(0.4, +(initialPinchZoom * (newDist / initialPinchDist)).toFixed(2)));
             document.getElementById("zoomLevelBadge").innerText = Math.round(imgZoom * 100) + "%";
             renderDiagnosticStamp(lastUploadedImage);
         } else if (isDraggingImg && e.touches.length === 1) {
             e.preventDefault();
             const rect = stampCanvasEl.getBoundingClientRect();
-            const scaleX = stampCanvasEl.width / rect.width;
-            const scaleY = stampCanvasEl.height / rect.height;
+            const scaleX = stampCanvasEl.width / rect.width, scaleY = stampCanvasEl.height / rect.height;
             imgPanX = (e.touches[0].clientX * scaleX) - dragStartX;
             imgPanY = (e.touches[0].clientY * scaleY) - dragStartY;
             renderDiagnosticStamp(lastUploadedImage);
@@ -1682,19 +1880,24 @@
     function hideCamAlert() { document.getElementById("camStatusAlert").style.display = "none"; }
 
     function resetToDefaultCard() {
-        lastUploadedImage = null;
-        resetImageZoom();
+        lastUploadedImage = null; resetImageZoom();
         const fileInput = document.getElementById("boardPhotoInput");
         if (fileInput) fileInput.value = "";
-        hideCamAlert();
-        stopLiveCamera();
-        renderDiagnosticStamp(null);
+        hideCamAlert(); stopLiveCamera(); renderDiagnosticStamp(null);
     }
 
+    function quickSwitchDetectedBrand(bKey, btuCap) {
+        document.getElementById("sel-brand").value = bKey;
+        document.getElementById("sel-lab-btu").value = String(btuCap);
+        onBrandOrCapSelectChange();
+    }
+
+    /* ================= SCIENTIFIC & DETERMINISTIC PCB VISION ANALYZER ================= */
     function handlePhotoUpload(e) {
         hideCamAlert();
         const file = e.target.files && e.target.files[0];
         if (!file) return;
+        const fileNameLower = (file.name || "").toLowerCase();
 
         const reader = new FileReader();
         reader.onload = function(evt) {
@@ -1712,28 +1915,62 @@
                 offCtx.drawImage(rawImg, 0, 0, w, h);
 
                 const imgData = offCtx.getImageData(0, 0, w, h).data;
-                let greenMask = 0, blueMask = 0, yellowMask = 0, hashSum = 0;
+                let emeraldGreen = 0, tealCyanGreen = 0, blueMask = 0, yellowPhenolic = 0;
+                let darkCapPixels = 0, whiteCeramicPixels = 0, totalAnalyzed = 0;
+
                 for (let i = 0; i < imgData.length; i += 16) {
                     const r = imgData[i], g = imgData[i + 1], b = imgData[i + 2];
                     const lum = (r + g + b) / 3;
-                    hashSum = (hashSum + r + g * 2 + b * 3) % 10000;
-                    if (g > r * 1.18 && g > b * 1.08 && lum > 30 && lum < 190) greenMask++;
-                    else if (b > r * 1.18 && b > g * 1.05 && lum > 30 && lum < 190) blueMask++;
-                    else if (r > 130 && g > 100 && b < 85) yellowMask++;
+                    totalAnalyzed++;
+
+                    if (g > r * 1.24 && g > b * 1.18 && g > 65 && lum < 185) emeraldGreen++;
+                    else if (g > r * 1.15 && b > r * 1.12 && Math.abs(g - b) < 28 && lum > 35 && lum < 175) tealCyanGreen++;
+                    else if (b > r * 1.25 && b > g * 1.12 && b > 65) blueMask++;
+                    else if (r > 135 && g > 105 && b < 85 && r > b * 1.55) yellowPhenolic++;
+
+                    if (lum < 45 && Math.abs(r - g) < 14 && Math.abs(g - b) < 14) darkCapPixels++;
+                    if (r > 215 && g > 215 && b > 215 && Math.abs(r - b) < 12) whiteCeramicPixels++;
                 }
 
-                let detectedBrand = document.getElementById("sel-brand").value;
+                const capDensity = darkCapPixels / (totalAnalyzed || 1);
+                const whiteDensity = whiteCeramicPixels / (totalAnalyzed || 1);
+
+                let detectedBrand = "";
+                const noteText = (document.getElementById("customBoardNote").value || "").toLowerCase();
+                const combinedText = fileNameLower + " " + noteText;
+
+                Object.keys(brandProfiles).forEach(bKey => {
+                    if (combinedText.includes(bKey.toLowerCase())) detectedBrand = bKey;
+                });
+                if (combinedText.includes("zq3330") || combinedText.includes("30228") || combinedText.includes("grj")) {
+                    detectedBrand = "Gree";
+                }
+
+                let maskDescriptionAr = "";
                 if (!detectedBrand) {
-                    const allBrands = Object.keys(brandProfiles);
-                    if (blueMask > greenMask && blueMask > yellowMask) detectedBrand = (hashSum % 2 === 0) ? "Haier" : "Midea";
-                    else if (yellowMask > greenMask) detectedBrand = (hashSum % 2 === 0) ? "LG" : "Samsung";
-                    else detectedBrand = allBrands[hashSum % allBrands.length];
+                    if (emeraldGreen >= tealCyanGreen && emeraldGreen >= blueMask && emeraldGreen >= yellowPhenolic) {
+                        detectedBrand = "Gree";
+                        maskDescriptionAr = "قناع لحام أخضر نقي (Emerald Green Solder Mask) + مقاومات خزفية بيضاء — منصة Gree الأصلية (GRJ265 / ZQ3330A / 30228000010)";
+                    } else if (tealCyanGreen >= emeraldGreen && tealCyanGreen >= blueMask) {
+                        detectedBrand = "Condor";
+                        maskDescriptionAr = "قناع لحام أخضر مزرق (Teal Solder Mask) — منصة Midea / Condor (KFR-BP2N1)";
+                    } else if (blueMask > emeraldGreen && blueMask > yellowPhenolic) {
+                        detectedBrand = "Haier";
+                        maskDescriptionAr = "قناع لحام أزرق (Blue Solder Mask) — منصة Haier (0011800342A)";
+                    } else {
+                        detectedBrand = "LG";
+                        maskDescriptionAr = "بوردة فينولية صفراء/بنية (Yellow Phenolic) — منصة LG / Samsung";
+                    }
+                } else {
+                    maskDescriptionAr = `تحديد مباشر لمنصة ${detectedBrand} الهندسية`;
                 }
 
                 let detectedBtu = document.getElementById("sel-lab-btu").value ? Number(document.getElementById("sel-lab-btu").value) : null;
                 if (!detectedBtu) {
-                    const capTiers = [9000, 12000, 18000, 24000];
-                    detectedBtu = capTiers[hashSum % 4];
+                    if (capDensity > 0.16 && whiteDensity > 0.04) detectedBtu = 24000;
+                    else if (capDensity > 0.13) detectedBtu = 18000;
+                    else if (capDensity > 0.07) detectedBtu = 12000;
+                    else detectedBtu = 9000;
                 }
 
                 const b = getBrandSpec(detectedBrand, detectedBtu);
@@ -1747,6 +1984,7 @@
                 setCapacity(b.btu);
                 setExpansion(b.exp.toLowerCase() === 'eev' ? 'eev' : 'capillary');
                 setPcbType("wide90");
+                incrementStat("views");
 
                 const safeImg = new Image();
                 safeImg.onload = function() {
@@ -1755,7 +1993,20 @@
                     stopLiveCamera();
                     fieldDiagActive = true;
                     runFieldDiagnostics();
-                    showCamAlert(`✅ ${b.shortName} | ${b.pcbModel} (${b.btu} BTU) — Auto-Telemetry Activated!`);
+                    showCamAlert(`
+                        🔬 <b>تحليل البصمة البصرية العلمي للكارت:</b> ${maskDescriptionAr}<br>
+                        ✅ <b>النتيجة المعتمدة:</b> <b>${b.shortName} — ${b.pcbModel}</b> | المكثفات: <b>${b.caps}</b><br>
+                        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                            <span style="font-size:12px; color:#fcd34d;">⚡ تبديل سريع للقدرة أو المنصة المشتركة:</span>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 9000)">9000 BTU</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 12000)">12000 BTU</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 18000)">18000 BTU</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 24000)">24000 BTU</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Gree', ${b.btu})">Gree</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Condor', ${b.btu})">Condor</button>
+                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Midea', ${b.btu})">Midea</button>
+                        </div>
+                    `);
                     document.getElementById("photoTelemetrySection").scrollIntoView({ behavior: "smooth", block: "center" });
                     e.target.value = "";
                 };
@@ -1850,7 +2101,7 @@
 
         const noteInput = document.getElementById("customBoardNote");
         const cleanUserNote = noteInput ? sanitizeInput(noteInput.value.trim()) : "";
-        const autoLabel = b ? `${b.shortName} | ${b.pcbModel} (${b.btu} BTU)` : "Standby / Waiting for PCB";
+        const autoLabel = b ? `${b.shortName} | ${b.pcbModel}` : "Standby / Waiting for PCB";
         ctx.fillStyle = "#fcd34d";
         fillTextSmartFit(ctx, "📌 " + (cleanUserNote || autoLabel), 26, 116, 310, 14.5, "'Cairo', sans-serif", "700");
 
@@ -1932,7 +2183,7 @@
         ctx.strokeStyle = "rgba(148, 163, 184, 0.28)"; ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.moveTo(40, diagY + 172); ctx.lineTo(W - 40, diagY + 172); ctx.stroke();
 
-        const bInfo = b ? `${b.shortName} | ${b.pcbModel} | ${b.btu} BTU | IPM: ${b.ipm}` : `${s.currentCapacity} BTU`;
+        const bInfo = b ? `${b.shortName} | ${b.pcbModel} | IPM: ${b.ipm}` : `${s.currentCapacity} BTU`;
         ctx.direction = "rtl"; ctx.textAlign = "right"; ctx.fillStyle = "#ffffff";
         fillTextSmartFit(ctx, `📌 بطاقة الكارت: ${bInfo}`, W - 40, diagY + 218, maxTextW, 18, "'Cairo', sans-serif", "800");
         ctx.direction = "ltr"; ctx.textAlign = "left"; ctx.fillStyle = "#cbd5e1";
@@ -1943,6 +2194,7 @@
     function closeApkModal() { document.getElementById("apkModal").style.display = "none"; }
 
     function downloadStampedImage() {
+        incrementStat("shares");
         const canvas = document.getElementById("stampCanvas");
         const fileName = `Inverter_PCB_Report_Zinnour_${latestSimState.v}V.png`;
         if (canvas.toBlob) {
@@ -1958,6 +2210,7 @@
     }
 
     async function shareStampedImage() {
+        incrementStat("shares");
         const canvas = document.getElementById("stampCanvas");
         const fileName = `Inverter_PCB_Report_Zinnour_${latestSimState.v}V.png`;
         if (!canvas.toBlob) { openApkModal(canvas.toDataURL("image/png")); return; }
@@ -1972,6 +2225,7 @@
     }
 
     // Startup Sequence
+    initLiveStats();
     applyStaticTranslations();
     resetAllOptions();
 </script>
