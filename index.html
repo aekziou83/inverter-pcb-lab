@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: mediastream: https://fonts.googleapis.com https://fonts.gstatic.com https://api.counterapi.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://api.counterapi.dev;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: mediastream: https://fonts.googleapis.com https://fonts.gstatic.com https://api.counterapi.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://api.counterapi.dev;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>مختبر ومحاكي كارت الإنفرتر الشامل | م. أحمد زينور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-main: #0b1120; --bg-secondary: #151f32; --card-bg: rgba(30, 41, 59, 0.85);
-            --border-color: rgba(148, 163, 184, 0.22); --text-main: #f8fafc; --text-sub: #94a3b8;
-            --accent-cyan: #38bdf8; --status-green: #10b981; --status-amber: #f59e0b;
-            --status-red: #ef4444; --status-purple: #a855f7; --fb-blue: #1877f2;
-        }
+        :root { --bg-main: #0b1120; --bg-secondary: #151f32; --card-bg: rgba(30, 41, 59, 0.85); --border-color: rgba(148, 163, 184, 0.22); --text-main: #f8fafc; --text-sub: #94a3b8; --accent-cyan: #38bdf8; --status-green: #10b981; --status-amber: #f59e0b; --status-red: #ef4444; --status-purple: #a855f7; --fb-blue: #1877f2; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-user-select: none; user-select: none; }
         input, select, textarea { -webkit-user-select: text; user-select: text; }
         body { background: radial-gradient(circle at top right, #1e293b, #0b1120 70%); color: var(--text-main); font-family: 'Cairo', sans-serif; min-height: 100vh; padding: 14px 10px; display: flex; justify-content: center; }
@@ -34,7 +29,6 @@
         .lang-switch-group { display: flex; background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
         .lang-btn { background: transparent; border: none; color: var(--text-sub); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 12.5px; padding: 6px 12px; cursor: pointer; transition: 0.2s; }
         .lang-btn.active { background: var(--accent-cyan); color: #0b1120; }
-        /* Cloud-Synced Real Analytics Counter Bar */
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 14px; }
         .stat-pill { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 12px; padding: 9px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
         .stat-label { font-size: 12.5px; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 6px; }
@@ -49,7 +43,6 @@
         .main-reset-bar { display: flex; justify-content: center; margin-bottom: 14px; }
         .btn-reset-options { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; border: 1px solid #f87171; font-family: 'Cairo', sans-serif; font-size: 13.8px; font-weight: 800; padding: 9px 22px; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
         .btn-reset-options:hover { transform: translateY(-1px); filter: brightness(1.12); }
-        /* Full-Page Guide Mode */
         .info-guide-wrapper { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; min-height: 72vh; }
         .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; }
         .info-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 14px; padding: 18px 20px; }
@@ -182,7 +175,6 @@
         input[type=range] { flex: 1; -webkit-appearance: none; height: 8px; background: linear-gradient(90deg, #ef4444 0%, #f59e0b 48%, #10b981 72%, #a855f7 96%); border-radius: 10px; outline: none; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 25px; height: 25px; border-radius: 50%; background: #fff; border: 3px solid var(--accent-cyan); cursor: pointer; }
         .voltage-readout { font-family: 'JetBrains Mono', monospace; font-size: 25px; font-weight: 800; color: var(--accent-cyan); min-width: 78px; text-align: right; }
-        /* Professional Sleek 1-to-10 Rating & Direct Developer Feedback Card */
         .rating-section { background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
         .rating-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
         .rating-title { font-size: 15.5px; font-weight: 800; color: var(--accent-cyan); }
@@ -218,7 +210,6 @@
 <body>
 
 <div class="app-wrapper">
-    <!-- Top Branding Bar -->
     <div class="top-bar">
         <div class="brand-info">
             <div class="brand-dev" id="ui-dev-name">تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿</div>
@@ -239,13 +230,11 @@
         </div>
     </div>
 
-    <!-- Header -->
     <div class="header-section">
         <h1 id="ui-main-title">مختبر ومحاكي كارت الإنفرتر الشامل (Active PFC & Derating / UVLO)</h1>
         <p id="ui-sub-title">خريطة عمل جميع كروت الإنفرتر (9000 ~ 24000 BTU) • مقارنة كروت 90V وكروت الفصل القياسية وتشخيص الأعطال</p>
     </div>
 
-    <!-- Cloud-Synced Real Analytics Counter Bar (Linked across all users' phones) -->
     <div class="stats-bar">
         <div class="stat-pill">
             <div class="stat-label"><span class="stat-dot"></span><span id="lbl-stat-users">👥 المتفاعلون والمشتركون:</span></div>
@@ -264,7 +253,6 @@
         </div>
     </div>
 
-    <!-- ================= FULL-PAGE GUIDE SECTION (Hides Main Workspace When Opened) ================= -->
     <div class="info-guide-wrapper hidden" id="info-guide-box">
         <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(56,189,248,0.12); border:1px solid var(--accent-cyan); border-radius:12px; padding:12px 16px; flex-wrap:wrap; gap:10px;">
             <strong style="color:#fff; font-size:15px;" id="lbl-guide-banner">📖 أنت الآن في وضع الصفحة الكاملة لدليل الشروحات الهندسي (للعودة للبرنامج اضغط الزر المقابل)</strong>
@@ -306,13 +294,11 @@
         </div>
     </div>
 
-    <!-- ================= MAIN WORKSPACE CONTAINER ================= -->
     <div id="main-workspace-container">
         <div class="main-reset-bar">
             <button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-main">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
         </div>
 
-        <!-- Field Troubleshooter & Camera Stamp -->
         <div class="field-lab-wrapper hidden" id="field-lab-box">
             <div class="field-lab-header">
                 <div class="field-lab-title" id="lbl-lab-header">🛠️ المشخّص الميداني الشامل لأعطال الكارت (26 ماركة × 4 قدرات) + كاميرا التوثيق</div>
@@ -367,7 +353,6 @@
                 <input type="text" class="diag-input" id="searchBrandOrCode" placeholder="اكتب اسم الماركة أو رقم الكارت أو كود العطل هنا..." oninput="filterBrandsAndCodes(this.value)">
             </div>
 
-            <!-- 5 Interactive Selectors -->
             <div class="field-lab-grid">
                 <div class="diag-question-box">
                     <label class="diag-q-label" id="lbl-q0">🏷️ ماركة المكيف (26 ماركة):</label>
@@ -512,7 +497,6 @@
                     <div class="pt-instant-report" id="ptInstantReportBox"></div>
                 </div>
 
-                <!-- Zoom + 4 Directional Arrows + Pinch-to-Zoom & Touch-Drag Toolbar -->
                 <div class="zoom-toolbar">
                     <div class="zoom-row">
                         <span style="font-size:13px; font-weight:800; color:var(--accent-cyan);" id="lbl-z-title">🔍 التحكم بكادر صورة الكارت:</span>
@@ -537,7 +521,6 @@
             </div>
         </div>
 
-        <!-- Main Simulator Config Bars -->
         <div class="config-bar">
             <div class="config-box">
                 <div class="config-label" id="lbl-cap-select">❄️ قدرة المكيف (اختر القدرة لتفعيل جهود الـ DC Bus والخنق):</div>
@@ -631,7 +614,6 @@
             </div>
         </div>
 
-        <!-- ================= PROFESSIONAL SLEEK 1-TO-10 RATING & DIRECT DEVELOPER FEEDBACK ================= -->
         <div class="rating-section">
             <div class="rating-header">
                 <div class="rating-title" id="lbl-rate-title">⭐ تقييم البرنامج وإرسال ملاحظة أو رسالة للمطور (من 1 إلى 10):</div>
@@ -689,7 +671,6 @@
 </div>
 
 <script>
-    /* ================= SECURITY SHIELD ================= */
     const _0xAuth = ["أحمد زينور", "Ahmed Zinnour", "M.D.F.CH.É.É"];
     function sanitizeInput(str) { return str ? String(str).replace(/[<>'"`\\]/g, "").slice(0, 240) : ""; }
     document.addEventListener("contextmenu", e => e.preventDefault());
@@ -710,7 +691,6 @@
     }
     setInterval(enforceOwnershipIntegrity, 3000);
 
-    /* ================= GLOBAL PHONE-TO-PHONE CLOUD ANALYTICS ENGINE ================= */
     const CLOUD_NS = "aekziou83-inverter-pcb-lab-v2";
     let statsData = { users: 1, views: 1, shares: 0, joined: false };
 
@@ -719,22 +699,20 @@
     }
 
     async function cloudCounterReq(key, action = "") {
-        const path = action ? `/${action}` : "/";
+        const path = action ? `/${action}` : "";
         const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NS}/${key}${path}`, { cache: "no-store" });
-        if (!res.ok) throw new Error("Counter fetch status " + res.status);
+        if (!res.ok) throw new Error("Counter status " + res.status);
         const data = await res.json();
         return (data && typeof data.count === "number") ? data.count : null;
     }
 
     async function initLiveStats() {
-        // 1. Load last known cache immediately for zero-latency display
         try {
             const cached = JSON.parse(localStorage.getItem("zinnour_cloud_cache_v2") || "null");
             if (cached && typeof cached.views === "number") statsData = cached;
         } catch (e) {}
         renderStatsUI();
 
-        // 2. Register unique phone/device entry globally in the cloud
         let isNewDevice = false;
         try {
             if (!localStorage.getItem("zinnour_device_registered_v2")) {
@@ -743,13 +721,11 @@
             }
         } catch (e) {}
 
-        // Sync Views (increments on every visit across all phones)
         try {
             const vCount = await cloudCounterReq("views", "up");
             if (vCount !== null) statsData.views = Math.max(1, vCount);
         } catch (e) { statsData.views += 1; }
 
-        // Sync Active Users (increments globally when a new user phone enters, otherwise reads global count)
         try {
             const uCount = await cloudCounterReq("users", isNewDevice ? "up" : "");
             if (uCount !== null) statsData.users = Math.max(1, uCount);
@@ -757,7 +733,6 @@
             if (isNewDevice) statsData.users = Math.max(1, statsData.users + 1);
         }
 
-        // Sync Shares (reads global share count across all phones)
         try {
             const sCount = await cloudCounterReq("shares", "");
             if (sCount !== null) statsData.shares = Math.max(0, sCount);
@@ -782,7 +757,6 @@
         } catch (e) {}
     }
 
-    // Auto-poll every 20 seconds and when user switches back to tab so phone counters stay live
     setInterval(refreshGlobalCountersSilently, 20000);
     document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshGlobalCountersSilently(); });
 
@@ -829,12 +803,11 @@
         } catch (e) {}
     }
 
-    /* ================= PROFESSIONAL 1-TO-10 RATING & WHATSAPP DIRECT SEND ================= */
     let currentSelectedScore = 10;
-    let feedbackHistoryStack = [""];
+    let feedbackHistoryStack = [{ text: "", score: 10 }];
     const _waTarget = "213770227904";
 
-    function selectScore(n) {
+    function applyScoreVisuals(n) {
         currentSelectedScore = n;
         document.querySelectorAll("#scorePillsContainer .score-btn").forEach((btn, idx) => {
             const val = idx + 1;
@@ -843,6 +816,11 @@
         });
         updateScoreBadgeText();
     }
+    function selectScore(n) {
+        applyScoreVisuals(n);
+        const inp = document.getElementById("devFeedbackInput");
+        pushFeedbackState(inp ? inp.value : "", n);
+    }
     function updateScoreBadgeText() {
         const badge = document.getElementById("selectedScoreText");
         if (!badge) return;
@@ -850,22 +828,27 @@
         else if (currentLang === 'fr') badge.innerText = `Note choisie : ${currentSelectedScore} / 10`;
         else badge.innerText = `Selected Score: ${currentSelectedScore} / 10`;
     }
-    function recordFeedbackHistory(val) {
+    function pushFeedbackState(textVal, scoreVal) {
         const last = feedbackHistoryStack[feedbackHistoryStack.length - 1];
-        if (val !== last) {
-            feedbackHistoryStack.push(val);
-            if (feedbackHistoryStack.length > 40) feedbackHistoryStack.shift();
+        if (!last || last.text !== textVal || last.score !== scoreVal) {
+            feedbackHistoryStack.push({ text: textVal, score: scoreVal });
+            if (feedbackHistoryStack.length > 45) feedbackHistoryStack.shift();
         }
+    }
+    function recordFeedbackHistory(val) {
+        pushFeedbackState(val, currentSelectedScore);
     }
     function undoFeedbackText() {
         const inp = document.getElementById("devFeedbackInput");
         if (feedbackHistoryStack.length > 1) {
             feedbackHistoryStack.pop();
-            inp.value = feedbackHistoryStack[feedbackHistoryStack.length - 1];
-            document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar' ? "↩️ تم التراجع عن آخر كتابة" : (currentLang === 'fr' ? "↩️ Saisie annulée" : "↩️ Undone");
+            const prev = feedbackHistoryStack[feedbackHistoryStack.length - 1];
+            inp.value = prev.text;
+            applyScoreVisuals(prev.score);
+            document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar' ? "↩️ تم التراجع عن آخر تعديل" : (currentLang === 'fr' ? "↩️ Action annulée" : "↩️ Undone");
         } else {
             inp.value = "";
-            selectScore(10);
+            applyScoreVisuals(10);
             document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar' ? "↩️ تم إعادة ضبط التقييم والنص" : (currentLang === 'fr' ? "↩️ Réinitialisé" : "↩️ Reset");
         }
     }
@@ -875,17 +858,16 @@
         const waText = `⭐ *تقييم مختبر ومحاكي كارت الإنفرتر الشامل*\n` +
                        `• *التقييم:* ${currentSelectedScore} / 10\n` +
                        `• *الرسالة / الملاحظة:* ${cleanMsg || "تقييم بدون ملاحظة نصية"}`;
-        const waUrl = `https://api.whatsapp.com/send?phone=${_waTarget}&text=${encodeURIComponent(waText)}`;
+        const waUrl = `https://wa.me/${_waTarget}?text=${encodeURIComponent(waText)}`;
         incrementStat("shares");
         window.open(waUrl, "_blank", "noopener,noreferrer");
         inp.value = "";
-        feedbackHistoryStack = [""];
+        feedbackHistoryStack = [{ text: "", score: currentSelectedScore }];
         document.getElementById("feedbackStatusMsg").innerText = currentLang === 'ar'
             ? "✅ تم تجهيز تقييمك وفتح نافذة الإرسال المباشر للمطور!"
             : (currentLang === 'fr' ? "✅ Redirection vers la messagerie du développeur !" : "✅ Opening direct message to developer!");
     }
 
-    /* ================= STATE & 26 BRANDS × 4 CAPACITIES ENGINE ================= */
     let currentLang = 'ar';
     let currentCapacity = null, expansionType = null, pcbType = null;
     let simActive = false, fieldDiagActive = false;
@@ -902,32 +884,32 @@
     let latestFieldSummaryAr = "", latestFieldSummaryFr = "", latestFieldSummaryEn = "";
 
     const brandProfiles = {
-        "Gree":        { basePcb: "GRJ265 / ZQ3330A (30228000010)", mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
-        "Condor":      { basePcb: "KFR-BP2N1",                      mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0 / P4", uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Midea":       { basePcb: "17122000018",                    mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P2",   tempCode: "P2" },
-        "Iris":        { basePcb: "GRJ265-IRIS",                    mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL",    pfcCode: "L3",   tempCode: "P8" },
-        "Géant":       { basePcb: "GN-INV-V2",                      mcu: "STM32F103",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "ENIEM":       { basePcb: "ENM-BP3",                        mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "LG":          { basePcb: "EBR78480",                       mcu: "S3F84B8/DSP",  comm: "CH05",    ipmCode: "CH21",    uvloCode: "CH23",  pfcCode: "CH27", tempCode: "CH34" },
-        "Samsung":     { basePcb: "DB93-10939",                     mcu: "TMP370/DSP",   comm: "E101",    ipmCode: "E464",    uvloCode: "E466",  pfcCode: "E461", tempCode: "E474" },
-        "Haier":       { basePcb: "0011800342",                     mcu: "R5F21258SN",   comm: "E7 / 04", ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
-        "TCL":         { basePcb: "A010289-TCL",                    mcu: "SH79F6484",    comm: "E0",      ipmCode: "P0",      uvloCode: "P2",    pfcCode: "P4",   tempCode: "P6" },
-        "Hisense":     { basePcb: "1550986-HS",                     mcu: "R5F24268",     comm: "05",      ipmCode: "16",      uvloCode: "13",    pfcCode: "15",   tempCode: "EA" },
-        "AUX":         { basePcb: "AUX-BP2N1",                      mcu: "SH79F6484",    comm: "E5",      ipmCode: "P4",      uvloCode: "P1",    pfcCode: "F8",   tempCode: "P6" },
-        "Carrier":     { basePcb: "17122000027",                    mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Beko":        { basePcb: "BK-INV-G2",                      mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Brandt":      { basePcb: "BRD-WDC",                        mcu: "MN103SFA7K",   comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Stream":      { basePcb: "STM-BP-M1",                      mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Raylan":      { basePcb: "RYL-INV",                        mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Maxtor":      { basePcb: "MXT-BP2",                        mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Continental": { basePcb: "CNT-INV",                        mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Tosot":       { basePcb: "GRJ265-TST",                     mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
-        "Airwell":     { basePcb: "AW-HDLP",                        mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
-        "Candy":       { basePcb: "CND-HAI",                        mcu: "R5F21258SN",   comm: "E7",      ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
-        "Daikin":      { basePcb: "2P348159",                       mcu: "R5F524T8ADFM", comm: "U4",      ipmCode: "L5",      uvloCode: "U2",    pfcCode: "L8",   tempCode: "L4" },
-        "Mitsubishi":  { basePcb: "MUZ-SF-VE",                      mcu: "M30879FLGP",   comm: "E6",      ipmCode: "P8 / U1", uvloCode: "U2",    pfcCode: "U7",   tempCode: "P8" },
-        "Fujitsu":     { basePcb: "EZ-01211HUE",                    mcu: "MB91F467DA",   comm: "11",      ipmCode: "84",      uvloCode: "86",    pfcCode: "A1",   tempCode: "63" },
-        "Bosch":       { basePcb: "8733500142",                     mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" }
+        "Gree":        { basePcb: "GRJ265 / ZQ3330A", mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
+        "Condor":      { basePcb: "KFR-BP2N1",       mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0 / P4", uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Midea":       { basePcb: "17122000018",     mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P2",   tempCode: "P2" },
+        "Iris":        { basePcb: "GRJ265-IRIS",     mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL",    pfcCode: "L3",   tempCode: "P8" },
+        "Géant":       { basePcb: "GN-INV-V2",       mcu: "STM32F103",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "ENIEM":       { basePcb: "ENM-BP3",         mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "LG":          { basePcb: "EBR78480",        mcu: "S3F84B8/DSP",  comm: "CH05",    ipmCode: "CH21",    uvloCode: "CH23",  pfcCode: "CH27", tempCode: "CH34" },
+        "Samsung":     { basePcb: "DB93-10939",      mcu: "TMP370/DSP",   comm: "E101",    ipmCode: "E464",    uvloCode: "E466",  pfcCode: "E461", tempCode: "E474" },
+        "Haier":       { basePcb: "0011800342",      mcu: "R5F21258SN",   comm: "E7 / 04", ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
+        "TCL":         { basePcb: "A010289-TCL",     mcu: "SH79F6484",    comm: "E0",      ipmCode: "P0",      uvloCode: "P2",    pfcCode: "P4",   tempCode: "P6" },
+        "Hisense":     { basePcb: "1550986-HS",      mcu: "R5F24268",     comm: "05",      ipmCode: "16",      uvloCode: "13",    pfcCode: "15",   tempCode: "EA" },
+        "AUX":         { basePcb: "AUX-BP2N1",       mcu: "SH79F6484",    comm: "E5",      ipmCode: "P4",      uvloCode: "P1",    pfcCode: "F8",   tempCode: "P6" },
+        "Carrier":     { basePcb: "17122000027",     mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Beko":        { basePcb: "BK-INV-G2",       mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Brandt":      { basePcb: "BRD-WDC",         mcu: "MN103SFA7K",   comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Stream":      { basePcb: "STM-BP-M1",       mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Raylan":      { basePcb: "RYL-INV",         mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Maxtor":      { basePcb: "MXT-BP2",         mcu: "TMS320F28027", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Continental": { basePcb: "CNT-INV",         mcu: "SH79F6484",    comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Tosot":       { basePcb: "GRJ265-TST",      mcu: "MN103SFA7K",   comm: "E6",      ipmCode: "H5",      uvloCode: "PL/PH", pfcCode: "Hc",   tempCode: "P8" },
+        "Airwell":     { basePcb: "AW-HDLP",         mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" },
+        "Candy":       { basePcb: "CND-HAI",         mcu: "R5F21258SN",   comm: "E7",      ipmCode: "F3",      uvloCode: "F11",   pfcCode: "F21",  tempCode: "F2" },
+        "Daikin":      { basePcb: "2P348159",        mcu: "R5F524T8ADFM", comm: "U4",      ipmCode: "L5",      uvloCode: "U2",    pfcCode: "L8",   tempCode: "L4" },
+        "Mitsubishi":  { basePcb: "MUZ-SF-VE",       mcu: "M30879FLGP",   comm: "E6",      ipmCode: "P8 / U1", uvloCode: "U2",    pfcCode: "U7",   tempCode: "P8" },
+        "Fujitsu":     { basePcb: "EZ-01211HUE",     mcu: "MB91F467DA",   comm: "11",      ipmCode: "84",      uvloCode: "86",    pfcCode: "A1",   tempCode: "63" },
+        "Bosch":       { basePcb: "8733500142",      mcu: "TMS320F28035", comm: "E1",      ipmCode: "P0",      uvloCode: "P1",    pfcCode: "P4",   tempCode: "P2" }
     };
 
     const btuTierData = {
@@ -957,7 +939,6 @@
         24000: { maxBtuh: 24000, maxCurrent: 12.5, derateStartV: 202, nominalPower: 2525, targetBoostDc: 365, maxHz: 102, maxUvw: 220, thermalMult: 1.24, cutoffs: { wide90: 92, semi130: 142, standard155: 165, passive165: 175, strict185: 192 } }
     };
 
-    /* ================= COMPLETE 100% MULTILINGUAL UI MAP ================= */
     const uiMap = {
         "ui-dev-name": ["تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿", "Développement & Ingénierie : Ing. Ahmed Zinnour 🇩🇿", "Engineering Dev & Code: Eng. Ahmed Zinnour 🇩🇿"],
         "ui-group-name": ["مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É", "Groupe : Maîtrise en Froid et Climatisation M.D.F.CH.É.É", "Group: Mastery in HVAC & Refrigeration M.D.F.CH.É.É"],
@@ -1078,7 +1059,7 @@
     const radarTranslations = {
         ar: {
             thSafe: "حرارة آمنة ومستقرة", thWarn: "إجهاد حراري متوسط", thCrit: "خطر حراري مرتفع!", thCut: "حماية الفصل مفعلة (Standby)",
-            ipmNorm: "تقطيع إلكتروني مريح (حرارة طبيعية)", ipmWarn: "ارتفاع حرارة الترانزستورات بسبب تعويض الجهد", ipmCrit: "غليان حراري! خطر تلف الـ IPM والأوبتوكبلر", ipmCut: "الضاغط متوقف (حماية الكارت مفعلة)",
+            ipmNorm: "تقطيع إلكتروني مريح (حرارة طبيعية)", ipmWarn: "ارتفاع حرارة ترانزستورات الـ PFC والـ IPM", ipmCrit: "غليان حراري! خطر تلف الـ IPM", ipmCut: "الضاغط متوقف (حماية الكارت مفعلة)",
             capNorm: "تموج تيار منخفض — المكثفات في أمان", capWarn: "تموج تيار متوسط — بداية إجهاد المكثفات", capCrit: "إجهاد أقصى! خطر انتفاخ المكثفات الكيميائية", capCut: "لا يوجد سحب تيار (وضع Standby)",
             fSafe: ["✅ لا توجد أخطاء — تشغيل آمن ومثالي للكارت"],
             fWarn: ["⚠️ ارتفاع أمبير التغذية", "⚠️ بداية إجهاد مكثفات التنعيم"],
@@ -1088,7 +1069,7 @@
         },
         fr: {
             thSafe: "Température Normale", thWarn: "Stress Thermique Modéré", thCrit: "Danger Thermique PCB !", thCut: "Sécurité Coupure Active (Standby)",
-            ipmNorm: "Commutation normale — Température stable", ipmWarn: "Échauffement modéré dû à la chute de tension", ipmCrit: "Surchauffe critique ! Risque panne IPM", ipmCut: "Compresseur arrêté (Sécurité active)",
+            ipmNorm: "Commutation normale — Température stable", ipmWarn: "Échauffement modéré des transistors", ipmCrit: "Surchauffe critique ! Risque panne IPM", ipmCut: "Compresseur arrêté (Sécurité active)",
             capNorm: "Faible ondulation — Condensateurs sains", capWarn: "Ondulation moyenne — Début fatigue chimique", capCrit: "Stress maximal ! Risque gonflement condos", capCut: "Aucune charge (Mode Standby)",
             fSafe: ["✅ Aucune anomalie — Fonctionnement optimal"],
             fWarn: ["⚠️ Hausse du courant d'entrée", "⚠️ Sollicitation des condensateurs"],
@@ -1098,7 +1079,7 @@
         },
         en: {
             thSafe: "Safe Operating Temp", thWarn: "Moderate Thermal Stress", thCrit: "Critical PCB Heat Danger!", thCut: "Protection Cutoff (Standby)",
-            ipmNorm: "Optimal IGBT switching — Low thermal load", ipmWarn: "Elevated switching heat due to voltage sag", ipmCrit: "Critical heat! Risk of IPM failure", ipmCut: "Compressor halted (Protection active)",
+            ipmNorm: "Optimal IGBT switching — Low thermal load", ipmWarn: "Elevated transistor junction temp", ipmCrit: "Critical heat! Risk of IPM failure", ipmCut: "Compressor halted (Protection active)",
             capNorm: "Low ripple current — Capacitors safe", capWarn: "Moderate ripple stress — Internal heating", capCrit: "Extreme ripple! Risk of capacitor swelling", capCut: "No load on DC capacitors (Standby)",
             fSafe: ["✅ No Faults — Optimal & Safe PCB Operation"],
             fWarn: ["⚠️ Elevated Input Current", "⚠️ Moderate DC Capacitor Ripple"],
@@ -1176,7 +1157,7 @@
             if (q && !textMatch) return;
             const opt = document.createElement("option");
             opt.value = bKey;
-            opt.textContent = `${bKey} — [${p.basePcb}] (9K / 12K / 18K / 24K BTU)`;
+            opt.textContent = `${bKey} — [${p.basePcb}]`;
             brandSel.appendChild(opt);
         });
         if (currentSelected && brandSel.querySelector(`option[value="${currentSelected}"]`)) {
@@ -1886,7 +1867,6 @@
         renderDiagnosticStamp(lastUploadedImage);
     }
 
-    /* ================= IMAGE ZOOM + ARROWS + 2-FINGER PINCH-TO-ZOOM ================= */
     function adjustImageZoom(delta) {
         imgZoom = Math.min(4.0, Math.max(0.4, +(imgZoom + delta).toFixed(2)));
         document.getElementById("zoomLevelBadge").innerText = Math.round(imgZoom * 100) + "%";
@@ -2002,7 +1982,6 @@
         `);
     }
 
-    /* ================= SCIENTIFIC & DETERMINISTIC PCB VISION ANALYZER ================= */
     function handlePhotoUpload(e) {
         hideCamAlert();
         const file = e.target.files && e.target.files[0];
@@ -2334,7 +2313,6 @@
         }, "image/png");
     }
 
-    // Startup Sequence
     initLiveStats();
     applyStaticTranslations();
     resetAllOptions();
