@@ -34,13 +34,13 @@
         .lang-switch-group { display: flex; background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
         .lang-btn { background: transparent; border: none; color: var(--text-sub); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 12.5px; padding: 6px 12px; cursor: pointer; transition: 0.2s; }
         .lang-btn.active { background: var(--accent-cyan); color: #0b1120; }
-        /* Real Honest Analytics Counter Bar */
+        /* Cloud-Synced Real Analytics Counter Bar */
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 14px; }
         .stat-pill { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 12px; padding: 9px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
         .stat-label { font-size: 12.5px; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 6px; }
         .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--status-green); box-shadow: 0 0 8px var(--status-green); animation: pulseDot 1.5s infinite; }
         @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 15.5px; font-weight: 800; color: var(--accent-cyan); direction: ltr; unicode-bidi: isolate; background: rgba(56, 189, 248, 0.1); padding: 2px 10px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.25); }
+        .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 15.5px; font-weight: 800; color: var(--accent-cyan); direction: ltr; unicode-bidi: isolate; background: rgba(56, 189, 248, 0.1); padding: 2px 10px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.25); min-width: 42px; text-align: center; }
         .sub-join-btn { background: rgba(16, 185, 129, 0.16); border: 1px solid var(--status-green); color: #6ee7b7; font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 7px; cursor: pointer; transition: 0.2s; }
         .sub-join-btn:hover, .sub-join-btn.joined { background: var(--status-green); color: #0b1120; }
         .header-section { text-align: center; margin-bottom: 12px; }
@@ -117,7 +117,7 @@
         .cam-btn:hover { background: var(--accent-cyan); color: #0b1120; }
         .cam-btn.btn-download { background: var(--status-green); border-color: var(--status-green); color: #0b1120; font-size: 14px; }
         .cam-btn.btn-share { background: linear-gradient(135deg, #38bdf8, #0284c7); border-color: #38bdf8; color: #0b1120; font-size: 14px; }
-        .cam-status-alert { display: none; background: rgba(16, 185, 129, 0.14); border: 1px solid var(--status-green); color: #6ee7b7; border-radius: 10px; padding: 12px 14px; margin: 10px auto; max-width: 680px; font-size: 13px; font-weight: 700; line-height: 1.7; text-align: right; }
+        .cam-status-alert { display: none; background: rgba(16, 185, 129, 0.14); border: 1px solid var(--status-green); color: #6ee7b7; border-radius: 10px; padding: 12px 14px; margin: 10px auto; max-width: 680px; font-size: 13px; font-weight: 700; line-height: 1.7; text-align: start; }
         #liveVideoContainer { display: none; margin: 10px auto; max-width: 520px; position: relative; }
         #cameraStream { width: 100%; border-radius: 12px; border: 2px solid var(--accent-cyan); }
         .canvas-preview-wrap { margin-top: 6px; display: flex; flex-direction: column; align-items: center; width: 100%; overflow: hidden; }
@@ -245,7 +245,7 @@
         <p id="ui-sub-title">خريطة عمل جميع كروت الإنفرتر (9000 ~ 24000 BTU) • مقارنة كروت 90V وكروت الفصل القياسية وتشخيص الأعطال</p>
     </div>
 
-    <!-- Real Honest Analytics Counter Bar (Starts from Real Actual Usage) -->
+    <!-- Cloud-Synced Real Analytics Counter Bar (Linked across all users' phones) -->
     <div class="stats-bar">
         <div class="stat-pill">
             <div class="stat-label"><span class="stat-dot"></span><span id="lbl-stat-users">👥 المتفاعلون والمشتركون:</span></div>
@@ -464,7 +464,7 @@
 
             <div class="cam-studio-box">
                 <div class="cam-studio-title" id="lbl-cam-title">📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)</div>
-                <div class="cam-studio-sub" id="lbl-cam-sub">المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع تحليل علمي دقيق لبصمة الكارت (Gree / Condor / Midea / LG / Samsung / Haier...).</div>
+                <div class="cam-studio-sub" id="lbl-cam-sub">المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع تحليل علمي دقيق لبصمة الكارت.</div>
 
                 <div class="lab-volt-bar">
                     <span style="font-size:12.5px; font-weight:700; color:var(--accent-cyan);" id="lbl-lab-vbar">⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:</span>
@@ -710,24 +710,82 @@
     }
     setInterval(enforceOwnershipIntegrity, 3000);
 
-    /* ================= REAL HONEST ANALYTICS COUNTERS (NO FAKE NUMBERS) ================= */
+    /* ================= GLOBAL PHONE-TO-PHONE CLOUD ANALYTICS ENGINE ================= */
+    const CLOUD_NS = "aekziou83-inverter-pcb-lab-v2";
     let statsData = { users: 1, views: 1, shares: 0, joined: false };
-    function initLiveStats() {
+
+    function saveStatsCache() {
+        try { localStorage.setItem("zinnour_cloud_cache_v2", JSON.stringify(statsData)); } catch (e) {}
+    }
+
+    async function cloudCounterReq(key, action = "") {
+        const path = action ? `/${action}` : "/";
+        const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NS}/${key}${path}`, { cache: "no-store" });
+        if (!res.ok) throw new Error("Counter fetch status " + res.status);
+        const data = await res.json();
+        return (data && typeof data.count === "number") ? data.count : null;
+    }
+
+    async function initLiveStats() {
+        // 1. Load last known cache immediately for zero-latency display
         try {
-            const saved = JSON.parse(localStorage.getItem("zinnour_real_stats_v2") || "null");
-            if (saved && typeof saved.views === "number") {
-                statsData = saved;
-            }
-            statsData.views += 1;
-            localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData));
+            const cached = JSON.parse(localStorage.getItem("zinnour_cloud_cache_v2") || "null");
+            if (cached && typeof cached.views === "number") statsData = cached;
         } catch (e) {}
         renderStatsUI();
-        // Sync with real live counter API for GitHub Pages if online
-        fetch("https://api.counterapi.dev/v1/aekziou83-inverter-pcb-lab/views/up")
-            .then(r => r.json())
-            .then(d => { if (d && typeof d.count === "number") { statsData.views = d.count; renderStatsUI(); } })
-            .catch(() => {});
+
+        // 2. Register unique phone/device entry globally in the cloud
+        let isNewDevice = false;
+        try {
+            if (!localStorage.getItem("zinnour_device_registered_v2")) {
+                isNewDevice = true;
+                localStorage.setItem("zinnour_device_registered_v2", "1");
+            }
+        } catch (e) {}
+
+        // Sync Views (increments on every visit across all phones)
+        try {
+            const vCount = await cloudCounterReq("views", "up");
+            if (vCount !== null) statsData.views = Math.max(1, vCount);
+        } catch (e) { statsData.views += 1; }
+
+        // Sync Active Users (increments globally when a new user phone enters, otherwise reads global count)
+        try {
+            const uCount = await cloudCounterReq("users", isNewDevice ? "up" : "");
+            if (uCount !== null) statsData.users = Math.max(1, uCount);
+        } catch (e) {
+            if (isNewDevice) statsData.users = Math.max(1, statsData.users + 1);
+        }
+
+        // Sync Shares (reads global share count across all phones)
+        try {
+            const sCount = await cloudCounterReq("shares", "");
+            if (sCount !== null) statsData.shares = Math.max(0, sCount);
+        } catch (e) {}
+
+        saveStatsCache();
+        renderStatsUI();
     }
+
+    async function refreshGlobalCountersSilently() {
+        try {
+            const [u, v, s] = await Promise.allSettled([
+                cloudCounterReq("users", ""),
+                cloudCounterReq("views", ""),
+                cloudCounterReq("shares", "")
+            ]);
+            if (u.status === "fulfilled" && u.value !== null) statsData.users = Math.max(1, u.value);
+            if (v.status === "fulfilled" && v.value !== null) statsData.views = Math.max(1, v.value);
+            if (s.status === "fulfilled" && s.value !== null) statsData.shares = Math.max(0, s.value);
+            saveStatsCache();
+            renderStatsUI();
+        } catch (e) {}
+    }
+
+    // Auto-poll every 20 seconds and when user switches back to tab so phone counters stay live
+    setInterval(refreshGlobalCountersSilently, 20000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshGlobalCountersSilently(); });
+
     function renderStatsUI() {
         document.getElementById("val-stat-users").innerText = String(statsData.users);
         document.getElementById("val-stat-views").innerText = String(statsData.views);
@@ -740,22 +798,41 @@
                 : (currentLang === 'ar' ? "+ اشتراك" : (currentLang === 'fr' ? "+ S'abonner" : "+ Subscribe"));
         }
     }
-    function incrementStat(key) {
+
+    async function incrementStat(key) {
         statsData[key] = (statsData[key] || 0) + 1;
-        try { localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData)); } catch (e) {}
+        saveStatsCache();
         renderStatsUI();
+        try {
+            const newCount = await cloudCounterReq(key, "up");
+            if (newCount !== null) {
+                statsData[key] = newCount;
+                saveStatsCache();
+                renderStatsUI();
+            }
+        } catch (e) {}
     }
-    function toggleUserSubscribe() {
+
+    async function toggleUserSubscribe() {
         statsData.joined = !statsData.joined;
+        const action = statsData.joined ? "up" : "down";
         statsData.users = Math.max(1, statsData.users + (statsData.joined ? 1 : -1));
-        try { localStorage.setItem("zinnour_real_stats_v2", JSON.stringify(statsData)); } catch (e) {}
+        saveStatsCache();
         renderStatsUI();
+        try {
+            const uCount = await cloudCounterReq("users", action);
+            if (uCount !== null) {
+                statsData.users = Math.max(1, uCount);
+                saveStatsCache();
+                renderStatsUI();
+            }
+        } catch (e) {}
     }
 
     /* ================= PROFESSIONAL 1-TO-10 RATING & WHATSAPP DIRECT SEND ================= */
     let currentSelectedScore = 10;
     let feedbackHistoryStack = [""];
-    const _waTarget = "213770227904"; // Encapsulated internally — never displayed as a phone box
+    const _waTarget = "213770227904";
 
     function selectScore(n) {
         currentSelectedScore = n;
@@ -799,6 +876,7 @@
                        `• *التقييم:* ${currentSelectedScore} / 10\n` +
                        `• *الرسالة / الملاحظة:* ${cleanMsg || "تقييم بدون ملاحظة نصية"}`;
         const waUrl = `https://api.whatsapp.com/send?phone=${_waTarget}&text=${encodeURIComponent(waText)}`;
+        incrementStat("shares");
         window.open(waUrl, "_blank", "noopener,noreferrer");
         inp.value = "";
         feedbackHistoryStack = [""];
@@ -811,7 +889,7 @@
     let currentLang = 'ar';
     let currentCapacity = null, expansionType = null, pcbType = null;
     let simActive = false, fieldDiagActive = false;
-    let lastUploadedImage = null, videoStreamObj = null;
+    let lastUploadedImage = null, videoStreamObj = null, lastVisionData = null;
     let latestNtcSummary = "", latestUvwSummary = "";
     let imgZoom = 1.0, imgPanX = 0, imgPanY = 0, isDraggingImg = false, dragStartX = 0, dragStartY = 0, initialPinchDist = null, initialPinchZoom = 1.0;
 
@@ -879,7 +957,7 @@
         24000: { maxBtuh: 24000, maxCurrent: 12.5, derateStartV: 202, nominalPower: 2525, targetBoostDc: 365, maxHz: 102, maxUvw: 220, thermalMult: 1.24, cutoffs: { wide90: 92, semi130: 142, standard155: 165, passive165: 175, strict185: 192 } }
     };
 
-    /* ================= COMPLETE 100% MULTILINGUAL UI MAP (ALL IDs INCLUDED) ================= */
+    /* ================= COMPLETE 100% MULTILINGUAL UI MAP ================= */
     const uiMap = {
         "ui-dev-name": ["تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿", "Développement & Ingénierie : Ing. Ahmed Zinnour 🇩🇿", "Engineering Dev & Code: Eng. Ahmed Zinnour 🇩🇿"],
         "ui-group-name": ["مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É", "Groupe : Maîtrise en Froid et Climatisation M.D.F.CH.É.É", "Group: Mastery in HVAC & Refrigeration M.D.F.CH.É.É"],
@@ -1156,6 +1234,7 @@
             updateBrandCodesUI(document.getElementById("sel-brand").value, getActiveLabBtu());
             runFieldDiagnostics();
         }
+        if (lastVisionData) renderVisionAlertBox();
         calcNtcLab();
         calcUvwLab();
         renderDiagnosticStamp(lastUploadedImage);
@@ -1186,7 +1265,7 @@
         document.getElementById("nd-mcu-limit").innerText = waitTxt;
         if (!fieldDiagActive) {
             const unSel = currentLang === 'ar' ? "-- غير محدد --" : (currentLang === 'fr' ? "-- Non sélectionné --" : "-- Not Selected --");
-            document.getElementById("cardTitleBrand").innerText = currentLang === 'ar' ? "بطاقة تعريف الكارت الذكية (PCB ID Card)" : "Smart PCB ID Card";
+            document.getElementById("cardTitleBrand").innerText = currentLang === 'ar' ? "بطاقة تعريف الكارت الذكية (PCB ID Card)" : (currentLang === 'fr' ? "Carte d'Identité PCB Intelligente" : "Smart PCB ID Card");
             document.getElementById("cardModelBadge").innerText = unSel;
             document.getElementById("specBrandBtu").innerText = unSel;
         }
@@ -1267,7 +1346,7 @@
     function resetAllOptions() {
         simActive = false; fieldDiagActive = false;
         currentCapacity = null; expansionType = null; pcbType = null;
-        lastUploadedImage = null; latestNtcSummary = ""; latestUvwSummary = "";
+        lastUploadedImage = null; lastVisionData = null; latestNtcSummary = ""; latestUvwSummary = "";
         latestFieldSummaryAr = ""; latestFieldSummaryFr = ""; latestFieldSummaryEn = "";
         resetImageZoom();
 
@@ -1353,7 +1432,9 @@
     function updateBrandCodesUI(bKey, btuCap) {
         const b = getBrandSpec(bKey, btuCap);
         if (!b) return;
-        document.getElementById("cardTitleBrand").innerText = currentLang === 'ar' ? `بطاقة تعريف الكارت الذكية — ${b.shortName}` : `Smart PCB ID Card — ${b.shortName}`;
+        document.getElementById("cardTitleBrand").innerText = currentLang === 'ar'
+            ? `بطاقة تعريف الكارت الذكية — ${b.shortName}`
+            : (currentLang === 'fr' ? `Carte d'Identité PCB — ${b.shortName}` : `Smart PCB ID Card — ${b.shortName}`);
         document.getElementById("cardModelBadge").innerText = b.pcbModel;
         document.getElementById("specBrandBtu").innerText = `${b.shortName} | ${b.btu} BTU`;
         document.getElementById("specExpansion").innerText = b.exp;
@@ -1367,10 +1448,10 @@
         const pTxt = currentLang === 'ar' ? "-- تحديد الاختيار --" : (currentLang === 'fr' ? "-- Choisir Symptôme --" : "-- Select Symptom --");
         symSel.innerHTML = `
             <option value="">${pTxt}</option>
-            <option value="auto">🔄 Auto (${currentLang === 'ar' ? 'تلقائي حسب الجهد' : 'Auto Sync'})</option>
-            <option value="comm">${currentLang === 'ar' ? 'خطأ اتصال' : 'Comm Error'} [${b.comm}]</option>
-            <option value="ipm">${currentLang === 'ar' ? 'حماية IPM' : 'IPM Trip'} [${b.ipmCode}]</option>
-            <option value="uvlo">${currentLang === 'ar' ? 'حماية الجهد' : 'Voltage UVLO'} [${b.uvloCode}]</option>
+            <option value="auto">🔄 Auto (${currentLang === 'ar' ? 'تلقائي حسب الجهد' : (currentLang === 'fr' ? 'Synchro Auto' : 'Auto Sync')})</option>
+            <option value="comm">${currentLang === 'ar' ? 'خطأ اتصال' : (currentLang === 'fr' ? 'Erreur Comm' : 'Comm Error')} [${b.comm}]</option>
+            <option value="ipm">${currentLang === 'ar' ? 'حماية IPM' : (currentLang === 'fr' ? 'Sécurité IPM' : 'IPM Trip')} [${b.ipmCode}]</option>
+            <option value="uvlo">${currentLang === 'ar' ? 'حماية الجهد' : (currentLang === 'fr' ? 'Coupure UVLO' : 'Voltage UVLO')} [${b.uvloCode}]</option>
             <option value="crit90">Derating (90V~185V)</option>
             <option value="pfc_start">PFC Fault [${b.pfcCode}]</option>
             <option value="temp_fan">IPM Temp / NTC [${b.tempCode}]</option>
@@ -1450,15 +1531,18 @@
         const uv = parseFloat(uvStr), vw = parseFloat(vwStr), uw = parseFloat(uwStr);
         if (uv <= 0.2 || vw <= 0.2 || uw <= 0.2) {
             latestUvwSummary = `UVW Short (${uv}/${vw}/${uw}Ω)`;
-            box.innerHTML = `<span style="color:var(--status-red); font-weight:700;">🚨 Short (&lt;0.3Ω) — Do NOT install new IPM!</span>`;
+            const shortMsg = currentLang === 'ar' ? "🚨 شورت في الضاغط (<0.3Ω) — لا تركب كارت جديد!" : (currentLang === 'fr' ? "🚨 Court-circuit (<0.3Ω) — Ne pas installer l'IPM !" : "🚨 Short (<0.3Ω) — Do NOT install new IPM!");
+            box.innerHTML = `<span style="color:var(--status-red); font-weight:700;">${shortMsg}</span>`;
             return;
         }
         const avg = (uv + vw + uw) / 3;
         const unbalancePct = ((Math.max(Math.abs(uv - avg), Math.abs(vw - avg), Math.abs(uw - avg)) / avg) * 100).toFixed(1);
         latestUvwSummary = `UVW: ${uv}/${vw}/${uw}Ω (Diff: ${unbalancePct}%)`;
+        const okMsg = currentLang === 'ar' ? `✅ ملفات متزنة وسليمة (الفرق ${unbalancePct}%)` : (currentLang === 'fr' ? `✅ Enroulements équilibrés (Écart ${unbalancePct}%)` : `✅ Balanced OK (Diff ${unbalancePct}%)`);
+        const warnMsg = currentLang === 'ar' ? `⚠️ عدم اتزان في الملفات (${unbalancePct}%)!` : (currentLang === 'fr' ? `⚠️ Déséquilibre enroulements (${unbalancePct}%) !` : `⚠️ Unbalanced (${unbalancePct}%)!`);
         box.innerHTML = unbalancePct <= 5.0
-            ? `<span style="color:var(--status-green); font-weight:700;">✅ Balanced OK (Diff ${unbalancePct}%)</span>`
-            : `<span style="color:var(--status-amber); font-weight:700;">⚠️ Unbalanced (${unbalancePct}%)!</span>`;
+            ? `<span style="color:var(--status-green); font-weight:700;">${okMsg}</span>`
+            : `<span style="color:var(--status-amber); font-weight:700;">${warnMsg}</span>`;
     }
 
     function stampUvwResult() {
@@ -1880,7 +1964,7 @@
     function hideCamAlert() { document.getElementById("camStatusAlert").style.display = "none"; }
 
     function resetToDefaultCard() {
-        lastUploadedImage = null; resetImageZoom();
+        lastUploadedImage = null; lastVisionData = null; resetImageZoom();
         const fileInput = document.getElementById("boardPhotoInput");
         if (fileInput) fileInput.value = "";
         hideCamAlert(); stopLiveCamera(); renderDiagnosticStamp(null);
@@ -1889,7 +1973,33 @@
     function quickSwitchDetectedBrand(bKey, btuCap) {
         document.getElementById("sel-brand").value = bKey;
         document.getElementById("sel-lab-btu").value = String(btuCap);
+        if (lastVisionData) { lastVisionData.brand = bKey; lastVisionData.btu = btuCap; renderVisionAlertBox(); }
         onBrandOrCapSelectChange();
+    }
+
+    function renderVisionAlertBox() {
+        if (!lastVisionData) return;
+        const b = getBrandSpec(lastVisionData.brand, lastVisionData.btu);
+        if (!b) return;
+        const desc = currentLang === 'ar' ? lastVisionData.ar : (currentLang === 'fr' ? lastVisionData.fr : lastVisionData.en);
+        const headTxt = currentLang === 'ar' ? "🔬 تحليل البصمة البصرية العلمي للكارت:" : (currentLang === 'fr' ? "🔬 Analyse Visuelle Scientifique PCB :" : "🔬 Scientific PCB Visual Analysis:");
+        const resTxt = currentLang === 'ar' ? "✅ النتيجة المعتمدة:" : (currentLang === 'fr' ? "✅ Résultat Identifié :" : "✅ Identified Board:");
+        const swTxt = currentLang === 'ar' ? "⚡ تبديل سريع للقدرة أو المنصة المشتركة:" : (currentLang === 'fr' ? "⚡ Changement rapide capacité / marque :" : "⚡ Quick Switch Capacity / Platform:");
+
+        showCamAlert(`
+            <b>${headTxt}</b> ${desc}<br>
+            <b>${resTxt}</b> <b>${b.shortName} — ${b.pcbModel}</b> | Caps: <b>${b.caps}</b><br>
+            <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span style="font-size:12px; color:#fcd34d;">${swTxt}</span>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 9000)">9000 BTU</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 12000)">12000 BTU</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 18000)">18000 BTU</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 24000)">24000 BTU</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Gree', ${b.btu})">Gree</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Condor', ${b.btu})">Condor</button>
+                <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Midea', ${b.btu})">Midea</button>
+            </div>
+        `);
     }
 
     /* ================= SCIENTIFIC & DETERMINISTIC PCB VISION ANALYZER ================= */
@@ -1946,23 +2056,33 @@
                     detectedBrand = "Gree";
                 }
 
-                let maskDescriptionAr = "";
+                let descAr = "", descFr = "", descEn = "";
                 if (!detectedBrand) {
                     if (emeraldGreen >= tealCyanGreen && emeraldGreen >= blueMask && emeraldGreen >= yellowPhenolic) {
                         detectedBrand = "Gree";
-                        maskDescriptionAr = "قناع لحام أخضر نقي (Emerald Green Solder Mask) + مقاومات خزفية بيضاء — منصة Gree الأصلية (GRJ265 / ZQ3330A / 30228000010)";
+                        descAr = "قناع لحام أخضر نقي (Emerald Green) + مقاومات خزفية بيضاء — منصة Gree الأصلية (GRJ265 / ZQ3330A / 30228000010)";
+                        descFr = "Vernis vert émeraude + résistances céramiques blanches — Plateforme Gree (GRJ265 / ZQ3330A / 30228000010)";
+                        descEn = "Emerald Green Solder Mask + White Cement Resistors — Original Gree Platform (GRJ265 / ZQ3330A / 30228000010)";
                     } else if (tealCyanGreen >= emeraldGreen && tealCyanGreen >= blueMask) {
                         detectedBrand = "Condor";
-                        maskDescriptionAr = "قناع لحام أخضر مزرق (Teal Solder Mask) — منصة Midea / Condor (KFR-BP2N1)";
+                        descAr = "قناع لحام أخضر مزرق (Teal Solder Mask) — منصة Midea / Condor (KFR-BP2N1)";
+                        descFr = "Vernis vert-bleu (Teal) — Plateforme Midea / Condor (KFR-BP2N1)";
+                        descEn = "Teal Solder Mask — Midea / Condor Platform (KFR-BP2N1)";
                     } else if (blueMask > emeraldGreen && blueMask > yellowPhenolic) {
                         detectedBrand = "Haier";
-                        maskDescriptionAr = "قناع لحام أزرق (Blue Solder Mask) — منصة Haier (0011800342A)";
+                        descAr = "قناع لحام أزرق (Blue Solder Mask) — منصة Haier (0011800342A)";
+                        descFr = "Vernis bleu — Plateforme Haier (0011800342A)";
+                        descEn = "Blue Solder Mask — Haier Platform (0011800342A)";
                     } else {
                         detectedBrand = "LG";
-                        maskDescriptionAr = "بوردة فينولية صفراء/بنية (Yellow Phenolic) — منصة LG / Samsung";
+                        descAr = "بوردة فينولية صفراء/بنية (Yellow Phenolic) — منصة LG / Samsung";
+                        descFr = "Carte phénolique jaune/brune — Plateforme LG / Samsung";
+                        descEn = "Yellow/Tan Phenolic Board — LG / Samsung Platform";
                     }
                 } else {
-                    maskDescriptionAr = `تحديد مباشر لمنصة ${detectedBrand} الهندسية`;
+                    descAr = `تحديد مباشر لمنصة ${detectedBrand} الهندسية`;
+                    descFr = `Identification directe de la plateforme ${detectedBrand}`;
+                    descEn = `Direct identification of ${detectedBrand} platform`;
                 }
 
                 let detectedBtu = document.getElementById("sel-lab-btu").value ? Number(document.getElementById("sel-lab-btu").value) : null;
@@ -1986,6 +2106,8 @@
                 setPcbType("wide90");
                 incrementStat("views");
 
+                lastVisionData = { brand: detectedBrand, btu: detectedBtu, ar: descAr, fr: descFr, en: descEn };
+
                 const safeImg = new Image();
                 safeImg.onload = function() {
                     lastUploadedImage = safeImg;
@@ -1993,20 +2115,7 @@
                     stopLiveCamera();
                     fieldDiagActive = true;
                     runFieldDiagnostics();
-                    showCamAlert(`
-                        🔬 <b>تحليل البصمة البصرية العلمي للكارت:</b> ${maskDescriptionAr}<br>
-                        ✅ <b>النتيجة المعتمدة:</b> <b>${b.shortName} — ${b.pcbModel}</b> | المكثفات: <b>${b.caps}</b><br>
-                        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                            <span style="font-size:12px; color:#fcd34d;">⚡ تبديل سريع للقدرة أو المنصة المشتركة:</span>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 9000)">9000 BTU</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 12000)">12000 BTU</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 18000)">18000 BTU</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 24000)">24000 BTU</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Gree', ${b.btu})">Gree</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Condor', ${b.btu})">Condor</button>
-                            <button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Midea', ${b.btu})">Midea</button>
-                        </div>
-                    `);
+                    renderVisionAlertBox();
                     document.getElementById("photoTelemetrySection").scrollIntoView({ behavior: "smooth", block: "center" });
                     e.target.value = "";
                 };
@@ -2050,6 +2159,7 @@
             stopLiveCamera();
             ensureBrandAndCapSelected();
             fieldDiagActive = true; simActive = true;
+            incrementStat("views");
             updateSimulation(); runFieldDiagnostics();
         };
         img.src = tempCanvas.toDataURL("image/jpeg", 0.92);
