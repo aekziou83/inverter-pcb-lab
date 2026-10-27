@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: mediastream: https://fonts.googleapis.com https://fonts.gstatic.com https://api.counterapi.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://api.counterapi.dev; manifest-src 'self'; worker-src 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>مختبر ومحاكي كارت الإنفرتر الشامل | م. أحمد زينور</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0b1120">
+<link rel="apple-touch-icon" href="./icon-512.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg-main:#0b1120;--bg-secondary:#151f32;--card-bg:rgba(30,41,59,0.85);--border-color:rgba(148,163,184,0.22);--text-main:#f8fafc;--text-sub:#94a3b8;--accent-cyan:#38bdf8;--status-green:#10b981;--status-amber:#f59e0b;--status-red:#ef4444;--status-purple:#a855f7;--fb-blue:#1877f2}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none}
+input,select,textarea{-webkit-user-select:text;user-select:text}
+body{background:radial-gradient(circle at top right,#1e293b,#0b1120 70%);color:var(--text-main);font-family:'Cairo',sans-serif;min-height:100vh;padding:12px 10px;display:flex;justify-content:center}
+.app-wrapper{max-width:1020px;width:100%}.hidden{display:none!important}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(30,41,59,0.95),rgba(15,23,42,0.98));border:1px solid rgba(56,189,248,0.35);border-radius:16px;padding:12px 18px;margin-bottom:12px;box-shadow:0 10px 25px -5px rgba(0,0,0,0.5);flex-wrap:wrap;gap:10px}
+.brand-info{display:flex;flex-direction:column}.brand-dev{font-size:17.5px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}.brand-group{font-size:13px;font-weight:600;color:var(--accent-cyan);margin-top:2px}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.social-pill{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:10px;color:#fff;background:rgba(24,119,242,0.22);border:1px solid var(--fb-blue);transition:.2s}.social-pill svg{width:15px;height:15px;fill:currentColor}.social-pill:hover{background:var(--fb-blue);transform:translateY(-2px)}
+.action-btn{background:rgba(56,189,248,0.14);border:1px solid var(--accent-cyan);color:var(--accent-cyan);font-family:'Cairo',sans-serif;font-weight:700;font-size:12.5px;padding:6px 12px;border-radius:10px;cursor:pointer;transition:.2s}.action-btn:hover,.action-btn.active-mode{background:var(--accent-cyan);color:#0b1120}
+.action-btn-pro{background:linear-gradient(135deg,rgba(16,185,129,0.22),rgba(56,189,248,0.22));border:1px solid var(--status-green);color:#6ee7b7}.action-btn-pro:hover,.action-btn-pro.active-mode{background:var(--status-green);color:#0b1120}
+.lang-switch-group{display:flex;background:rgba(15,23,42,0.85);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}.lang-btn{background:transparent;border:none;color:var(--text-sub);font-family:'Cairo',sans-serif;font-weight:700;font-size:12.5px;padding:6px 11px;cursor:pointer;transition:.2s}.lang-btn.active{background:var(--accent-cyan);color:#0b1120}
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-bottom:12px}
+.stat-pill{background:rgba(15,23,42,0.9);border:1px solid rgba(56,189,248,0.28);border-radius:12px;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stat-label{font-size:12.3px;font-weight:700;color:#cbd5e1;display:flex;align-items:center;gap:6px}.stat-dot{width:8px;height:8px;border-radius:50%;background:var(--status-green);box-shadow:0 0 8px var(--status-green);animation:pulseDot 1.5s infinite}@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:var(--accent-cyan);direction:ltr;unicode-bidi:isolate;background:rgba(56,189,248,0.1);padding:2px 10px;border-radius:6px;border:1px solid rgba(56,189,248,0.25);min-width:42px;text-align:center}
+.sub-join-btn{background:rgba(16,185,129,0.16);border:1px solid var(--status-green);color:#6ee7b7;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;cursor:pointer;transition:.2s}.sub-join-btn:hover,.sub-join-btn.joined{background:var(--status-green);color:#0b1120}
+.header-section{text-align:center;margin-bottom:12px}.header-section h1{font-size:21px;font-weight:800;background:linear-gradient(90deg,#fff,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.header-section p{font-size:12.8px;color:var(--text-sub);margin-top:3px}
+.main-reset-bar{display:flex;justify-content:center;margin-bottom:12px}.btn-reset-options{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;border:1px solid #f87171;font-family:'Cairo',sans-serif;font-size:13.5px;font-weight:800;padding:8px 20px;border-radius:12px;cursor:pointer;box-shadow:0 4px 14px rgba(239,68,68,0.35);transition:.2s;display:inline-flex;align-items:center;gap:8px}.btn-reset-options:hover{transform:translateY(-1px);filter:brightness(1.12)}
+.info-guide-wrapper{display:flex;flex-direction:column;gap:14px;margin-bottom:18px;min-height:72vh}.guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px}
+.info-card{background:linear-gradient(145deg,rgba(30,41,59,0.95),rgba(15,23,42,0.98));border:1px solid rgba(56,189,248,0.4);border-radius:14px;padding:16px 18px}
+.info-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:15.5px;font-weight:800;color:var(--accent-cyan);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border-color)}.info-card-body{font-size:13.3px;line-height:1.8;color:#e2e8f0}
+.guide-steps{list-style:none;display:flex;flex-direction:column;gap:9px}.guide-steps li{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.7;color:#e2e8f0}
+.step-num{background:rgba(56,189,248,0.2);border:1px solid var(--accent-cyan);color:var(--accent-cyan);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.field-lab-wrapper{background:linear-gradient(145deg,rgba(15,23,42,0.97),rgba(30,41,59,0.95));border:2px solid var(--status-green);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 12px 30px rgba(0,0,0,0.65)}
+.field-lab-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:10px}.field-lab-title{font-size:16.5px;font-weight:800;color:#6ee7b7;display:flex;align-items:center;gap:8px}
+.smart-pcb-card{background:linear-gradient(135deg,#132342 0%,#0d182e 100%);border:1px solid #2dd4bf;border-radius:12px;padding:13px 15px;margin-bottom:12px}
+.smart-pcb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:8px}.smart-pcb-header h3{font-size:.98rem;color:#2dd4bf}
+.pcb-badge{background:rgba(45,212,191,0.15);color:#5eead4;border:1px solid #2dd4bf;padding:3px 11px;border-radius:6px;font-size:.8rem;font-weight:700;direction:ltr;unicode-bidi:isolate}
+.pcb-specs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:8px;font-size:.83rem}.pcb-spec-item{background:rgba(15,23,42,0.7);padding:7px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.07)}
+.pcb-spec-item span{color:var(--text-sub);display:block;font-size:.74rem}.pcb-spec-item strong{color:#f8fafc;direction:ltr;unicode-bidi:isolate;display:inline-block}
+.golden-voltages-bar{background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);border-radius:12px;padding:9px 13px;margin-bottom:12px;font-size:12.3px;line-height:1.6}
+.golden-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}.g-pill{background:#0f172a;border:1px solid rgba(56,189,248,0.35);color:#e2e8f0;font-family:'JetBrains Mono','Cairo',sans-serif;font-size:11.3px;font-weight:700;padding:3px 9px;border-radius:8px;direction:ltr}
+.auto-diag-bar{background:rgba(16,185,129,0.09);border:1px dashed rgba(16,185,129,0.45);border-radius:12px;padding:11px 13px;margin-bottom:12px}
+.auto-diag-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:9px}.btn-auto-sync{background:linear-gradient(135deg,#10b981,#059669);color:#0b1120;border:none;font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:10px;cursor:pointer;transition:.2s}
+.quick-faults-row{display:flex;flex-wrap:wrap;gap:6px}.q-fault-btn{background:#1e293b;border:1px solid var(--border-color);color:#cbd5e1;font-family:'Cairo',sans-serif;font-size:11.8px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;transition:.2s}.q-fault-btn:hover{border-color:var(--accent-cyan);color:var(--accent-cyan)}
+.field-lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:9px;margin-bottom:12px}
+.diag-question-box{background:rgba(11,17,32,0.8);border:1px solid var(--border-color);border-radius:12px;padding:10px 12px}.diag-q-label{font-size:12px;font-weight:700;color:var(--accent-cyan);margin-bottom:6px;display:block}
+.diag-select,.diag-input{width:100%;background:#1e293b;color:#fff;border:1px solid rgba(56,189,248,0.4);border-radius:8px;padding:7px 9px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;outline:none}
+.field-result-card{background:rgba(16,185,129,0.08);border:1px solid var(--status-green);border-right:5px solid var(--status-green);border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13.2px;line-height:1.7}
+html[dir="ltr"] .field-result-card{border-right:1px solid var(--status-green);border-left:5px solid var(--status-green)}
+.photo-telemetry-wrap{background:rgba(15,23,42,0.92);border:1px solid rgba(56,189,248,0.35);border-radius:14px;padding:13px;margin:12px 0}.photo-telemetry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-bottom:10px}
+.pt-card{background:#0f172a;border:1px solid rgba(56,189,248,0.3);border-top:3px solid var(--accent-cyan);border-radius:12px;padding:10px;text-align:center}.pt-card-label{font-size:11.8px;color:var(--text-sub);font-weight:700;margin-bottom:3px}.pt-card-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:#fff;direction:ltr;margin-bottom:3px}.pt-card-sub{font-size:11.2px;color:var(--accent-cyan);font-weight:600;direction:ltr}
+.pt-instant-report{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.4);border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.65;color:#f8fafc}
+.zoom-toolbar{display:flex;flex-direction:column;align-items:center;gap:8px;background:rgba(15,23,42,0.95);border:1px solid rgba(56,189,248,0.4);border-radius:12px;padding:10px;margin:8px auto;max-width:680px}.zoom-row,.pan-row{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap}
+.zoom-btn{background:#1e293b;border:1px solid var(--accent-cyan);color:#fff;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;padding:5px 12px;border-radius:8px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:4px}.zoom-btn:hover,.zoom-btn:active{background:var(--accent-cyan);color:#0b1120}
+.zoom-badge{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:800;color:#6ee7b7;min-width:54px;text-align:center;background:rgba(16,185,129,0.12);padding:3px 9px;border-radius:6px;border:1px solid rgba(16,185,129,0.35)}.touch-hint{font-size:11.5px;color:#fcd34d;font-weight:700}
+.multimeter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:11px;margin-bottom:14px}.meter-box{background:rgba(11,17,32,0.88);border:1px solid rgba(56,189,248,0.32);border-radius:12px;padding:12px 14px}
+.meter-box-header{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;color:var(--accent-cyan);margin-bottom:9px;padding-bottom:5px;border-bottom:1px dashed var(--border-color)}.meter-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.uvw-inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:8px;direction:ltr}.uvw-field{display:flex;flex-direction:column;gap:3px}.uvw-field span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-sub);text-align:center}.uvw-field input{text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700}
+.meter-readout{background:rgba(30,41,59,0.75);border:1px solid var(--border-color);border-radius:8px;padding:7px 10px;font-size:12px;line-height:1.5;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.mini-stamp-btn{background:rgba(56,189,248,0.16);border:1px solid var(--accent-cyan);color:var(--accent-cyan);font-family:'Cairo',sans-serif;font-size:11.2px;font-weight:700;padding:3px 9px;border-radius:6px;cursor:pointer}.mini-stamp-btn:hover{background:var(--accent-cyan);color:#0b1120}
+.cam-studio-box{background:rgba(11,17,32,0.92);border:1px dashed rgba(56,189,248,0.45);border-radius:14px;padding:13px 11px;text-align:center}.cam-studio-title{font-size:15.5px;font-weight:800;color:var(--accent-cyan);margin-bottom:4px}.cam-studio-sub{font-size:12px;color:var(--text-sub);margin-bottom:10px;line-height:1.55}
+.lab-volt-bar{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:7px;background:rgba(30,41,59,0.55);border-radius:10px}.custom-note-row{max-width:640px;margin:0 auto 10px;display:flex;align-items:center;gap:8px}.cam-btn-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:9px}
+.cam-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#1e293b;border:1px solid var(--accent-cyan);color:#fff;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;padding:9px 14px;border-radius:10px;cursor:pointer;transition:.2s;text-decoration:none}.cam-btn:hover{background:var(--accent-cyan);color:#0b1120}.cam-btn.btn-download{background:var(--status-green);border-color:var(--status-green);color:#0b1120;font-size:13.5px}.cam-btn.btn-share{background:linear-gradient(135deg,#38bdf8,#0284c7);border-color:#38bdf8;color:#0b1120;font-size:13.5px}
+.cam-status-alert{display:none;background:rgba(16,185,129,0.14);border:1px solid var(--status-green);color:#6ee7b7;border-radius:10px;padding:11px 13px;margin:9px auto;max-width:680px;font-size:12.5px;font-weight:700;line-height:1.65;text-align:start}
+#liveVideoContainer{display:none;margin:9px auto;max-width:520px;position:relative}#cameraStream{width:100%;border-radius:12px;border:2px solid var(--accent-cyan)}.canvas-preview-wrap{margin-top:6px;display:flex;flex-direction:column;align-items:center;width:100%;overflow:hidden}
+#stampCanvas{width:100%;max-width:680px;height:auto;border-radius:14px;border:2px solid rgba(56,189,248,0.5);box-shadow:0 12px 32px rgba(0,0,0,0.75);cursor:grab;touch-action:none}
+.config-bar{display:grid;grid-template-columns:1.35fr 1fr;gap:10px;margin-bottom:10px}.pcb-type-bar,.config-box{background:rgba(15,23,42,0.85);border:1px solid var(--border-color);border-radius:14px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.pcb-type-bar{margin-bottom:14px;border-color:rgba(56,189,248,0.3)}.config-label{font-size:13px;font-weight:700;color:var(--text-main)}.btn-group{display:flex;gap:6px;flex-wrap:wrap}
+.opt-btn{background:#1e293b;border:1px solid var(--border-color);color:var(--text-sub);font-family:'JetBrains Mono','Cairo',sans-serif;font-size:11.8px;font-weight:700;padding:5px 10px;border-radius:9px;cursor:pointer;transition:.2s;direction:ltr}.opt-btn.active{background:rgba(56,189,248,0.18);border-color:var(--accent-cyan);color:#fff;box-shadow:0 0 10px rgba(56,189,248,0.25)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px;margin-bottom:14px}.metric-card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--border-color);border-radius:14px;padding:13px;position:relative;overflow:hidden;transition:.3s}
+.metric-card::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;background:var(--accent-cyan)}.metric-card.state-safe::before{background:var(--status-green)}.metric-card.state-warn::before{background:var(--status-amber)}.metric-card.state-alert::before{background:var(--status-red)}.metric-card.state-cutoff::before{background:var(--status-purple)}
+.metric-title{font-size:11.2px;font-weight:700;color:var(--text-sub);text-transform:uppercase;margin-bottom:5px}.metric-value{font-family:'JetBrains Mono','Cairo',monospace;font-size:19px;font-weight:700;margin-bottom:3px;direction:ltr;display:inline-block}.metric-sub{font-size:11.8px;color:var(--text-sub)}
+.text-green{color:var(--status-green)}.text-amber{color:var(--status-amber)}.text-red{color:var(--status-red)}.text-purple{color:#c084fc}
+.thermal-panel{background:var(--card-bg);border:1px solid var(--border-color);border-radius:14px;padding:14px 16px;margin-bottom:14px}.thermal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}.thermal-title{font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:8px}.thermal-badge{font-size:11.2px;font-weight:700;padding:3px 11px;border-radius:20px}
+.thermal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.thermal-item{background:rgba(15,23,42,0.78);border:1px solid var(--border-color);border-radius:10px;padding:10px 13px}.thermal-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;font-weight:700}.thermal-temp-val{font-family:'JetBrains Mono',monospace;font-size:14.5px;font-weight:800;direction:ltr}
+.thermal-bar-bg{width:100%;height:8px;background:#1e293b;border-radius:8px;overflow:hidden;margin-bottom:4px}.thermal-bar-fill{height:100%;width:0%;border-radius:8px;transition:.35s}.thermal-item-sub{font-size:11.2px;color:var(--text-sub)}
+.fault-radar{margin-top:10px;padding:8px 12px;background:rgba(15,23,42,0.9);border-radius:9px;border:1px dashed var(--border-color);font-size:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}.fault-tags{display:flex;gap:6px;flex-wrap:wrap}.fault-tag{font-family:'JetBrains Mono','Cairo',sans-serif;font-size:11.2px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,0.07)}
+.diag-explain{background:rgba(15,23,42,0.92);border:1px solid var(--border-color);border-right:5px solid var(--accent-cyan);border-radius:12px;padding:12px 16px;margin-bottom:14px;line-height:1.7;font-size:13.3px;color:var(--text-main)}html[dir="ltr"] .diag-explain{border-right:1px solid var(--border-color);border-left:5px solid var(--accent-cyan)}
+.diagram-box{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:16px;margin-bottom:14px}.diagram-flow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.diag-node{flex:1;min-width:180px;background:rgba(15,23,42,0.92);border:1px solid var(--border-color);border-radius:12px;padding:12px;text-align:center}
+.diag-node-title{font-size:11.8px;font-weight:700;color:var(--accent-cyan);margin-bottom:4px}.diag-node-main{font-family:'JetBrains Mono',monospace;font-size:16.5px;font-weight:700;margin-bottom:3px;direction:ltr}.diag-node-sub{font-size:11.2px;color:var(--text-sub)}
+.hz-pill{display:inline-block;margin-top:4px;padding:2px 8px;border-radius:12px;font-family:'JetBrains Mono',monospace;font-size:10.8px;font-weight:700;background:rgba(56,189,248,0.15);color:var(--accent-cyan);direction:ltr}
+.cap-bar-bg{width:100%;height:7px;background:#1e293b;border-radius:6px;margin:7px 0 4px;overflow:hidden}.cap-bar-fill{height:100%;width:0%;background:var(--status-green);border-radius:6px;transition:.3s}
+.connector{display:flex;flex-direction:column;align-items:center;min-width:62px}.conn-label{font-family:'JetBrains Mono',monospace;font-size:10.8px;color:var(--text-sub);margin-bottom:3px;direction:ltr}.conn-line{width:100%;height:3px;background:repeating-linear-gradient(90deg,var(--accent-cyan) 0,var(--accent-cyan) 6px,transparent 6px,transparent 12px);animation:flowLTR .9s linear infinite}.conn-line.stopped{animation:none!important;background:rgba(148,163,184,0.25)!important}@keyframes flowLTR{from{background-position:0 0}to{background-position:24px 0}}
+.mcu-section{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border-color);display:flex;flex-direction:column;align-items:center}.mcu-box{max-width:480px;width:100%;background:rgba(15,23,42,0.95);border:1px solid var(--status-green);border-radius:12px;padding:10px 16px;text-align:center;transition:.3s}.mcu-badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11.5px;font-weight:700;margin-top:4px}
+.controls-card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:16px 18px;margin-bottom:14px}.controls-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}.controls-title{font-size:14.5px;font-weight:700}.preset-group{display:flex;gap:6px;flex-wrap:wrap}
+.preset-btn{background:#0f172a;border:1px solid var(--border-color);color:var(--text-main);font-family:'Cairo',sans-serif;font-size:11.8px;font-weight:600;padding:4px 11px;border-radius:20px;cursor:pointer}.slider-row{display:flex;align-items:center;gap:14px;direction:ltr}
+input[type=range]{flex:1;-webkit-appearance:none;height:8px;background:linear-gradient(90deg,#ef4444 0%,#f59e0b 48%,#10b981 72%,#a855f7 96%);border-radius:10px;outline:none}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--accent-cyan);cursor:pointer}
+.voltage-readout{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:800;color:var(--accent-cyan);min-width:74px;text-align:right}
+.rating-section{background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.92));border:1px solid rgba(56,189,248,0.35);border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,0.4)}.rating-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;border-bottom:1px solid var(--border-color);padding-bottom:8px}
+.rating-title{font-size:15px;font-weight:800;color:var(--accent-cyan)}.rating-badge-selected{background:rgba(16,185,129,0.14);border:1px solid var(--status-green);color:#6ee7b7;font-family:'JetBrains Mono','Cairo',sans-serif;font-size:12px;font-weight:800;padding:3px 11px;border-radius:20px}
+.score-pills-row{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:10px;direction:ltr;max-width:560px;margin-left:auto;margin-right:auto}.score-btn{height:36px;border-radius:8px;background:#0f172a;border:1px solid rgba(148,163,184,0.3);color:#94a3b8;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center}
+.score-btn:hover{border-color:var(--accent-cyan);color:#fff}.score-btn.selected-score{background:linear-gradient(135deg,rgba(16,185,129,0.28),rgba(56,189,248,0.28));border:1.5px solid var(--accent-cyan);color:#fff}.score-btn.active-exact{background:linear-gradient(135deg,#10b981,#0ea5e9);color:#0b1120;border-color:#fff;transform:scale(1.05)}
+.feedback-textarea{width:100%;min-height:70px;background:#0b1120;color:#fff;border:1px solid rgba(56,189,248,0.35);border-radius:10px;padding:9px 12px;font-family:'Cairo',sans-serif;font-size:12.8px;margin-bottom:10px;resize:vertical;outline:none}.feedback-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.btn-undo{background:rgba(148,163,184,0.12);border:1px solid rgba(148,163,184,0.4);color:#cbd5e1;font-family:'Cairo',sans-serif;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:10px;cursor:pointer;transition:.2s}.btn-undo:hover{background:var(--accent-cyan);color:#0b1120}
+.contact-section{background:linear-gradient(135deg,rgba(30,41,59,0.9),rgba(15,23,42,0.95));border:1px solid rgba(56,189,248,0.3);border-radius:16px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.contact-heading{font-size:15px;font-weight:800;color:#fff}.contact-sub{font-size:12px;color:var(--text-sub)}.contact-btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:8px 18px;border-radius:12px;font-size:13px;font-weight:800;background:var(--fb-blue);color:#fff}.contact-btn svg{width:18px;height:18px;fill:currentColor}
+.footer-watermark{text-align:center;margin-top:14px;padding-top:10px;border-top:1px solid var(--border-color);color:var(--text-sub);font-size:11.8px}.apk-modal{display:none;position:fixed;inset:0;background:rgba(11,17,32,0.92);z-index:9999;padding:16px;overflow-y:auto;text-align:center}.apk-modal-box{max-width:560px;margin:10px auto;background:#151f32;border:2px solid var(--accent-cyan);border-radius:14px;padding:14px}.apk-modal-box img{width:100%;height:auto;border-radius:10px;margin-top:10px}
+@media (max-width:760px){.config-bar{grid-template-columns:1fr}.diagram-flow,.contact-section,.cam-btn-row,.custom-note-row{flex-direction:column;align-items:stretch;text-align:center}.conn-line{width:48px;transform:rotate(90deg);margin:14px auto}.score-pills-row{gap:4px}.score-btn{height:33px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="app-wrapper">
+<div class="top-bar">
+<div class="brand-info">
+<div class="brand-dev" id="ui-dev-name">تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿</div>
+<div class="brand-group" id="ui-group-name">مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É</div>
+</div>
+<div class="top-actions">
+<a href="https://www.facebook.com/share/1J6FQYt2dH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-pill">
+<svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+<span>Facebook</span>
+</a>
+<button type="button" class="action-btn action-btn-pro" onclick="toggleFieldLab()" id="btn-toggle-lab">🛠️ ظهور / إخفاء المشخّص الميداني وتوثيق الكارت</button>
+<button type="button" class="action-btn" onclick="toggleGuide()" id="btn-toggle-guide">📘 ظهور / إخفاء دليل الشروحات</button>
+<div class="lang-switch-group">
+<button type="button" class="lang-btn active" onclick="setLanguage('ar')" id="btn-lang-ar">العربية</button>
+<button type="button" class="lang-btn" onclick="setLanguage('fr')" id="btn-lang-fr">Français</button>
+<button type="button" class="lang-btn" onclick="setLanguage('en')" id="btn-lang-en">English</button>
+</div>
+</div>
+</div>
+
+<div class="header-section">
+<h1 id="ui-main-title">مختبر ومحاكي كارت الإنفرتر الشامل (Active PFC & Derating / UVLO)</h1>
+<p id="ui-sub-title">قاعدة بيانات 5,200 طراز كارت (26 ماركة × 4 قدرات × 50 موديل لكل قدرة) • تشخيص الأعطال والختم الهندسي</p>
+</div>
+
+<div class="stats-bar">
+<div class="stat-pill">
+<div class="stat-label"><span class="stat-dot"></span><span id="lbl-stat-users">👥 المتفاعلون والمشتركون:</span></div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span class="stat-num" id="val-stat-users">1</span>
+<button type="button" class="sub-join-btn" id="btn-join-sub" onclick="toggleUserSubscribe()">+ اشتراك</button>
+</div>
+</div>
+<div class="stat-pill">
+<div class="stat-label"><span id="lbl-stat-views">👁️ إجمالي المشاهدات والفحوصات:</span></div>
+<span class="stat-num" id="val-stat-views">1</span>
+</div>
+<div class="stat-pill">
+<div class="stat-label"><span id="lbl-stat-shares">📤 إجمالي المشاركات والتقارير:</span></div>
+<span class="stat-num" id="val-stat-shares">0</span>
+</div>
+</div>
+
+<div class="info-guide-wrapper hidden" id="info-guide-box">
+<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(56,189,248,0.12);border:1px solid var(--accent-cyan);border-radius:12px;padding:12px 16px;flex-wrap:wrap;gap:10px;">
+<strong style="color:#fff;font-size:15px;" id="lbl-guide-banner">📖 أنت الآن في وضع الصفحة الكاملة لدليل الشروحات الهندسي (للعودة للبرنامج اضغط الزر المقابل)</strong>
+<button type="button" class="btn-auto-sync" onclick="toggleGuide()" id="btn-back-to-app">🔙 العودة إلى البرنامج والمحاكي</button>
+</div>
+<div class="info-card">
+<div class="info-card-header"><span id="lbl-beginner-title">🎓 أولاً: شرح مبسط جداً للمبتدئين (افهم كارت الإنفرتر والبرنامج من الصفر)</span></div>
+<div class="info-card-body" id="txt-beginner-body"></div>
+</div>
+<div class="guide-grid">
+<div class="info-card">
+<div class="info-card-header"><span id="lbl-about-title">💡 ثانياً: المرجع الهندسي المتقدم لفحص الكارت بالأفوميتر</span></div>
+<div class="info-card-body" id="txt-about-body"></div>
+</div>
+<div class="info-card">
+<div class="info-card-header"><span id="lbl-howto-title">🛠️ ثالثاً: خطوات العمل بالبرنامج خطوة بخطوة (7 خطوات عملية)</span></div>
+<ul class="guide-steps">
+<li><span class="step-num">1</span><span id="txt-step-1"></span></li>
+<li><span class="step-num">2</span><span id="txt-step-2"></span></li>
+<li><span class="step-num">3</span><span id="txt-step-3"></span></li>
+<li><span class="step-num">4</span><span id="txt-step-4"></span></li>
+<li><span class="step-num">5</span><span id="txt-step-5"></span></li>
+<li><span class="step-num">6</span><span id="txt-step-6"></span></li>
+<li><span class="step-num">7</span><span id="txt-step-7"></span></li>
+</ul>
+</div>
+</div>
+<div style="text-align:center;margin-top:6px;">
+<button type="button" class="btn-auto-sync" style="padding:11px 28px;font-size:15px;" onclick="toggleGuide()" id="btn-back-to-app-bottom">🔙 إغلاق الدليل والعودة إلى واجهة البرنامج والمحاكي</button>
+</div>
+</div>
+
+<div id="main-workspace-container">
+<div class="main-reset-bar">
+<button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-main">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
+</div>
+
+<div class="field-lab-wrapper hidden" id="field-lab-box">
+<div class="field-lab-header">
+<div class="field-lab-title" id="lbl-lab-header">🛠️ المشخّص الميداني الشامل (26 ماركة × 4 قدرات × 50 طراز كارت = 5,200 موديل)</div>
+<button type="button" class="action-btn" onclick="toggleFieldLab()" id="btn-close-lab">✖ إغلاق النافذة</button>
+</div>
+
+<div class="smart-pcb-card" id="smartPcbIdCard">
+<div class="smart-pcb-header">
+<h3 id="cardTitleBrand">بطاقة تعريف الكارت الذكية (PCB ID Card)</h3>
+<span class="pcb-badge" id="cardModelBadge">-- غير محدد --</span>
+</div>
+<div class="pcb-specs-grid">
+<div class="pcb-spec-item"><span id="lbl-sp-1">الماركة، السلسلة والقدرة</span><strong id="specBrandBtu">-- غير محدد --</strong></div>
+<div class="pcb-spec-item"><span id="lbl-sp-2">الغاز، المناخ والتمدد</span><strong id="specExpansion">--</strong></div>
+<div class="pcb-spec-item"><span id="lbl-sp-3">المعالج الدقيق (MCU / DSP)</span><strong id="specMcu">--</strong></div>
+<div class="pcb-spec-item"><span id="lbl-sp-4">أيسي القدرة والمروحة (IPM / Fan)</span><strong id="specIpm">--</strong></div>
+<div class="pcb-spec-item"><span id="lbl-sp-5">بنك المكثفات والـ DC Bus</span><strong id="specCaps">--</strong></div>
+<div class="pcb-spec-item"><span id="lbl-sp-6">حدود التيار والـ UVLO</span><strong id="specLimits">--</strong></div>
+</div>
+</div>
+
+<div class="golden-voltages-bar">
+<strong id="lbl-golden-title" style="color:var(--accent-cyan);">📏 الفولتيات الخمس الذهبية لفحص أي كارت إنفرتر بالأفوميتر:</strong>
+<div class="golden-badges">
+<span class="g-pill">1. DC Bus: 310V ~ 365V DC</span>
+<span class="g-pill">2. IPM / IGBT Drive: 15V DC</span>
+<span class="g-pill">3. MCU Logic: 5V / 3.3V DC</span>
+<span class="g-pill">4. NTC Sensors: 2.2V ~ 2.8V DC</span>
+<span class="g-pill">5. SI-N Comm: 0V ↔ 24V/56V Pulse</span>
+</div>
+</div>
+
+<div class="auto-diag-bar">
+<div class="auto-diag-top">
+<span style="font-size:12.5px;font-weight:700;color:#e2e8f0;" id="lbl-auto-sync-hint">💡 اختر الماركة والقدرة ثم اختر من بين 50 طراز كارت فرعي لكل قدرة، أو ارفع صورة الكارت للتعرف التلقائي:</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<button type="button" class="btn-auto-sync" onclick="autoSyncDiagnosis()" id="btn-auto-sync">⚡ تفعيل التشخيص والمزامنة التلقائية</button>
+<button type="button" class="btn-reset-options" onclick="resetAllOptions()" id="btn-reset-all">🔄 إعادة ضبط الخيارات (تصفير شامل)</button>
+</div>
+</div>
+<div class="quick-faults-row">
+<button type="button" class="q-fault-btn" onclick="applyQuickFault('dead0v')" id="qf-dead">🔌 عطل باور 0V (PTC / فيوز)</button>
+<button type="button" class="q-fault-btn" onclick="applyQuickFault('smps')" id="qf-smps">💤 310V موجودة و LED منطفئ (SMPS / 10MHz)</button>
+<button type="button" class="q-fault-btn" onclick="applyQuickFault('comm')" id="qf-comm">📡 خطأ اتصال (أوبتوكبلر PC817 / خط SI)</button>
+<button type="button" class="q-fault-btn" onclick="applyQuickFault('ipm')" id="qf-ipm">💥 فصل حماية IPM (مكثفات Bootstrap / الشنت)</button>
+<button type="button" class="q-fault-btn" onclick="applyQuickFault('healthy')" id="qf-ok">✅ كارت سليم 100% (شهادة فحص)</button>
+</div>
+</div>
+
+<div class="diag-question-box" style="margin-bottom:10px;">
+<label class="diag-q-label" id="lbl-search-code">🔍 بحث ذكي في 5,200 طراز كارت (اكتب اسم الماركة، السلسلة مثل Mission/Bora/Alpha، رقم البوردة KFR35W/BP3N1 أو ZQ3330A، أو كود العطل):</label>
+<input type="text" class="diag-input" id="searchBrandOrCode" placeholder="اكتب اسم الماركة أو السلسلة أو رقم الكارت أو كود العطل هنا..." oninput="filterBrandsAndCodes(this.value)">
+</div>
+
+<div class="field-lab-grid">
+<div class="diag-question-box">
+<label class="diag-q-label" id="lbl-q0">🏷️ ماركة المكيف (26 ماركة):</label>
+<select class="diag-select" id="sel-brand" onchange="onBrandOrCapSelectChange()">
+<option value="">-- تحديد الاختيار --</option>
+</select>
+</div>
+<div class="diag-question-box">
+<label class="diag-q-label" id="lbl-qcap">❄️ القدرة الحرارية (4 قدرات):</label>
+<select class="diag-select" id="sel-lab-btu" onchange="onBrandOrCapSelectChange()">
+<option value="" id="opt-btu-none">-- تحديد القدرة --</option>
+<option value="9000">9,000 BTU (4.5A | 310V)</option>
+<option value="12000">12,000 BTU (6.0A | 320V)</option>
+<option value="18000">18,000 BTU (9.0A | 345V)</option>
+<option value="24000">24,000 BTU (12.5A | 365V)</option>
+</select>
+</div>
+<div class="diag-question-box" style="grid-column: span 2;">
+<label class="diag-q-label" id="lbl-qvariant">🧩 طراز وسلسلة كارت الإنفرتر (50 نوع كارت لكل قدرة):</label>
+<select class="diag-select" id="sel-pcb-variant" onchange="onVariantSelectChange()">
+<option value="0">-- اختر الماركة والقدرة لعرض 50 طراز كارت --</option>
+</select>
+</div>
+<div class="diag-question-box">
+<label class="diag-q-label" id="lbl-q1">1️⃣ قراءة الفولت (DC Bus):</label>
+<select class="diag-select" id="sel-dcbus" onchange="onDcBusChange()">
+<option value="" id="opt-dc-none">-- تحديد الاختيار --</option>
+<option value="normal" id="opt-dc-norm">طبيعي أو مرفوع (280V ~ 365V DC)</option>
+<option value="mid" id="opt-dc-mid">هبوط متوسط — خنق (215V ~ 265V DC)</option>
+<option value="low" id="opt-dc-low">هبوط شديد (150V ~ 210V DC)</option>
+<option value="crit90" id="opt-dc-crit90">هبوط حاد 90V AC (115V ~ 145V DC)</option>
+<option value="high" id="opt-dc-high">ارتفاع خطير (> 375V DC)</option>
+<option value="zero" id="opt-dc-zero">منعدم تماماً (0V ~ 30V DC)</option>
+</select>
+</div>
+<div class="diag-question-box">
+<label class="diag-q-label" id="lbl-q2">2️⃣ لمبة الـ LED بالخارجية:</label>
+<select class="diag-select" id="sel-led" onchange="onLedChange()">
+<option value="" id="opt-led-none">-- تحديد الاختيار --</option>
+<option value="on" id="opt-led-on">تضيء طبيعياً (Normal ON)</option>
+<option value="blink" id="opt-led-blink">تومض بكود خطأ (Blinking)</option>
+<option value="off" id="opt-led-off">منطفئة تماماً (OFF)</option>
+</select>
+</div>
+<div class="diag-question-box">
+<label class="diag-q-label" id="lbl-q3">3️⃣ سلوك الضاغط والكود:</label>
+<select class="diag-select" id="sel-symp" onchange="onSympChange()">
+<option value="" id="opt-sym-none">-- تحديد الاختيار --</option>
+<option value="auto">🔄 تشخيص تلقائي (Auto)</option>
+<option value="comm">خطأ اتصال</option>
+<option value="ipm">فصل حماية IPM</option>
+<option value="uvlo">فصل حماية الجهد</option>
+<option value="crit90">خنق التردد Derating</option>
+<option value="pfc_start">عطل دائرة PFC</option>
+<option value="temp_fan">حرارة IPM / حساسات</option>
+<option value="dead">الكارت ميت تماماً</option>
+<option value="healthy">كارت سليم 100%</option>
+</select>
+</div>
+</div>
+
+<div class="field-result-card hidden" id="field-diag-output"></div>
+
+<div class="multimeter-grid">
+<div class="meter-box">
+<div class="meter-box-header">
+<span id="lbl-ntc-head">🌡️ فاحص حساسات الحرارة بالأفوميتر (NTC Sensor Lab)</span>
+<button type="button" class="mini-stamp-btn" onclick="stampNtcResult()" id="btn-stamp-ntc">📌 ختم بالبوستر</button>
+</div>
+<div class="meter-row">
+<select class="diag-select" style="flex:1;" id="ntcBaseSelect" onchange="calcNtcLab()"></select>
+<div style="display:flex;align-items:center;gap:6px;flex:1;" dir="ltr">
+<input type="range" id="ntcTempSlider" min="-5" max="60" value="25" oninput="calcNtcLab()" style="height:6px;">
+<span id="ntcTempLabel" style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;color:var(--accent-cyan);min-width:44px;">25°C</span>
+</div>
+</div>
+<div class="meter-readout" id="ntcResultBox">--</div>
+</div>
+
+<div class="meter-box">
+<div class="meter-box-header">
+<span id="lbl-uvw-head">⚙️ فاحص توازن وعزل ملفات الضاغط (U-V-W & GND Lab)</span>
+<button type="button" class="mini-stamp-btn" onclick="stampUvwResult()" id="btn-stamp-uvw">📌 ختم بالبوستر</button>
+</div>
+<div id="uvwRangeHint" style="font-size:11.3px;color:#fcd34d;margin-bottom:6px;font-weight:700;">📏 المدى الطبيعي لضاغط الإنفرتر: (9K/12K: 1.2Ω~2.8Ω) | (18K/24K: 0.5Ω~1.8Ω)</div>
+<div class="uvw-inputs">
+<div class="uvw-field"><span>U - V (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUV" class="diag-input" oninput="calcUvwLab()"></div>
+<div class="uvw-field"><span>V - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpVW" class="diag-input" oninput="calcUvwLab()"></div>
+<div class="uvw-field"><span>U - W (Ω)</span><input type="number" step="0.1" min="0.1" max="30" placeholder="--" id="inpUW" class="diag-input" oninput="calcUvwLab()"></div>
+</div>
+<div style="margin-bottom:7px;">
+<select class="diag-select" id="sel-uvw-gnd" onchange="calcUvwLab()">
+<option value="ok" id="opt-gnd-ok">🛡️ فحص العزل مع جسم الضاغط (GND): سليم مالانهاية (OL ✅)</option>
+<option value="leak" id="opt-gnd-leak">🚨 فحص العزل مع جسم الضاغط (GND): يوجد تسريب أو جرس مع الجسم!</option>
+</select>
+</div>
+<div class="meter-readout" id="uvwResultBox">--</div>
+</div>
+</div>
+
+<div class="cam-studio-box">
+<div class="cam-studio-title" id="lbl-cam-title">📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)</div>
+<div class="cam-studio-sub" id="lbl-cam-sub">المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع مطابقة علمية دقيقة مع 5,200 طراز كارت.</div>
+
+<div class="lab-volt-bar">
+<span style="font-size:12px;font-weight:700;color:var(--accent-cyan);" id="lbl-lab-vbar">⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:</span>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(260)">260V</button>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(220)">220V</button>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(186)">186V</button>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(150)">150V</button>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(130)">130V</button>
+<button type="button" class="preset-btn" onclick="setVoltageAndSync(90)" style="border-color:var(--status-red);color:#fca5a5;">90V</button>
+</div>
+
+<div class="custom-note-row">
+<input type="text" class="diag-input" id="customBoardNote" maxlength="100" placeholder="✍️ اكتب هنا موديل المكيف أو رقم البوردة (مثل Midea KFR35W/BP3N1 أو Gree ZQ3330A)..." oninput="onCustomNoteInput(this.value)">
+</div>
+
+<input type="file" id="boardPhotoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+
+<div class="cam-btn-row">
+<label for="boardPhotoInput" class="cam-btn" id="btn-upload-photo">📷 إرفاق صورة الكارت / التقاط صورة</label>
+<button type="button" class="cam-btn" onclick="startLiveCamera()" id="btn-live-cam">🎥 فتح الكاميرا المباشرة</button>
+<button type="button" class="cam-btn" onclick="resetToDefaultCard()" id="btn-gen-card">🖼️ مسح الصورة / استعادة الافتراضي</button>
+<button type="button" class="cam-btn btn-download" onclick="downloadStampedImage()" id="btn-download-stamp">⬇️ تحميل البوستر الهندسي (PNG)</button>
+<button type="button" class="cam-btn btn-share" onclick="shareStampedImage()" id="btn-share-stamp">📤 مشاركة البوستر مباشرة</button>
+</div>
+
+<div class="cam-status-alert" id="camStatusAlert"></div>
+
+<div id="liveVideoContainer">
+<video id="cameraStream" autoplay playsinline muted></video>
+<div style="margin-top:8px;display:flex;justify-content:center;gap:8px;">
+<button type="button" class="cam-btn btn-download" onclick="captureFromVideo()" id="btn-snap-now">📸 التقاط الآن</button>
+<button type="button" class="cam-btn" onclick="stopLiveCamera()" id="btn-close-cam">✖ إغلاق</button>
+</div>
+</div>
+
+<div class="photo-telemetry-wrap hidden" id="photoTelemetrySection">
+<div class="photo-telemetry-grid">
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-1">تيار الضاغط (I_RMS)</div><div class="pt-card-val" id="pt-val-amp">-- A</div><div class="pt-card-sub" id="pt-sub-amp">--</div></div>
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-2">جهد الـ DC Bus</div><div class="pt-card-val" id="pt-val-dc">-- V</div><div class="pt-card-sub" id="pt-sub-dc">--</div></div>
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-3">تردد الضاغط (Hz)</div><div class="pt-card-val" id="pt-val-hz">-- Hz</div><div class="pt-card-sub" id="pt-sub-hz">--</div></div>
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-4">جهد الأوجه (U/V/W)</div><div class="pt-card-val" id="pt-val-uvw">-- V</div><div class="pt-card-sub">3-Phase PWM Balanced</div></div>
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-5">حرارة الـ IPM</div><div class="pt-card-val" id="pt-val-ipm">-- °C</div><div class="pt-card-sub" id="pt-sub-ipm">--</div></div>
+<div class="pt-card"><div class="pt-card-label" id="lbl-pt-6">كود العطل / الحالة</div><div class="pt-card-val" id="pt-val-code">--</div><div class="pt-card-sub" id="pt-sub-code">--</div></div>
+</div>
+<div class="pt-instant-report" id="ptInstantReportBox"></div>
+</div>
+
+<div class="zoom-toolbar">
+<div class="zoom-row">
+<span style="font-size:12.5px;font-weight:800;color:var(--accent-cyan);" id="lbl-z-title">🔍 التحكم بكادر صورة الكارت:</span>
+<button type="button" class="zoom-btn" onclick="adjustImageZoom(0.2)" id="btn-z-in">➕ تكبير الصورة</button>
+<span class="zoom-badge" id="zoomLevelBadge">100%</span>
+<button type="button" class="zoom-btn" onclick="adjustImageZoom(-0.2)" id="btn-z-out">➖ تصغير الصورة</button>
+<button type="button" class="zoom-btn" onclick="resetImageZoom()" style="border-color:var(--status-amber);color:#fcd34d;" id="btn-z-rst">🔄 إعادة ضبط الصورة</button>
+</div>
+<div class="pan-row">
+<span style="font-size:11.8px;font-weight:700;color:var(--text-sub);" id="lbl-p-title">🧭 تحريك بالأسهم:</span>
+<button type="button" class="zoom-btn" onclick="panImageByButton(0, -35)" id="btn-p-up">⬆️ أعلى</button>
+<button type="button" class="zoom-btn" onclick="panImageByButton(0, 35)" id="btn-p-dn">⬇️ أسفل</button>
+<button type="button" class="zoom-btn" onclick="panImageByButton(35, 0)" id="btn-p-rt">➡️ يمين</button>
+<button type="button" class="zoom-btn" onclick="panImageByButton(-35, 0)" id="btn-p-lt">⬅️ يسار</button>
+</div>
+<div class="touch-hint" id="lbl-touch-hint">🤏 كبّر أو صغّر بإصبعين (Pinch-to-Zoom) أو اسحب بإصبع واحد لتحريك الصورة داخل الكادر</div>
+</div>
+
+<div class="canvas-preview-wrap" id="posterPreviewWrap">
+<canvas id="stampCanvas" width="900" height="1320"></canvas>
+</div>
+</div>
+</div>
+
+<div class="config-bar">
+<div class="config-box">
+<div class="config-label" id="lbl-cap-select">❄️ قدرة المكيف (اختر القدرة لتفعيل جهود الـ DC Bus والخنق):</div>
+<div class="btn-group">
+<button type="button" class="opt-btn" onclick="setCapacity(9000)" id="cap-9000">9,000 BTU</button>
+<button type="button" class="opt-btn" onclick="setCapacity(12000)" id="cap-12000">12,000 BTU</button>
+<button type="button" class="opt-btn" onclick="setCapacity(18000)" id="cap-18000">18,000 BTU</button>
+<button type="button" class="opt-btn" onclick="setCapacity(24000)" id="cap-24000">24,000 BTU</button>
+</div>
+</div>
+<div class="config-box">
+<div class="config-label" id="lbl-exp-select">🔧 وسيلة التمدد:</div>
+<div class="btn-group">
+<button type="button" class="opt-btn" onclick="setExpansion('capillary')" id="exp-capillary">Capillary (كابلير)</button>
+<button type="button" class="opt-btn" onclick="setExpansion('eev')" id="exp-eev">EEV (صمام إلكتروني)</button>
+</div>
+</div>
+</div>
+
+<div class="pcb-type-bar">
+<div class="config-label" id="lbl-pcb-type">⚡ نظام كارت الإنفرتر (حد الفصل الأدنى للجهد):</div>
+<div class="btn-group">
+<button type="button" class="opt-btn" onclick="setPcbType('wide90')" id="pcb-wide90">1. مدى واسع (90V Ultra-Wide)</button>
+<button type="button" class="opt-btn" onclick="setPcbType('semi130')" id="pcb-semi130">2. كارت مطوّر (&lt;130V)</button>
+<button type="button" class="opt-btn" onclick="setPcbType('standard155')" id="pcb-standard155">3. كارت تجاري (&lt;155V)</button>
+<button type="button" class="opt-btn" onclick="setPcbType('passive165')" id="pcb-passive165">4. Passive PFC (&lt;165V)</button>
+<button type="button" class="opt-btn" onclick="setPcbType('strict185')" id="pcb-strict185">5. كارت حساس (&lt;185V)</button>
+</div>
+</div>
+
+<div class="metrics-grid">
+<div class="metric-card" id="card-grid"><div class="metric-title" id="lbl-grid-title">جهد الشبكة (GRID INPUT)</div><div class="metric-value" id="val-grid">-- V AC</div><div class="metric-sub" id="sub-grid">--</div></div>
+<div class="metric-card" id="card-pfc"><div class="metric-title" id="lbl-pfc-title">خط التيار المستمر (PFC DC BUS)</div><div class="metric-value" id="val-pfc">-- V DC</div><div class="metric-sub" id="sub-pfc">--</div></div>
+<div class="metric-card" id="card-mcu"><div class="metric-title" id="lbl-mcu-title">منطق المعالج (MCU LOGIC)</div><div class="metric-value" id="val-mcu">STANDBY</div><div class="metric-sub" id="sub-mcu">--</div></div>
+<div class="metric-card" id="card-comp"><div class="metric-title" id="lbl-comp-title">أداء الضاغط (COMPRESSOR)</div><div class="metric-value" id="val-comp">-- % (-- BTU)</div><div class="metric-sub" id="sub-comp">--</div></div>
+</div>
+
+<div class="thermal-panel">
+<div class="thermal-header">
+<div class="thermal-title" id="lbl-thermal-title">🌡️ مؤشر الإجهاد الحراري لوحدة الـ IPM والمكثفات الكيميائية</div>
+<span class="thermal-badge" id="val-thermal-badge">Standby</span>
+</div>
+<div class="thermal-grid">
+<div class="thermal-item">
+<div class="thermal-item-top"><span id="lbl-ipm-temp">حرارة وحدة الـ IPM وترانزستور الـ PFC:</span><span class="thermal-temp-val" id="val-ipm-temp">-- °C</span></div>
+<div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-ipm-temp"></div></div>
+<div class="thermal-item-sub" id="sub-ipm-temp">--</div>
+</div>
+<div class="thermal-item">
+<div class="thermal-item-top"><span id="lbl-cap-temp">حرارة وإجهاد المكثفات الكيميائية (DC Caps):</span><span class="thermal-temp-val" id="val-cap-temp">-- °C (--%)</span></div>
+<div class="thermal-bar-bg"><div class="thermal-bar-fill" id="bar-cap-temp"></div></div>
+<div class="thermal-item-sub" id="sub-cap-temp">--</div>
+</div>
+</div>
+<div class="fault-radar">
+<strong id="lbl-fault-radar" style="color:var(--accent-cyan);">🔍 حالة الكارت والأعطال المتوقعة:</strong>
+<div class="fault-tags" id="fault-tags-container"><span class="fault-tag">--</span></div>
+</div>
+</div>
+
+<div class="diag-explain hidden" id="diag-explain-box"></div>
+
+<div class="diagram-box">
+<div class="diagram-flow">
+<div class="diag-node"><div class="diag-node-title" id="nd-grid-title">مدخل الكهرباء (AC Input)</div><div class="diag-node-main" id="nd-grid-val">-- V AC</div><div class="diag-node-sub" id="nd-grid-cur">-- A</div></div>
+<div class="connector"><span class="conn-label" id="conn-ac-amp">-- A AC</span><div class="conn-line stopped" id="conn-line-1"></div></div>
+<div class="diag-node"><div class="diag-node-title" id="nd-pfc-title">دائرة Active PFC</div><div class="diag-node-main" id="nd-pfc-val">-- V DC</div><div class="diag-node-sub" id="nd-pfc-mode">Standby</div></div>
+<div class="connector"><span class="conn-label" id="conn-dc-volt">-- V DC</span><div class="conn-line stopped" id="conn-line-2"></div></div>
+<div class="diag-node"><div class="diag-node-title" id="nd-comp-title">وحدة IPM والضاغط</div><div class="diag-node-main" id="nd-comp-btu">-- BTU/h</div><div class="cap-bar-bg"><div class="cap-bar-fill" id="cap-bar"></div></div><div class="diag-node-sub" id="nd-comp-pct">--%</div><div class="hz-pill" id="nd-comp-hz">-- Hz | UVW: --V</div></div>
+</div>
+<div class="mcu-section">
+<div class="mcu-box" id="mcu-center-box"><div class="diag-node-title" id="nd-mcu-title" style="color:#fff;">وحدة المعالج الدقيق (System MCU Logic)</div><div class="diag-node-sub" id="nd-mcu-limit">--</div><div class="mcu-badge" id="nd-mcu-badge">Standby Mode</div></div>
+</div>
+</div>
+
+<div class="controls-card">
+<div class="controls-top">
+<div class="controls-title" id="lbl-slider-title">تحكم في جهد الشبكة (Grid Voltage AC: 80V ~ 265V):</div>
+<div class="preset-group">
+<button type="button" class="preset-btn" onclick="setVoltage(260)">260V</button>
+<button type="button" class="preset-btn" onclick="setVoltage(220)">220V</button>
+<button type="button" class="preset-btn" onclick="setVoltage(186)">186V</button>
+<button type="button" class="preset-btn" onclick="setVoltage(150)">150V</button>
+<button type="button" class="preset-btn" onclick="setVoltage(130)">130V</button>
+<button type="button" class="preset-btn" onclick="setVoltage(90)">90V</button>
+</div>
+</div>
+<div class="slider-row">
+<input type="range" id="voltageSlider" min="80" max="265" value="220" oninput="activateAndSimulate()">
+<div class="voltage-readout" id="sliderVal">-- V</div>
+</div>
+</div>
+
+<div class="rating-section">
+<div class="rating-header">
+<div class="rating-title" id="lbl-rate-title">⭐ تقييم البرنامج وإرسال ملاحظة أو رسالة للمطور (من 1 إلى 10):</div>
+<span class="rating-badge-selected" id="selectedScoreText">التقييم المختار: 10 / 10</span>
+</div>
+<div class="score-pills-row" id="scorePillsContainer">
+<button type="button" class="score-btn selected-score" onclick="selectScore(1)">1</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(2)">2</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(3)">3</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(4)">4</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(5)">5</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(6)">6</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(7)">7</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(8)">8</button>
+<button type="button" class="score-btn selected-score" onclick="selectScore(9)">9</button>
+<button type="button" class="score-btn selected-score active-exact" onclick="selectScore(10)">10</button>
+</div>
+<textarea class="feedback-textarea" id="devFeedbackInput" placeholder="✍️ اكتب هنا رسالتك، تقييمك، أو اقتراحك للمهندس أحمد زينور ثم اضغط إرسال..." oninput="recordFeedbackHistory(this.value)"></textarea>
+<div class="feedback-actions">
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<button type="button" class="btn-auto-sync" onclick="submitDeveloperFeedback()" id="btn-send-feedback">📩 إرسال التقييم والرسالة للمطور</button>
+<button type="button" class="btn-undo" onclick="undoFeedbackText()" id="btn-undo-feedback">↩️ تراجع عن الكتابة / التقييم</button>
+</div>
+<span style="font-size:12px;font-weight:700;color:#6ee7b7;" id="feedbackStatusMsg"></span>
+</div>
+</div>
+</div>
+
+<div class="contact-section">
+<div class="contact-text-block">
+<div class="contact-heading" id="lbl-contact-title">📲 لمتابعة الشروحات والتواصل التقني (م. أحمد زينور):</div>
+<div class="contact-sub" id="lbl-contact-sub">اضغط على الزر لفتح الحساب الرسمي على فيسبوك مباشرة</div>
+</div>
+<a href="https://www.facebook.com/share/1J6FQYt2dH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="contact-btn">
+<svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+<span id="btn-fb-label">حسابي على فيسبوك</span>
+</a>
+</div>
+
+<div class="footer-watermark" id="ui-footer">جميع الحقوق محفوظة © تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿 | مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É</div>
+</div>
+
+<div class="apk-modal" id="apkModal" onclick="if(event.target===this) closeApkModal()">
+<div class="apk-modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<strong style="color:var(--accent-cyan);font-size:14px;" id="lbl-modal-tip">💡 اضغط مطولاً على الصورة لحفظها أو مشاركتها</strong>
+<button type="button" class="action-btn" onclick="closeApkModal()">✖</button>
+</div>
+<img id="apkModalImg" alt="Inverter PCB Poster">
+</div>
+</div>
+
+<script>
+const _0xAuth=["أحمد زينور","Ahmed Zinnour","M.D.F.CH.É.É"];
+function sanitizeInput(s){return s?String(s).replace(/[<>'"`\\]/g,"").slice(0,240):""}
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C","i","j","c"].includes(e.key))||(e.ctrlKey&&["U","S","u","s"].includes(e.key))){e.preventDefault();return false}});
+function enforceOwnershipIntegrity(){
+const d=document.getElementById("ui-dev-name"),g=document.getElementById("ui-group-name");
+if(d&&!d.innerText.includes(_0xAuth[0])&&!d.innerText.includes(_0xAuth[1]))d.innerText=currentLang==='ar'?"تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿":(currentLang==='fr'?"Développement & Ingénierie : Ing. Ahmed Zinnour 🇩🇿":"Engineering Dev & Code: Eng. Ahmed Zinnour 🇩🇿");
+if(g&&!g.innerText.includes(_0xAuth[2]))g.innerText=currentLang==='ar'?"مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É":"Group: M.D.F.CH.É.É";
+}
+setInterval(enforceOwnershipIntegrity,3000);
+
+const CLOUD_NS="aekziou83-inverter-pcb-lab-v2";
+let statsData={users:1,views:1,shares:0,joined:false};
+function saveStatsCache(){try{localStorage.setItem("zinnour_cloud_cache_v2",JSON.stringify(statsData))}catch(e){}}
+async function cloudCounterReq(k,act=""){
+const r=await fetch(`https://api.counterapi.dev/v1/${CLOUD_NS}/${k}${act?`/${act}`:""}`,{cache:"no-store"});
+if(!r.ok)throw new Error(r.status);
+const d=await r.json();return(d&&typeof d.count==="number")?d.count:null;
+}
+async function initLiveStats(){
+try{const c=JSON.parse(localStorage.getItem("zinnour_cloud_cache_v2")||"null");if(c&&typeof c.views==="number")statsData=c}catch(e){}
+renderStatsUI();
+let isNew=false;
+try{if(!localStorage.getItem("zinnour_device_registered_v2")){isNew=true;localStorage.setItem("zinnour_device_registered_v2","1")}}catch(e){}
+try{const v=await cloudCounterReq("views","up");if(v!==null)statsData.views=Math.max(1,v)}catch(e){statsData.views+=1}
+try{const u=await cloudCounterReq("users",isNew?"up":"");if(u!==null)statsData.users=Math.max(1,u)}catch(e){if(isNew)statsData.users=Math.max(1,statsData.users+1)}
+try{const s=await cloudCounterReq("shares","");if(s!==null)statsData.shares=Math.max(0,s)}catch(e){}
+saveStatsCache();renderStatsUI();
+}
+async function refreshGlobalCountersSilently(){
+try{
+const[u,v,s]=await Promise.allSettled([cloudCounterReq("users",""),cloudCounterReq("views",""),cloudCounterReq("shares","")]);
+if(u.status==="fulfilled"&&u.value!==null)statsData.users=Math.max(1,u.value);
+if(v.status==="fulfilled"&&v.value!==null)statsData.views=Math.max(1,v.value);
+if(s.status==="fulfilled"&&s.value!==null)statsData.shares=Math.max(0,s.value);
+saveStatsCache();renderStatsUI();
+}catch(e){}
+}
+setInterval(refreshGlobalCountersSilently,20000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshGlobalCountersSilently()});
+function renderStatsUI(){
+document.getElementById("val-stat-users").innerText=String(statsData.users);
+document.getElementById("val-stat-views").innerText=String(statsData.views);
+document.getElementById("val-stat-shares").innerText=String(statsData.shares);
+const jb=document.getElementById("btn-join-sub");
+if(jb){
+jb.classList.toggle("joined",statsData.joined);
+jb.innerText=statsData.joined?(currentLang==='ar'?"✓ مشترك":(currentLang==='fr'?"✓ Abonné":"✓ Subscribed")):(currentLang==='ar'?"+ اشتراك":(currentLang==='fr'?"+ S'abonner":"+ Subscribe"));
+}
+}
+async function incrementStat(k){
+statsData[k]=(statsData[k]||0)+1;saveStatsCache();renderStatsUI();
+try{const nc=await cloudCounterReq(k,"up");if(nc!==null){statsData[k]=nc;saveStatsCache();renderStatsUI()}}catch(e){}
+}
+async function toggleUserSubscribe(){
+statsData.joined=!statsData.joined;const act=statsData.joined?"up":"down";
+statsData.users=Math.max(1,statsData.users+(statsData.joined?1:-1));saveStatsCache();renderStatsUI();
+try{const uc=await cloudCounterReq("users",act);if(uc!==null){statsData.users=Math.max(1,uc);saveStatsCache();renderStatsUI()}}catch(e){}
+}
+
+let currentSelectedScore=10,feedbackHistoryStack=[{text:"",score:10}];
+const _waTarget="213770227904";
+function applyScoreVisuals(n){
+currentSelectedScore=n;
+document.querySelectorAll("#scorePillsContainer .score-btn").forEach((b,i)=>{const v=i+1;b.classList.toggle("selected-score",v<=n);b.classList.toggle("active-exact",v===n)});
+updateScoreBadgeText();
+}
+function selectScore(n){applyScoreVisuals(n);const inp=document.getElementById("devFeedbackInput");pushFeedbackState(inp?inp.value:"",n)}
+function updateScoreBadgeText(){
+const b=document.getElementById("selectedScoreText");if(!b)return;
+b.innerText=currentLang==='ar'?`التقييم المختار: ${currentSelectedScore} / 10`:(currentLang==='fr'?`Note choisie : ${currentSelectedScore} / 10`:`Selected Score: ${currentSelectedScore} / 10`);
+}
+function pushFeedbackState(t,s){
+const last=feedbackHistoryStack[feedbackHistoryStack.length-1];
+if(!last||last.text!==t||last.score!==s){feedbackHistoryStack.push({text:t,score:s});if(feedbackHistoryStack.length>45)feedbackHistoryStack.shift()}
+}
+function recordFeedbackHistory(v){pushFeedbackState(v,currentSelectedScore)}
+function undoFeedbackText(){
+const inp=document.getElementById("devFeedbackInput");
+if(feedbackHistoryStack.length>1){
+feedbackHistoryStack.pop();const prev=feedbackHistoryStack[feedbackHistoryStack.length-1];
+inp.value=prev.text;applyScoreVisuals(prev.score);
+document.getElementById("feedbackStatusMsg").innerText=currentLang==='ar'?"↩️ تم التراجع عن آخر تعديل":(currentLang==='fr'?"↩️ Action annulée":"↩️ Undone");
+}else{
+inp.value="";applyScoreVisuals(10);
+document.getElementById("feedbackStatusMsg").innerText=currentLang==='ar'?"↩️ تم إعادة ضبط التقييم والنص":(currentLang==='fr'?"↩️ Réinitialisé":"↩️ Reset");
+}
+}
+function submitDeveloperFeedback(){
+const inp=document.getElementById("devFeedbackInput"),cleanMsg=sanitizeInput(inp.value.trim());
+const waText=`⭐ *تقييم مختبر ومحاكي كارت الإنفرتر الشامل*\n• *التقييم:* ${currentSelectedScore} / 10\n• *الرسالة / الملاحظة:* ${cleanMsg||"تقييم بدون ملاحظة نصية"}`;
+incrementStat("shares");
+window.open(`https://wa.me/${_waTarget}?text=${encodeURIComponent(waText)}`,"_blank","noopener,noreferrer");
+inp.value="";feedbackHistoryStack=[{text:"",score:currentSelectedScore}];
+document.getElementById("feedbackStatusMsg").innerText=currentLang==='ar'?"✅ تم تجهيز تقييمك وفتح نافذة الإرسال المباشر للمطور!":(currentLang==='fr'?"✅ Redirection vers la messagerie du développeur !":"✅ Opening direct message to developer!");
+}
+
+let currentLang='ar',currentCapacity=null,expansionType=null,pcbType=null,currentVariantIndex=0;
+let simActive=false,fieldDiagActive=false,lastUploadedImage=null,videoStreamObj=null,lastVisionData=null;
+let latestNtcSummary="",latestUvwSummary="",imgZoom=1.0,imgPanX=0,imgPanY=0,isDraggingImg=false,dragStartX=0,dragStartY=0,initialPinchDist=null,initialPinchZoom=1.0;
+let latestSimState={v:220,dcVoltage:311,current:"5.2",capacityPct:100,btuOutput:12000,compHz:90,uvwVolt:198,ipmTemp:45,capTemp:39,capStressPct:16,stateMode:"normal",isBoost:false,currentCapacity:12000,expansionType:"capillary",cutoffLimit:185,pcbType:"wide90"};
+let latestFieldSummaryAr="",latestFieldSummaryFr="",latestFieldSummaryEn="";
+
+const brandProfiles={
+"Midea":{mcu:"TMS320F28027",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P2",tempCode:"P2",series:["Mission II","EU-BP3N1","Breezeless+","Xtreme Save","All Easy Pro","Oasis Plus","Forest","Blanc","Prime","Agile T3","Aurora","Gaia","Vertu"],codes:{9000:"EU-KFR26W/BP3N1 (17122000018)",12000:"EU-KFR35W/BP3N1-B01 (1712200002718)",18000:"EU-KFR50W/BP3N1 (1712200002750)",24000:"EU-KFR70W/BP3N1-T3 (17122000041)"}},
+"Gree":{mcu:"MN103SFA7K",comm:"E6",ipmCode:"H5",uvloCode:"PL/PH",pfcCode:"Hc",tempCode:"P8",series:["Bora","Lomo","Fairy","Pular","Clivia AI","Amber","U-Crown","G-Tech","Change","Cozy","Soyal","Smart","Charmo"],codes:{9000:"GRJ265-A09 (30138000041)",12000:"GRJ265-A12 (30138000045)",18000:"GRJW832-18K (30148722)",24000:"ZQ3330A (30228000010)"}},
+"Condor":{mcu:"TMS320F28035",comm:"E1",ipmCode:"P0 / P4",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Alpha","Crown","Tropical Sahara","Prime","Griffon","Breeze","Glacier","Echo","Optima","Titan","Nova","Atlas","Zenith"],codes:{9000:"KFR-26W/BP2N1",12000:"KFR-35W/BP3N1-C12",18000:"KFR-50W/BP3N1",24000:"KFR-70W/BP3N1-T3"}},
+"Iris":{mcu:"MN103SFA7K",comm:"E6",ipmCode:"H5",uvloCode:"PL",pfcCode:"L3",tempCode:"P8",series:["Sama","Eko","Prime","Iceberg","G10 Tropical","Nessma","Cristal","Horizon","Oasis","Atlas","Sahara","Zénith","Aura"],codes:{9000:"GRJ265-IRIS-09K",12000:"GRJ265-IRIS-12K",18000:"GRJW832-IRIS-18K",24000:"ZQ3330A-IRIS-24K"}},
+"Géant":{mcu:"STM32F103",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Star Inverter","Eco-Smart","Diamond","Tropical T3","Crystal","Silver","Gold","Platine","Breeze","Arctic","Sahara","Prime","Neo"],codes:{9000:"GN-INV-V2-09K",12000:"GN-INV-V2-12K",18000:"GN-INV-V3-18K",24000:"GN-INV-T3-24K"}},
+"ENIEM":{mcu:"TMS320F28027",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Air Inverter","Sahara T3","Eco-Plus","Djurdjura","Tassili","Hoggar","Atlas","Breeze","Comfort","Pro","Smart","Prima","Max"],codes:{9000:"ENM-BP3-09K",12000:"ENM-BP3-12K",18000:"ENM-BP3-18K",24000:"ENM-BP3-24K-T3"}},
+"LG":{mcu:"S3F84B8/DSP",comm:"CH05",ipmCode:"CH21",uvloCode:"CH23",pfcCode:"CH27",tempCode:"CH34",series:["DualCool","ArtCool Mirror","Titan Big","Mega Dual","Tropical 65C","Sirius","Deluxe","Standard Plus","Libero","Gallery","Puricool","Smart","Eco"],codes:{9000:"EBR78480501",12000:"EBR78480504",18000:"EBR83635801",24000:"EBR76263903-T3"}},
+"Samsung":{mcu:"TMP370/DSP",comm:"E101",ipmCode:"E464",uvloCode:"E466",pfcCode:"E461",tempCode:"E474",series:["AR3000","AR5500","AR7500","AR9500 WindFree","Triangle Digital","Max T3 8-Pole","Cebu","Luzon","Geo","Boracay","Maldives","Jungfrau","Elite"],codes:{9000:"DB93-10939A",12000:"DB93-10939B",18000:"DB93-14193A",24000:"DB92-04839C-T3"}},
+"Haier":{mcu:"R5F21258SN",comm:"E7 / 04",ipmCode:"F3",uvloCode:"F11",pfcCode:"F21",tempCode:"F2",series:["Tundra Green","Tibio","Flexis Plus","Jade","Pearl","Revive","Dawn","Nebula","Coral","Quartz","Geos+","CleanCool","Tropical Gen3"],codes:{9000:"0011800342A",12000:"0011800342B",18000:"0011800388C",24000:"0011800455G-T3"}},
+"TCL":{mcu:"SH79F6484",comm:"E0",ipmCode:"P0",uvloCode:"P2",pfcCode:"P4",tempCode:"P6",series:["Elite","Miracle","FreshIN","GentleCool","Ocarina","T-Pro T3","BreezeIN","VoxIN","Rosso","XA71","XA82","TAC-Pro","Eco"],codes:{9000:"A010289-TCL-09K",12000:"A010289-TCL-12K",18000:"A010345-TCL-18K",24000:"A010412-TCL-24K"}},
+"Hisense":{mcu:"R5F24268",comm:"05",ipmCode:"16",uvloCode:"13",pfcCode:"15",tempCode:"EA",series:["Easy Smart","New Comfort","Wings","Energy Pro","Silentium","Fresh Master","Apple Pie","Brissa","Eco-T3","Perla","Vigor","Halo","Uni"],codes:{9000:"1550986-HS-09K",12000:"1550986-HS-12K",18000:"1688310-HS-18K",24000:"1744920-HS-24K"}},
+"AUX":{mcu:"SH79F6484",comm:"E5",ipmCode:"P4",uvloCode:"P1",pfcCode:"F8",tempCode:"P6",series:["Freedom","J-Smart","Q-Smart","Halo","C-Pro","F-Series T3","Y-Series","M-Smart","Prime","Urban","Delta","Pure","Arctic"],codes:{9000:"AUX-BP2N1-09K",12000:"AUX-BP2N1-12K",18000:"AUX-BP3N1-18K",24000:"AUX-BP3N1-24K"}},
+"Carrier":{mcu:"TMS320F28035",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["XPower Gold","XPower Silver","Optimax","Kristal","Tropical T3","Infinity","iPlus","Superia","Allure","CoolEasy","Evergreen","Platinum","Eco"],codes:{9000:"17122000027-09K",12000:"17122000027-12K",18000:"17122000027-18K",24000:"17122000041-24K"}},
+"Beko":{mcu:"TMS320F28027",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["ProSmart","BSVOA","BXEU","BBVOT","BVA-T3","ActiCool","SilentPro","Silver","IonGuard","EcoSmart","Breeze","Prima","Ultra"],codes:{9000:"BK-INV-G2-09K",12000:"BK-INV-G2-12K",18000:"BK-INV-G2-18K",24000:"BK-INV-T3-24K"}},
+"Brandt":{mcu:"MN103SFA7K",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Cool-Smart","Eco-Inverter","Oasis T3","Fresh-Air","Sahara","Epure","Mistral","Alizé","Zéphyr","Boreal","Cristal","Optima","Pro"],codes:{9000:"BRD-WDC-09K",12000:"BRD-WDC-12K",18000:"BRD-WDC-18K",24000:"BRD-WDC-24K-T3"}},
+"Stream":{mcu:"SH79F6484",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Eco-Inverter","Cool-Pro","Tropical T3","Smart-Air","Ice","Breeze","Sahara","Prime","Gold","Silver","Max","Neo","Comfort"],codes:{9000:"STM-BP-M1-09K",12000:"STM-BP-M1-12K",18000:"STM-BP-M2-18K",24000:"STM-BP-T3-24K"}},
+"Raylan":{mcu:"SH79F6484",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Smart Inverter","Gold","T3 Desert","Silver","Eco-Cool","Breeze","Crystal","Prime","Max","Star","Atlas","Oasis","Ultra"],codes:{9000:"RYL-INV-09K",12000:"RYL-INV-12K",18000:"RYL-INV-18K",24000:"RYL-INV-24K-T3"}},
+"Maxtor":{mcu:"TMS320F28027",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Pro-Inverter","Ultra","T3 Tropical","Smart","Eco","Power","Titanium","Gold","Breeze","Glacier","Sahara","Prime","Apex"],codes:{9000:"MXT-BP2-09K",12000:"MXT-BP2-12K",18000:"MXT-BP2-18K",24000:"MXT-BP3-24K-T3"}},
+"Continental":{mcu:"SH79F6484",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Classic Inverter","Tropical T3","Eco-Line","Smart","Comfort","Breeze","Prime","Gold","Silver","Arctic","Sahara","Pro","Max"],codes:{9000:"CNT-INV-09K",12000:"CNT-INV-12K",18000:"CNT-INV-18K",24000:"CNT-INV-24K-T3"}},
+"Tosot":{mcu:"MN103SFA7K",comm:"E6",ipmCode:"H5",uvloCode:"PL/PH",pfcCode:"Hc",tempCode:"P8",series:["Bora","Lomo","Pular","Clivia","Muse","Fairy","Amber","U-Grace","G-Tech","Cozy","T3 Tropical","Smart","Charmo"],codes:{9000:"GRJ265-TST-09K",12000:"GRJ265-TST-12K",18000:"GRJW832-TST-18K",24000:"ZQ3330A-TST-24K"}},
+"Airwell":{mcu:"TMS320F28035",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Harmonia","Aura","HDLP","Extreme T3","Must","Joia","Vela","Onda","Sphera","24K-Pro","Eco-Design","Nordic","Sahara"],codes:{9000:"AW-HDLP-09K",12000:"AW-HDLP-12K",18000:"AW-HDLP-18K",24000:"AW-HDLP-24K-T3"}},
+"Candy":{mcu:"R5F21258SN",comm:"E7",ipmCode:"F3",uvloCode:"F11",pfcCode:"F21",tempCode:"F2",series:["Pura","Aria","Brezza","Tropical T3","Bianca","Fresca","Vento","Gelo","Smart","Eco","Silence","Comfort","Plus"],codes:{9000:"CND-HAI-09K",12000:"CND-HAI-12K",18000:"CND-HAI-18K",24000:"CND-HAI-24K-T3"}},
+"Daikin":{mcu:"R5F524T8ADFM",comm:"U4",ipmCode:"L5",uvloCode:"U2",pfcCode:"L8",tempCode:"L4",series:["Sensira FTXF","Comfora FTXP","Perfera FTXM","Stylish FTXA","Ururu Sarara","Miyora","Emura","Siesta","GTKL-T3","FTKB","FTKC","FTKF","Cora"],codes:{9000:"2P348159-1 (RXF25)",12000:"2P348159-2 (RXF35)",18000:"2P411862-1 (RXF50)",24000:"2P468920-3 (RXF71)"}},
+"Mitsubishi":{mcu:"M30879FLGP",comm:"E6",ipmCode:"P8 / U1",uvloCode:"U2",pfcCode:"U7",tempCode:"P8",series:["MSZ-HR","MSZ-AP","MSZ-EF Kirigamine","MSZ-LN Diamond","MSZ-SF","MSZ-GF T3","MSZ-BT","MSZ-DW","MSZ-FH","MSZ-WN","MSZ-DM","MSZ-HJ","MSZ-GE"],codes:{9000:"MUZ-SF25VE (DM00J484)",12000:"MUZ-SF35VE (DM00J485)",18000:"MUZ-SF50VE (DM00N214)",24000:"MUZ-GF71VE (DM00R612)"}},
+"Fujitsu":{mcu:"MB91F467DA",comm:"11",ipmCode:"84",uvloCode:"86",pfcCode:"A1",tempCode:"63",series:["ASYG-KPCA","ASYG-KMCC","ASYG-KMTB","Nocria X","ASYA-GCRT T3","ASYG-LMCA","ASYG-LECA","ASYG-KGTA","ASYG-KETA","ASYG-LTCA","ASYG-LFCA","ASYG-LUCA","Halcyon"],codes:{9000:"EZ-01211HUE-09",12000:"EZ-01211HUE-12",18000:"EZ-01824HUE-18",24000:"EZ-02430HUE-24"}},
+"Bosch":{mcu:"TMS320F28035",comm:"E1",ipmCode:"P0",uvloCode:"P1",pfcCode:"P4",tempCode:"P2",series:["Climate 3000i","Climate 5000i","Climate 6000i","Climate 8000i","Climate 5000M T3","Climate 2000","Climate 4000i","Climate Class","Climate 9000i","Max-T3","Eco-i","Pro-i","Smart-i"],codes:{9000:"8733500142-09K",12000:"8733500142-12K",18000:"8733500145-18K",24000:"8733500149-24K-T3"}}
+};
+
+const btuTierData={
+9000:{ipms:["PS21963-4S (10A)","FSBS10CH60 (10A)","SLIMDIP-S (10A)","BM6204FS (10A)"],exp:"Capillary",dcNom:310,iMax:4.5,iThrottle:4.0,uvlo:180,caps:["2x 400V 470µF","2x 450V 390µF","1x 450V 680µF","2x 450V 470µF"]},
+12000:{ipms:["PS21964-4S (15A)","FSBS15CH60 (15A)","SLIMDIP-L (15A)","FPAB20BH60 (20A)"],exp:"Capillary",dcNom:320,iMax:6.0,iThrottle:5.4,uvlo:185,caps:["2x 450V 470µF","2x 450V 560µF","3x 400V 470µF","2x 450V 680µF"]},
+18000:{ipms:["FSBB30CH60C (30A)","PS21A79 (30A)","FPAB30BH60 (30A)","PM25CL1A120 (25A)"],exp:"EEV",dcNom:345,iMax:9.0,iThrottle:8.1,uvlo:188,caps:["3x 450V 560µF","3x 450V 680µF","4x 450V 470µF","2x 450V 820µF"]},
+24000:{ipms:["FPAB30BH60 (30A+)","FSBB30CH60F (30A+)","PS22A78 (35A)","PM30CSJ060 (30A+)"],exp:"EEV",dcNom:365,iMax:12.5,iThrottle:11.2,uvlo:192,caps:["5x 450V 820µF","4x 450V 820µF","6x 450V 680µF","5x 450V 680µF"]}
+};
+const variantConfigs=[{gas:"R410A",clim:"T1",fan:"AC Fan",rev:"Rev.A"},{gas:"R32",clim:"T1",fan:"BLDC Fan",rev:"Rev.B"},{gas:"R410A",clim:"T3",fan:"BLDC Fan",rev:"Rev.C"},{gas:"R32",clim:"T3",fan:"BLDC Fan",rev:"Rev.D"}];
+
+function generate50VariantsForBrandCap(bKey,btuCap){
+const p=brandProfiles[bKey]||brandProfiles["Midea"],cap=btuTierData[btuCap]?Number(btuCap):12000,t=btuTierData[cap],baseCode=p.codes[cap],list=[];
+for(let i=0;i<50;i++){
+const sName=p.series[i%p.series.length],cfg=variantConfigs[i%variantConfigs.length],genNum=Math.floor(i/13)+1,subId=String(i+1).padStart(2,"0");
+const pcbCode=i===0?baseCode:`${baseCode.split(" ")[0]}-G${genNum}${cfg.rev.slice(-1)}-${subId}`;
+const ipmChip=t.ipms[i%t.ipms.length],capBank=t.caps[i%t.caps.length],expDevice=(cap>=18000||cfg.clim==="T3"||i%2===1)?"EEV":"Capillary";
+list.push({
+idx:i,seriesName:`${sName} Gen-${genNum}`,pcbCode:pcbCode,gas:cfg.gas,clim:cfg.clim,fan:cfg.fan,
+ipm:`${ipmChip} | ${cfg.fan}`,caps:capBank,exp:`${expDevice} (${cfg.gas} | ${cfg.clim})`,
+rawExp:expDevice.toLowerCase(),dcNom:cfg.clim==="T3"?t.dcNom+10:t.dcNom,uvlo:cfg.clim==="T3"?t.uvlo-8:t.uvlo,
+label:`#${subId} [${pcbCode}] — ${bKey} ${sName} (${cap} BTU | ${cfg.gas} | ${cfg.clim} | ${cfg.fan})`
+});
+}
+return list;
+}
+
+function getBrandSpec(bKey,btuCap,varIdx=currentVariantIndex){
+const p=brandProfiles[bKey];if(!p)return null;
+const cap=btuTierData[btuCap]?Number(btuCap):12000,t=btuTierData[cap],variants=generate50VariantsForBrandCap(bKey,cap),v=variants[varIdx]||variants[0];
+return{shortName:bKey,seriesName:v.seriesName,pcbModel:`${v.pcbCode} [${v.seriesName} - ${cap} BTU]`,clim:v.clim,mcu:p.mcu,ipm:v.ipm,btu:cap,exp:v.exp,rawExp:v.rawExp,dcNom:v.dcNom,iMax:t.iMax,iThrottle:t.iThrottle,uvlo:v.uvlo,caps:v.caps,comm:p.comm,ipmCode:p.ipmCode,uvloCode:p.uvloCode,pfcCode:p.pfcCode,tempCode:p.tempCode};
+}
+
+const capacitySpecs={
+9000:{maxBtuh:9000,maxCurrent:4.5,derateStartV:180,nominalPower:810,targetBoostDc:310,maxHz:85,maxUvw:190,thermalMult:0.88,cutoffs:{wide90:85,semi130:122,standard155:150,passive165:162,strict185:182}},
+12000:{maxBtuh:12000,maxCurrent:6.0,derateStartV:190,nominalPower:1140,targetBoostDc:320,maxHz:90,maxUvw:198,thermalMult:1.0,cutoffs:{wide90:85,semi130:130,standard155:155,passive165:165,strict185:185}},
+18000:{maxBtuh:18000,maxCurrent:9.0,derateStartV:196,nominalPower:1764,targetBoostDc:345,maxHz:95,maxUvw:210,thermalMult:1.12,cutoffs:{wide90:88,semi130:136,standard155:160,passive165:170,strict185:188}},
+24000:{maxBtuh:24000,maxCurrent:12.5,derateStartV:202,nominalPower:2525,targetBoostDc:365,maxHz:102,maxUvw:220,thermalMult:1.24,cutoffs:{wide90:92,semi130:142,standard155:165,passive165:175,strict185:192}}
+};
+
+const uiMap={
+"ui-dev-name":["تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿","Développement & Ingénierie : Ing. Ahmed Zinnour 🇩🇿","Engineering Dev & Code: Eng. Ahmed Zinnour 🇩🇿"],
+"ui-group-name":["مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É","Groupe : Maîtrise en Froid et Climatisation M.D.F.CH.É.É","Group: Mastery in HVAC & Refrigeration M.D.F.CH.É.É"],
+"btn-toggle-lab":["🛠️ ظهور / إخفاء المشخّص الميداني وتوثيق الكارت","🛠️ Afficher / Masquer Diagnostic Terrain & Caméra","🛠️ Show / Hide Field Troubleshooter & Cam Stamp"],
+"btn-toggle-guide":["📘 ظهور / إخفاء دليل الشروحات","📘 Afficher / Masquer le Guide Complet","📘 Show / Hide Complete Guide"],
+"lbl-stat-users":["👥 المتفاعلون والمشتركون:","👥 Utilisateurs Actifs & Abonnés :","👥 Active Users & Subscribers:"],
+"lbl-stat-views":["👁️ إجمالي المشاهدات والفحوصات:","👁️ Total Vues & Diagnostics :","👁️ Total Views & Inspections:"],
+"lbl-stat-shares":["📤 إجمالي المشاركات والتقارير:","📤 Total Partages & Rapports :","📤 Total Shares & Reports:"],
+"lbl-guide-banner":["📖 أنت الآن في وضع الصفحة الكاملة لدليل الشروحات الهندسي (للعودة للبرنامج اضغط الزر المقابل)","📖 Mode Pleine Page du Guide Complet (Cliquez sur le bouton pour revenir au simulateur)","📖 Full-Page Guide Mode (Click the button to return to the simulator)"],
+"btn-back-to-app":["🔙 العودة إلى البرنامج والمحاكي","🔙 Retour au Simulateur","🔙 Back to Simulator"],
+"btn-back-to-app-bottom":["🔙 إغلاق الدليل والعودة إلى واجهة البرنامج والمحاكي","🔙 Fermer le Guide et Retourner au Programme","🔙 Close Guide & Return to Main Program"],
+"lbl-beginner-title":["🎓 أولاً: شرح مبسط جداً للمبتدئين (افهم كارت الإنفرتر والبرنامج من الصفر)","🎓 1. Explication Simplifiée pour Débutants (Comprendre la Carte Inverter de Zéro)","🎓 1. Beginner-Friendly Guide (Understand Inverter PCBs & This Lab from Scratch)"],
+"btn-reset-main":["🔄 إعادة ضبط الخيارات (تصفير شامل)","🔄 Réinitialiser Toutes les Options (Reset Global)","🔄 Reset All Options (Global Reset)"],
+"btn-reset-all":["🔄 إعادة ضبط الخيارات (تصفير شامل)","🔄 Réinitialiser Toutes les Options (Reset Global)","🔄 Reset All Options (Global Reset)"],
+"ui-main-title":["مختبر ومحاكي كارت الإنفرتر الشامل (Active PFC & Derating / UVLO)","Laboratoire & Simulateur Carte Inverter (Active PFC & Derating / UVLO)","Comprehensive Inverter PCB Lab (Active PFC & Derating / UVLO)"],
+"ui-sub-title":["قاعدة بيانات 5,200 طراز كارت (26 ماركة × 4 قدرات × 50 موديل لكل قدرة) • تشخيص الأعطال والختم الهندسي","Base de données 5 200 modèles PCB (26 Marques × 4 Puissances × 50 Modèles) • Diagnostic & Poster","5,200 PCB Models Database (26 Brands × 4 Capacities × 50 Sub-Models) • Diagnostics & Poster"],
+"lbl-about-title":["💡 ثانياً: المرجع الهندسي المتقدم لفحص الكارت بالأفوميتر","💡 2. Référence d'Ingénierie Avancée au Multimètre","💡 2. Advanced Multimeter PCB Engineering Reference"],
+"lbl-howto-title":["🛠️ ثالثاً: خطوات العمل بالبرنامج خطوة بخطوة (7 خطوات عملية)","🛠️ 3. Étapes d'Utilisation Pratique (7 Étapes)","🛠️ 3. Practical Step-by-Step Guide (7 Steps)"],
+"lbl-lab-header":["🛠️ المشخّص الميداني الشامل (26 ماركة × 4 قدرات × 50 طراز كارت = 5,200 موديل)","🛠️ Diagnostic Terrain PCB (26 Marques × 4 Puissances × 50 Modèles = 5 200 PCB)","🛠️ Field PCB Troubleshooter (26 Brands × 4 Capacities × 50 Models = 5,200 PCBs)"],
+"btn-close-lab":["✖ إغلاق النافذة","✖ Fermer","✖ Close Panel"],
+"lbl-sp-1":["الماركة، السلسلة والقدرة","Marque, Série & Puissance BTU","Brand, Series & BTU Capacity"],
+"lbl-sp-2":["الغاز، المناخ والتمدد","Gaz, Climat & Détendeur","Gas, Climate & Expansion"],
+"lbl-sp-3":["المعالج الدقيق (MCU / DSP)","Microcontrôleur (MCU / DSP)","Microcontroller (MCU / DSP)"],
+"lbl-sp-4":["أيسي القدرة والمروحة (IPM / Fan)","Module IPM & Moteur Ventilateur","Power Module (IPM) & Fan"],
+"lbl-sp-5":["بنك المكثفات والـ DC Bus","Condensateurs & Bus DC","Capacitor Bank & DC Bus"],
+"lbl-sp-6":["حدود التيار والـ UVLO","Limites Courant & UVLO","Current Limits & UVLO"],
+"lbl-golden-title":["📏 الفولتيات الخمس الذهبية لفحص أي كارت إنفرتر بالأفوميتر:","📏 Les 5 Tensions d'Or pour tester toute carte Inverter au multimètre :","📏 The 5 Golden Voltages to Test Any Inverter PCB with a Multimeter:"],
+"lbl-auto-sync-hint":["💡 اختر الماركة والقدرة ثم اختر من بين 50 طراز كارت فرعي لكل قدرة، أو ارفع صورة الكارت للتعرف التلقائي:","💡 Choisissez la marque, la puissance et l'un des 50 modèles PCB par capacité, ou joignez une photo :","💡 Select brand, capacity & any of the 50 PCB sub-models per size, or upload a photo for auto-ID:"],
+"btn-auto-sync":["⚡ تفعيل التشخيص والمزامنة التلقائية","⚡ Diagnostic & Synchro Automatique","⚡ Auto-Sync & Diagnose PCB"],
+"qf-dead":["🔌 عطل باور 0V (PTC / فيوز)","🔌 Panne Alim 0V (PTC / Fusible)","🔌 0V Dead Power (PTC / Fuse)"],
+"qf-smps":["💤 310V موجودة و LED منطفئ (SMPS / 10MHz)","💤 310V OK / LED éteinte (SMPS / 10MHz)","💤 310V OK, LED OFF (SMPS / 10MHz)"],
+"qf-comm":["📡 خطأ اتصال (أوبتوكبلر PC817 / خط SI)","📡 Erreur Comm (Optocoupleur PC817)","📡 Comm Error (PC817 / SI Line)"],
+"qf-ipm":["💥 فصل حماية IPM (مكثفات Bootstrap / الشنت)","💥 Sécurité IPM (Condos Bootstrap / Shunt)","💥 IPM Trip (Bootstrap Caps / Shunt)"],
+"qf-ok":["✅ كارت سليم 100% (شهادة فحص)","✅ Carte 100% Saine (Certificat)","✅ 100% Healthy PCB (Certificate)"],
+"lbl-search-code":["🔍 بحث ذكي في 5,200 طراز كارت (اكتب اسم الماركة، السلسلة مثل Mission/Bora/Alpha، رقم البوردة KFR35W/BP3N1 أو ZQ3330A، أو كود العطل):","🔍 Recherche intelligente parmi 5 200 cartes PCB (Marque, Série Mission/Bora/Alpha, Réf KFR35W/BP3N1 ou Code) :","🔍 Smart Search across 5,200 PCB Models (Brand, Series Mission/Bora/Alpha, Ref KFR35W/BP3N1, or Error Code):"],
+"lbl-q0":["🏷️ ماركة المكيف (26 ماركة):","🏷️ Marque Climatiseur (26 marques) :","🏷️ AC Brand (26 Brands):"],
+"lbl-qcap":["❄️ القدرة الحرارية (4 قدرات):","❄️ Capacité Thermique (4 puissances) :","❄️ BTU Capacity (4 Sizes):"],
+"lbl-qvariant":["🧩 طراز وسلسلة كارت الإنفرتر (50 نوع كارت لكل قدرة):","🧩 Modèle & Série de la Carte Inverter (50 types par capacité) :","🧩 Inverter PCB Sub-Model & Series (50 Types per Capacity):"],
+"lbl-q1":["1️⃣ قراءة الفولت (DC Bus):","1️⃣ Tension Condensateur (Bus DC) :","1️⃣ Capacitor Reading (DC Bus):"],
+"lbl-q2":["2️⃣ لمبة الـ LED بالخارجية:","2️⃣ État LED Carte Extérieure :","2️⃣ Outdoor PCB Status LED:"],
+"lbl-q3":["3️⃣ سلوك الضاغط والكود:","3️⃣ Comportement & Code Erreur :","3️⃣ Compressor & Error Code:"],
+"opt-btu-none":["-- تحديد القدرة --","-- Choisir Capacité --","-- Select Capacity --"],
+"opt-dc-none":["-- تحديد الاختيار --","-- Choisir Tension --","-- Select Reading --"],
+"opt-led-none":["-- تحديد الاختيار --","-- Choisir État LED --","-- Select LED State --"],
+"opt-sym-none":["-- تحديد الاختيار --","-- Choisir Symptôme --","-- Select Symptom --"],
+"opt-dc-norm":["طبيعي أو مرفوع (280V ~ 365V DC)","Bus DC Normal / Boosté (280V ~ 365V DC)","Normal / PFC-Boosted (280V ~ 365V DC)"],
+"opt-dc-mid":["هبوط متوسط — خنق (215V ~ 265V DC)","Chute Modérée — Bridage (215V ~ 265V DC)","Moderate Sag — Derating (215V ~ 265V DC)"],
+"opt-dc-low":["هبوط شديد (150V ~ 210V DC)","Chute Sévère (150V ~ 210V DC)","Severe Voltage Drop (150V ~ 210V DC)"],
+"opt-dc-crit90":["هبوط حاد 90V AC (115V ~ 145V DC)","Chute Critique 90V AC (115V ~ 145V DC)","Extreme Drop 90V AC (115V ~ 145V DC)"],
+"opt-dc-high":["ارتفاع خطير (> 375V DC)","Surtension Dangereuse (> 375V DC)","Dangerous Overvoltage (> 375V DC)"],
+"opt-dc-zero":["منعدم تماماً (0V ~ 30V DC)","Tension Absente (0V ~ 30V DC)","Dead DC Bus (0V ~ 30V DC)"],
+"opt-led-on":["تضيء طبيعياً (Normal ON)","Allumée Normale (Heartbeat ON)","Steady ON / Normal Heartbeat"],
+"opt-led-blink":["تومض بكود خطأ (Blinking)","Clignotement Code Erreur","Blinking Error Code"],
+"opt-led-off":["منطفئة تماماً (OFF)","Totalement Éteinte (OFF)","Completely OFF (Dead)"],
+"lbl-ntc-head":["🌡️ فاحص حساسات الحرارة بالأفوميتر (NTC Sensor Lab)","🌡️ Testeur Sondes NTC au Multimètre","🌡️ NTC Thermistor Multimeter Calculator"],
+"lbl-uvw-head":["⚙️ فاحص توازن وعزل ملفات الضاغط (U-V-W & GND Lab)","⚙️ Testeur Équilibre & Isolement (U-V-W & Masse)","⚙️ Compressor Winding & Ground Insulation Lab"],
+"opt-gnd-ok":["🛡️ فحص العزل مع جسم الضاغط (GND): سليم مالانهاية (OL ✅)","🛡️ Isolement avec la masse (GND) : Sain Infini (OL ✅)","🛡️ Ground Insulation (GND to Body): Healthy Infinite (OL ✅)"],
+"opt-gnd-leak":["🚨 فحص العزل مع جسم الضاغط (GND): يوجد تسريب أو جرس مع الجسم!","🚨 Isolement Masse (GND) : Fuite ou Court-circuit à la masse !","🚨 Ground Insulation (GND): Earth Leakage / Short to Body!"],
+"btn-stamp-ntc":["📌 ختم بالبوستر","📌 Ajouter au Poster","📌 Stamp to Poster"],
+"btn-stamp-uvw":["📌 ختم بالبوستر","📌 Ajouter au Poster","📌 Stamp to Poster"],
+"lbl-cam-title":["📸 بوستر التوثيق والختم الهندسي (AR Diagnostic Poster)","📸 Poster de Documentation & Cachet Technique","📸 AR Diagnostic Poster & Engineering Stamp"],
+"lbl-cam-sub":["المستطيلات الحسابية والتشخيص أسفل الصورة مخفية، وتظهر تلقائياً عند رفع صورة الكارت مع مطابقة علمية دقيقة مع 5,200 طراز كارت.","Les cartes de calcul sous l'image sont masquées et s'affichent automatiquement dès l'ajout d'une photo PCB avec identification parmi 5 200 modèles.","The telemetry boxes below the image are hidden and appear automatically upon uploading a PCB photo with matching across 5,200 models."],
+"lbl-lab-vbar":["⚡ تغيير جهد المحاكاة والتشخيص في البوستر فوراً:","⚡ Changer la tension simulée sur le poster :","⚡ Change simulated voltage on poster:"],
+"btn-upload-photo":["📷 إرفاق صورة الكارت / التقاط صورة","📷 Joindre Photo PCB / Galerie","📷 Upload / Capture PCB Photo"],
+"btn-live-cam":["🎥 فتح الكاميرا المباشرة","🎥 Ouvrir Caméra Directe","🎥 Open Live Camera"],
+"btn-gen-card":["🖼️ مسح الصورة / استعادة الافتراضي","🖼️ Effacer Photo / Par défaut","🖼️ Clear Photo / Reset"],
+"btn-download-stamp":["⬇️ تحميل البوستر الهندسي (PNG)","⬇️ Télécharger le Poster (PNG)","⬇️ Download Stamped Poster (PNG)"],
+"btn-share-stamp":["📤 مشاركة البوستر مباشرة","📤 Partager le Poster","📤 Share Poster Directly"],
+"btn-snap-now":["📸 التقاط الآن","📸 Capturer","📸 Snap Now"],
+"btn-close-cam":["✖ إغلاق","✖ Fermer","✖ Close"],
+"lbl-pt-1":["تيار الضاغط (I_RMS)","Courant Compresseur (I_RMS)","Compressor Current (I_RMS)"],
+"lbl-pt-2":["جهد الـ DC Bus","Tension Bus DC","DC Bus Voltage"],
+"lbl-pt-3":["تردد الضاغط (Hz)","Fréquence Compresseur (Hz)","Compressor Freq (Hz)"],
+"lbl-pt-4":["جهد الأوجه (U/V/W)","Tension Triphasée (U/V/W)","3-Phase Voltage (U/V/W)"],
+"lbl-pt-5":["حرارة الـ IPM","Température IPM","IPM Temperature"],
+"lbl-pt-6":["كود العطل / الحالة","Code Panne / État","Error Code / Status"],
+"lbl-z-title":["🔍 التحكم بكادر صورة الكارت:","🔍 Contrôle du Cadre Photo PCB :","🔍 PCB Image Viewport Controls:"],
+"btn-z-in":["➕ تكبير الصورة","➕ Zoom +","➕ Zoom In"],
+"btn-z-out":["➖ تصغير الصورة","➖ Zoom -","➖ Zoom Out"],
+"btn-z-rst":["🔄 إعادة ضبط الصورة","🔄 Réinitialiser Image","🔄 Reset Image"],
+"lbl-p-title":["🧭 تحريك بالأسهم:","🧭 Déplacer avec les flèches :","🧭 Pan with Arrows:"],
+"btn-p-up":["⬆️ أعلى","⬆️ Haut","⬆️ Up"],
+"btn-p-dn":["⬇️ أسفل","⬇️ Bas","⬇️ Down"],
+"btn-p-rt":["➡️ يمين","➡️ Droite","➡️ Right"],
+"btn-p-lt":["⬅️ يسار","⬅️ Gauche","⬅️ Left"],
+"lbl-touch-hint":["🤏 كبّر أو صغّر بإصبعين (Pinch-to-Zoom) أو اسحب بإصبع واحد لتحريك الصورة داخل الكادر","🤏 Pincez à 2 doigts (Pinch-to-Zoom) pour zoomer ou glissez à 1 doigt pour déplacer l'image","🤏 Pinch with 2 fingers to Zoom In/Out or drag with 1 finger to pan the image"],
+"lbl-cap-select":["❄️ قدرة المكيف (اختر القدرة لتفعيل جهود الـ DC Bus والخنق):","❄️ Capacité Climatiseur (Sélectionnez pour activer le Bus DC) :","❄️ AC Capacity (Select size to activate DC Bus & Throttling):"],
+"lbl-exp-select":["🔧 وسيلة التمدد:","🔧 Détendeur :","🔧 Expansion:"],
+"exp-capillary":["Capillary (كابلير)","Capillaire","Capillary Tube"],
+"exp-eev":["EEV (صمام إلكتروني)","EEV (Électronique)","EEV (Electronic)"],
+"lbl-pcb-type":["⚡ نظام كارت الإنفرتر (حد الفصل الأدنى للجهد):","⚡ Système Carte Inverter (Seuil de Coupure UVLO) :","⚡ Inverter PCB System (Voltage Cutoff Limit):"],
+"pcb-wide90":["1. مدى واسع (90V Ultra-Wide)","1. Large Plage (90V Ultra-Wide)","1. Wide-Range (90V Ultra-Wide)"],
+"pcb-semi130":["2. كارت مطوّر (<130V)","2. PCB Amélioré (<130V)","2. Enhanced PCB (<130V)"],
+"pcb-standard155":["3. كارت تجاري (<155V)","3. PCB Standard (<155V)","3. Standard PCB (<155V)"],
+"pcb-passive165":["4. Passive PFC (<165V)","4. Passive PFC (<165V)","4. Passive PFC (<165V)"],
+"pcb-strict185":["5. كارت حساس (<185V)","5. PCB Strict (<185V)","5. Strict PCB (<185V)"],
+"lbl-grid-title":["جهد الشبكة (GRID INPUT)","TENSION RÉSEAU (GRID INPUT)","GRID INPUT VOLTAGE"],
+"lbl-pfc-title":["خط التيار المستمر (PFC DC BUS)","BUS CONTINU (PFC DC BUS)","PFC DC BUS VOLTAGE"],
+"lbl-mcu-title":["منطق المعالج (MCU LOGIC)","LOGIQUE MICROCONTRÔLEUR (MCU)","SYSTEM MCU LOGIC"],
+"lbl-comp-title":["أداء الضاغط (COMPRESSOR)","RENDEMENT COMPRESSEUR","COMPRESSOR OUTPUT"],
+"lbl-thermal-title":["🌡️ مؤشر الإجهاد الحراري لوحدة الـ IPM والمكثفات الكيميائية","🌡️ Moniteur Thermique (Module IPM & Condensateurs DC)","🌡️ Thermal Stress Monitor (IPM & DC Capacitors)"],
+"lbl-ipm-temp":["حرارة وحدة الـ IPM وترانزستور الـ PFC:","Température Module IPM & IGBT PFC :","IPM & PFC IGBT Junction Temp:"],
+"lbl-cap-temp":["حرارة وإجهاد المكثفات الكيميائية (DC Caps):","Température & Stress Condensateurs DC :","DC Capacitors Temp & Ripple Stress:"],
+"lbl-fault-radar":["🔍 حالة الكارت والأعطال المتوقعة:","🔍 État PCB & Pannes Probables :","🔍 Predicted PCB Status & Faults:"],
+"nd-grid-title":["مدخل الكهرباء (AC Input)","Entrée Réseau AC","Grid AC Input"],
+"nd-pfc-title":["دائرة Active PFC","Circuit Active PFC","Active PFC Stage"],
+"nd-comp-title":["وحدة IPM والضاغط","Module IPM & Compresseur","IPM & Compressor"],
+"nd-mcu-title":["وحدة المعالج الدقيق (System MCU Logic)","Logique du Microcontrôleur (MCU)","System MCU Logic"],
+"lbl-slider-title":["تحكم في جهد الشبكة (Grid Voltage AC: 80V ~ 265V):","Contrôle Tension Réseau (AC : 80V ~ 265V) :","Grid Voltage Control (AC: 80V ~ 265V):"],
+"lbl-rate-title":["⭐ تقييم البرنامج وإرسال ملاحظة أو رسالة للمطور (من 1 إلى 10):","⭐ Évaluer le Programme (1 à 10) & Envoyer un Message au Développeur :","⭐ Rate This Program (1 to 10) & Send Message to Developer:"],
+"btn-send-feedback":["📩 إرسال التقييم والرسالة للمطور","📩 Envoyer l'Évaluation au Développeur","📩 Send Rating & Message to Developer"],
+"btn-undo-feedback":["↩️ تراجع عن الكتابة / التقييم","↩️ Annuler (Undo)","↩️ Undo Typing / Rating"],
+"lbl-contact-title":["📲 لمتابعة الشروحات والتواصل التقني (م. أحمد زينور):","📲 Contact & Publications Techniques (Ing. Ahmed Zinnour) :","📲 Follow & Connect (Eng. Ahmed Zinnour):"],
+"lbl-contact-sub":["اضغط على الزر لفتح الحساب الرسمي على فيسبوك مباشرة","Cliquez sur le bouton pour ouvrir mon profil officiel Facebook","Click to open my official Facebook profile directly"],
+"btn-fb-label":["حسابي على فيسبوك","Mon Compte Facebook","My Facebook Account"],
+"ui-footer":["جميع الحقوق محفوظة © تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿 | مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É","Tous droits réservés © Ing. Ahmed Zinnour 🇩🇿 | Groupe : M.D.F.CH.É.É","All Rights Reserved © Eng. Ahmed Zinnour 🇩🇿 | Group: M.D.F.CH.É.É"],
+"lbl-modal-tip":["💡 اضغط مطولاً على الصورة لحفظها أو مشاركتها","💡 Appuyez longuement sur l'image pour l'enregistrer","💡 Long-press the image to Save or Share"]
+};
+
+const radarTranslations={
+ar:{thSafe:"حرارة آمنة ومستقرة",thWarn:"إجهاد حراري متوسط",thCrit:"خطر حراري مرتفع!",thCut:"حماية الفصل مفعلة (Standby)",ipmNorm:"تقطيع إلكتروني مريح (حرارة طبيعية)",ipmWarn:"ارتفاع حرارة ترانزستورات الـ PFC والـ IPM",ipmCrit:"غليان حراري! خطر تلف الـ IPM",ipmCut:"الضاغط متوقف (حماية الكارت مفعلة)",capNorm:"تموج تيار منخفض — المكثفات في أمان",capWarn:"تموج تيار متوسط — بداية إجهاد المكثفات",capCrit:"إجهاد أقصى! خطر انتفاخ المكثفات الكيميائية",capCut:"لا يوجد سحب تيار (وضع Standby)",fSafe:["✅ لا توجد أخطاء — تشغيل آمن ومثالي للكارت"],fWarn:["⚠️ ارتفاع أمبير التغذية","⚠️ بداية إجهاد مكثفات التنعيم"],fCrit:["🚨 انتفاخ مكثفات DC Bus","🚨 خطأ اتصال Optocoupler","🚨 اضطراب رنان 10MHz / MCU","🚨 فصل حماية IPM"],fUvlo:["🛑 فصل حماية انخفاض الجهد (UVLO Cutoff)","✅ الكارت سليم وأوقف الضاغط لحماية نفسه"],fOvlo:["🚨 فصل حماية ارتفاع الجهد (Overvoltage >252V)","💥 خطر انفجار الفاريستور (MOV) والفيوز!"]},
+fr:{thSafe:"Température Normale",thWarn:"Stress Thermique Modéré",thCrit:"Danger Thermique PCB !",thCut:"Sécurité Coupure Active (Standby)",ipmNorm:"Commutation normale — Température stable",ipmWarn:"Échauffement modéré des transistors",ipmCrit:"Surchauffe critique ! Risque panne IPM",ipmCut:"Compresseur arrêté (Sécurité active)",capNorm:"Faible ondulation — Condensateurs sains",capWarn:"Ondulation moyenne — Début fatigue chimique",capCrit:"Stress maximal ! Risque gonflement condos",capCut:"Aucune charge (Mode Standby)",fSafe:["✅ Aucune anomalie — Fonctionnement optimal"],fWarn:["⚠️ Hausse du courant d'entrée","⚠️ Sollicitation des condensateurs"],fCrit:["🚨 Gonflement Condensateurs DC","🚨 Erreur Comm Optocoupleur","🚨 Instabilité Résonateur 10MHz","🚨 Sécurité IPM"],fUvlo:["🛑 Coupure Sous-Tension (UVLO)","✅ Carte saine (Arrêt préventif)"],fOvlo:["🚨 Coupure Surtension (>252V AC)","💥 Risque d'explosion Varistance (MOV) !"]},
+en:{thSafe:"Safe Operating Temp",thWarn:"Moderate Thermal Stress",thCrit:"Critical PCB Heat Danger!",thCut:"Protection Cutoff (Standby)",ipmNorm:"Optimal IGBT switching — Low thermal load",ipmWarn:"Elevated transistor junction temp",ipmCrit:"Critical heat! Risk of IPM failure",ipmCut:"Compressor halted (Protection active)",capNorm:"Low ripple current — Capacitors safe",capWarn:"Moderate ripple stress — Internal heating",capCrit:"Extreme ripple! Risk of capacitor swelling",capCut:"No load on DC capacitors (Standby)",fSafe:["✅ No Faults — Optimal & Safe PCB Operation"],fWarn:["⚠️ Elevated Input Current","⚠️ Moderate DC Capacitor Ripple"],fCrit:["🚨 Swollen DC Bus Capacitors","🚨 Optocoupler Comm Error","🚨 10MHz Resonator Lockup","🚨 IPM Overcurrent Trip"],fUvlo:["🛑 Undervoltage Protection Cutoff (UVLO)","✅ Healthy PCB (Halted to prevent damage)"],fOvlo:["🚨 Overvoltage Protection Trip (>252V AC)","💥 High risk of Varistor (MOV) blowout!"]}
+};
+
+const guideContent={
+ar:{
+beginner:`<b>• ما هو كارت الإنفرتر ببساطة؟</b> يأخذ كهرباء المنزل المترددة (<b>220V AC</b>) ويحولها داخل المكثفات الكبيرة إلى تيار مستمر (<b>DC Bus = 310V DC</b>)، ثم تقوم وحدة القدرة (<b>IPM</b>) بتحويلها إلى تيار ثلاثي الأوجه (<b>U, V, W</b>) لتشغيل الضاغط بسرعة متغيرة.<br><b>• موسوعة 5,200 طراز كارت:</b> اختر الماركة والقدرة ثم اختر من بين <b>50 طراز كارت فرعي</b> لكل قدرة أو ارفع صورة الكارت ليتعرف عليها البرنامج تلقائياً!`,
+about:`<b>1. فحص أيسي القدرة (IPM) بالأفوميتر (وضع الدايود):</b> ضع المجس الأحمر على السالب <b>(N)</b> والأسود على <b>(U, V, W)</b> ستقرأ <b>0.45V ~ 0.55V</b> متساوية في جميع الـ 26 ماركة، والعكس مع الموجب <b>(P)</b> (قراءة <b>0.00V</b> تعني شورت داخلي).<br><b>2. فحص مقاومات الشنت ومقسم الجهد:</b> مقاومة الشنت (<b>0.01Ω ~ 0.05Ω</b>) تغذي مضخم العمليات <b>LM324</b> لحماية الأمبير، ومقاومات مقسم الجهد (<b>200kΩ ~ 330kΩ</b>) تخفض جهد الـ DC Bus (310V) إلى 2.5V~3.3V للمعالج.<br><b>3. فحص ملفات الضاغط (U-V-W & GND):</b> المقاومة الطبيعية بين الأوجه هي <b>0.5Ω ~ 2.8Ω</b> متساوية مع عزل تام مالانهاية (<b>OL</b>) مع جسم الضاغط المعدني.`,
+steps:["<b>تفعيل المحاكي:</b> اضغط على إحدى القدرات (9000 إلى 24000 BTU).","<b>اختبار الجهد (80V ~ 265V):</b> حرّك المؤشر لمراقبة الخنق (Derating) أو الفصل (UVLO).","<b>فتح المشخّص الميداني:</b> اضغط الزر الأخضر أعلى الصفحة.","<b>اختيار الماركة والقدرة والطراز الفرعي:</b> 50 طراز كارت متاح لكل قدرة.","<b>فاحص الحساسات والضاغط:</b> احسب مقاومة وفولت الـ NTC وافحص توازن وعزل ملفات الضاغط.","<b>رفع صورة الكارت:</b> اضغط (📷 إرفاق صورة الكارت) للتعرف التلقائي وإظهار التقرير.","<b>التكبير بإصبعين والتقييم من 10:</b> كبّر الصورة بإصبعين وأرسل تقييمك للمطور."]
+},
+fr:{
+beginner:`<b>• Qu'est-ce qu'une carte Inverter ?</b> Elle convertit le 220V AC en <b>Bus DC (310V DC)</b>, puis le module <b>IPM</b> génère du triphasé (<b>U, V, W</b>).<br><b>• Base de 5 200 Cartes :</b> 26 marques × 4 puissances × 50 sous-modèles.`,
+about:`<b>1. Test Module IPM au Multimètre (Mode Diode) :</b> Pointe Rouge sur <b>(N)</b> et Noire sur <b>(U, V, W)</b> = <b>0.45V ~ 0.55V</b> équilibrée sur toutes les 26 marques (<b>0.00V</b> = court-circuit).<br><b>2. Résistances Shunt & Diviseur de Tension :</b> Le Shunt (<b>0.01Ω ~ 0.05Ω</b>) protège le courant via <b>LM324</b>, et le diviseur (<b>200kΩ ~ 330kΩ</b>) abaisse le Bus DC (310V) vers 2.5V~3.3V pour le MCU.<br><b>3. Test Compresseur (U-V-W & Masse) :</b> Résistance normale <b>0.5Ω ~ 2.8Ω</b> équilibrée et isolement infini (<b>OL</b>) avec la carcasse.`,
+steps:["<b>Activer le simulateur :</b> Cliquez sur une capacité (9000 à 24000 BTU).","<b>Tester la tension (80V ~ 265V AC) :</b> Observez le bridage ou la coupure UVLO.","<b>Ouvrir le Diagnostic Terrain :</b> Cliquez sur le bouton vert en haut.","<b>Choisir Marque, Puissance & Modèle PCB :</b> 50 modèles par capacité.","<b>Tester NTC & U-V-W :</b> Calculez la sonde NTC et l'équilibre/isolement compresseur.","<b>Joindre une photo PCB :</b> Identification automatique parmi les 5 200 modèles.","<b>Zoom à 2 doigts & Évaluation /10 :</b> Pincez l'image pour zoomer et notez le programme."]
+},
+en:{
+beginner:`<b>• What is an Inverter PCB?</b> It rectifies 220V AC into a <b>310V DC Bus</b>, then the <b>IPM</b> chip converts it into variable-frequency 3-phase power (<b>U, V, W</b>).<br><b>• 5,200 PCB Models Database:</b> 26 brands × 4 capacities × 50 sub-models per size.`,
+about:`<b>1. IPM Module Multimeter Test (Diode Mode):</b> Red probe on <b>(N)</b> and Black on <b>(U, V, W)</b> reads <b>0.45V ~ 0.55V</b> balanced across all 26 brands (<b>0.00V</b> = internal short).<br><b>2. Shunt & Voltage Divider Resistors:</b> Shunt resistor (<b>0.01Ω ~ 0.05Ω</b>) feeds <b>LM324</b> for current sensing, and divider resistors (<b>200kΩ ~ 330kΩ</b>) step down 310V DC to 2.5V~3.3V for the MCU.<br><b>3. Compressor Test (U-V-W & GND):</b> Normal winding resistance is <b>0.5Ω ~ 2.8Ω</b> balanced with infinite (<b>OL</b>) insulation to the metal body.`,
+steps:["<b>Activate Simulator:</b> Click a capacity (9000 to 24000 BTU).","<b>Test Grid Voltage (80V ~ 265V):</b> Drag slider to see Derating or UVLO cutoff.","<b>Open Field Troubleshooter:</b> Click the green button at the top.","<b>Select Brand, Capacity & PCB Sub-Model:</b> 50 PCB variants available per capacity.","<b>NTC & UVW Lab:</b> Calculate sensor Ω/Volts and winding balance + GND insulation.","<b>Upload PCB Photo:</b> Scientific visual analysis matches across 5,200 models.","<b>2-Finger Pinch Zoom & 10-Point Rating:</b> Pinch image to zoom and send your rating."]
+}
+};
+
+const slider=document.getElementById("voltageSlider");
+
+function populateNtcDropdown(){
+const sel=document.getElementById("ntcBaseSelect"),prev=sel.value;
+const noneTxt=currentLang==='ar'?"-- اختر قيمة الحساس --":(currentLang==='fr'?"-- Choisir Sonde NTC --":"-- Select NTC Sensor --");
+const atTxt=currentLang==='ar'?"عند 25°C":(currentLang==='fr'?"à 25°C":"at 25°C");
+sel.innerHTML=`<option value="">${noneTxt}</option>`+[5,10,15,20,50].map(v=>`<option value="${v}">${v}kΩ (${atTxt})</option>`).join("");
+if(prev)sel.value=prev;
+}
+
+function updateUvwRangeHint(){
+const cap=getActiveLabBtu(),el=document.getElementById("uvwRangeHint");if(!el)return;
+const rng=cap>=18000?"0.5Ω ~ 1.8Ω":"1.2Ω ~ 2.8Ω";
+el.innerText=currentLang==='ar'?`📏 المدى العلمي الطبيعي لضاغط إنفرتر (${cap} BTU): بين ${rng} (مع فرق أقصى ±0.1Ω وعزل OL مع الجسم)`:(currentLang==='fr'?`📏 Plage normale compresseur Inverter (${cap} BTU) : ${rng} (Écart max ±0.1Ω et isolement OL)`:`📏 Normal Inverter Compressor Range (${cap} BTU): ${rng} (Max diff ±0.1Ω & OL ground insulation)`);
+}
+
+function populateBrandsDropdown(filterText=""){
+const brandSel=document.getElementById("sel-brand"),currentSelected=brandSel.value,activeBtu=getActiveLabBtu();
+const placeholderTxt=currentLang==='ar'?"-- تحديد الاختيار --":(currentLang==='fr'?"-- Sélectionner Marque --":"-- Select Brand --");
+brandSel.innerHTML=`<option value="">${placeholderTxt}</option>`;
+const q=sanitizeInput(filterText).toLowerCase().trim();
+Object.keys(brandProfiles).forEach(bKey=>{
+const p=brandProfiles[bKey],capCode=p.codes[activeBtu];
+const seriesMatch=p.series.some(s=>s.toLowerCase().includes(q));
+const codesMatch=Object.values(p.codes).some(c=>c.toLowerCase().includes(q));
+const textMatch=bKey.toLowerCase().includes(q)||seriesMatch||codesMatch||p.comm.toLowerCase().includes(q)||p.ipmCode.toLowerCase().includes(q);
+if(q&&!textMatch)return;
+const opt=document.createElement("option");opt.value=bKey;opt.textContent=`${bKey} — [${capCode}]`;
+brandSel.appendChild(opt);
+});
+if(currentSelected&&brandSel.querySelector(`option[value="${currentSelected}"]`))brandSel.value=currentSelected;
+}
+
+function populateVariantsDropdown(bKey,btuCap,filterText=""){
+const varSel=document.getElementById("sel-pcb-variant");
+if(!bKey){
+varSel.innerHTML=`<option value="0">${currentLang==='ar'?"-- اختر الماركة والقدرة لعرض 50 طراز كارت --":(currentLang==='fr'?"-- Choisir Marque & Capacité (50 modèles) --":"-- Select Brand & Capacity (50 PCB Models) --")}</option>`;
+return;
+}
+const variants=generate50VariantsForBrandCap(bKey,btuCap),q=sanitizeInput(filterText).toLowerCase().trim();
+varSel.innerHTML="";
+variants.forEach(v=>{
+if(q&&!v.label.toLowerCase().includes(q)&&!bKey.toLowerCase().includes(q))return;
+const opt=document.createElement("option");opt.value=String(v.idx);opt.textContent=v.label;varSel.appendChild(opt);
+});
+if(!varSel.options.length){
+variants.forEach(v=>{const opt=document.createElement("option");opt.value=String(v.idx);opt.textContent=v.label;varSel.appendChild(opt)});
+}
+if(varSel.querySelector(`option[value="${currentVariantIndex}"]`))varSel.value=String(currentVariantIndex);
+else{currentVariantIndex=Number(varSel.options[0].value||0);varSel.value=String(currentVariantIndex)}
+}
+
+function filterBrandsAndCodes(val){
+populateBrandsDropdown(val);
+const q=sanitizeInput(val).toLowerCase().trim();if(!q)return;
+const brandSel=document.getElementById("sel-brand");
+let targetBrand=brandSel.value;
+if(brandSel.options.length>=2&&(!targetBrand||!brandSel.querySelector(`option[value="${targetBrand}"]`))){
+brandSel.selectedIndex=1;targetBrand=brandSel.value;
+}
+if(targetBrand){
+const p=brandProfiles[targetBrand];
+[9000,12000,18000,24000].forEach(cap=>{if(p.codes[cap].toLowerCase().includes(q))document.getElementById("sel-lab-btu").value=String(cap)});
+const activeCap=getActiveLabBtu();
+if(!document.getElementById("sel-lab-btu").value)document.getElementById("sel-lab-btu").value=String(activeCap);
+populateVariantsDropdown(targetBrand,activeCap,q);
+currentVariantIndex=Number(document.getElementById("sel-pcb-variant").value||0);
+updateBrandCodesUI(targetBrand,activeCap,currentVariantIndex);
+fieldDiagActive=true;runFieldDiagnostics();
+}
+}
+
+function toggleGuide(){
+const guideBox=document.getElementById("info-guide-box"),guideBtn=document.getElementById("btn-toggle-guide"),mainWorkspace=document.getElementById("main-workspace-container");
+const isOpening=guideBox.classList.contains("hidden");
+guideBox.classList.toggle("hidden",!isOpening);mainWorkspace.classList.toggle("hidden",isOpening);guideBtn.classList.toggle("active-mode",isOpening);
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleFieldLab(){
+const guideBox=document.getElementById("info-guide-box"),mainWorkspace=document.getElementById("main-workspace-container");
+if(!guideBox.classList.contains("hidden")){guideBox.classList.add("hidden");mainWorkspace.classList.remove("hidden");document.getElementById("btn-toggle-guide").classList.remove("active-mode")}
+const labBox=document.getElementById("field-lab-box"),btn=document.getElementById("btn-toggle-lab");
+labBox.classList.toggle("hidden");btn.classList.toggle("active-mode",!labBox.classList.contains("hidden"));
+if(!labBox.classList.contains("hidden")){populateBrandsDropdown("");renderDiagnosticStamp(lastUploadedImage);labBox.scrollIntoView({behavior:"smooth",block:"start"})}
+else{stopLiveCamera()}
+}
+
+function setLanguage(lang){
+currentLang=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.remove('active'));
+document.getElementById('btn-lang-'+lang).classList.add('active');
+applyStaticTranslations();
+populateNtcDropdown();
+updateUvwRangeHint();
+populateBrandsDropdown(document.getElementById("searchBrandOrCode").value);
+populateVariantsDropdown(document.getElementById("sel-brand").value,getActiveLabBtu(),document.getElementById("searchBrandOrCode").value);
+renderStatsUI();updateScoreBadgeText();
+if(simActive)updateSimulation();else updateStandbyLabels();
+if(fieldDiagActive){updateBrandCodesUI(document.getElementById("sel-brand").value,getActiveLabBtu(),currentVariantIndex);runFieldDiagnostics()}
+if(lastVisionData)renderVisionAlertBox();
+calcNtcLab();calcUvwLab();renderDiagnosticStamp(lastUploadedImage);
+}
+
+function applyStaticTranslations(){
+const idx=currentLang==='ar'?0:(currentLang==='fr'?1:2);
+Object.keys(uiMap).forEach(id=>{const el=document.getElementById(id);if(el)el.innerText=uiMap[id][idx]});
+const g=guideContent[currentLang];
+document.getElementById("txt-beginner-body").innerHTML=g.beginner;document.getElementById("txt-about-body").innerHTML=g.about;
+g.steps.forEach((st,i)=>{const sEl=document.getElementById("txt-step-"+(i+1));if(sEl)sEl.innerHTML=st});
+document.getElementById("searchBrandOrCode").placeholder=currentLang==='ar'?"اكتب اسم الماركة أو السلسلة أو رقم الكارت أو كود العطل هنا...":(currentLang==='fr'?"Tapez la marque, série, modèle PCB ou code erreur...":"Type brand, series, PCB model, or error code here...");
+document.getElementById("customBoardNote").placeholder=currentLang==='ar'?"✍️ اكتب هنا موديل المكيف أو رقم البوردة (مثل Midea KFR35W/BP3N1 أو Gree ZQ3330A)...":(currentLang==='fr'?"✍️ Modèle ou référence PCB (ex: Midea KFR35W/BP3N1)...":"✍️ Type custom AC model or PCB ref (e.g. Midea KFR35W/BP3N1)...");
+document.getElementById("devFeedbackInput").placeholder=currentLang==='ar'?"✍️ اكتب هنا رسالتك، تقييمك، أو اقتراحك للمهندس أحمد زينور ثم اضغط إرسال...":(currentLang==='fr'?"✍️ Écrivez votre message ou suggestion à l'Ing. Ahmed Zinnour...":"✍️ Write your message or suggestion to Eng. Ahmed Zinnour...");
+}
+
+function updateStandbyLabels(){
+const waitTxt=currentLang==='ar'?"بانتظار تحديد القدرة أو الجهد":(currentLang==='fr'?"En attente de sélection capacité/tension":"Waiting for capacity or voltage selection");
+document.getElementById("sub-grid").innerText=waitTxt;document.getElementById("sub-mcu").innerText=waitTxt;document.getElementById("nd-mcu-limit").innerText=waitTxt;
+if(!fieldDiagActive){
+const unSel=currentLang==='ar'?"-- غير محدد --":(currentLang==='fr'?"-- Non sélectionné --":"-- Not Selected --");
+document.getElementById("cardTitleBrand").innerText=currentLang==='ar'?"بطاقة تعريف الكارت الذكية (PCB ID Card)":(currentLang==='fr'?"Carte d'Identité PCB Intelligente":"Smart PCB ID Card");
+document.getElementById("cardModelBadge").innerText=unSel;document.getElementById("specBrandBtu").innerText=unSel;
+}
+}
+
+function getActiveLabBtu(){const labSel=document.getElementById("sel-lab-btu").value;return labSel?Number(labSel):(currentCapacity||12000)}
+
+function ensureDefaultsForSimulation(){
+if(!currentCapacity){currentCapacity=12000;document.getElementById("cap-12000").classList.add("active")}
+if(!expansionType){expansionType="capillary";document.getElementById("exp-capillary").classList.add("active")}
+if(!pcbType){pcbType="wide90";document.getElementById("pcb-wide90").classList.add("active")}
+document.getElementById("cap-9000").innerText="9,000 BTU (4.5A | 310V)";
+document.getElementById("cap-12000").innerText="12,000 BTU (6.0A | 320V)";
+document.getElementById("cap-18000").innerText="18,000 BTU (9.0A | 345V)";
+document.getElementById("cap-24000").innerText="24,000 BTU (12.5A | 365V)";
+}
+
+function setCapacity(cap){
+currentCapacity=Number(cap);simActive=true;
+document.querySelectorAll('[id^="cap-"]').forEach(btn=>btn.classList.remove('active'));
+document.getElementById('cap-'+cap).classList.add('active');
+document.getElementById("sel-lab-btu").value=String(cap);
+ensureDefaultsForSimulation();
+updateUvwRangeHint();calcUvwLab();
+populateBrandsDropdown(document.getElementById("searchBrandOrCode").value);
+const activeBrand=document.getElementById("sel-brand").value;
+if(activeBrand){
+populateVariantsDropdown(activeBrand,currentCapacity,document.getElementById("searchBrandOrCode").value);
+updateBrandCodesUI(activeBrand,currentCapacity,currentVariantIndex);
+}
+updateSimulation();
+}
+
+function setExpansion(type){
+expansionType=type;simActive=true;
+document.getElementById('exp-capillary').classList.toggle('active',type==='capillary');
+document.getElementById('exp-eev').classList.toggle('active',type==='eev');
+ensureDefaultsForSimulation();updateSimulation();
+}
+
+function setPcbType(type){
+pcbType=type;simActive=true;
+document.querySelectorAll('[id^="pcb-"]').forEach(btn=>btn.classList.remove('active'));
+document.getElementById('pcb-'+type).classList.add('active');
+ensureDefaultsForSimulation();updateSimulation();
+}
+
+function setVoltage(v){slider.value=v;activateAndSimulate()}
+function activateAndSimulate(){simActive=true;ensureDefaultsForSimulation();updateSimulation()}
+
+function setVoltageAndSync(v){
+slider.value=v;simActive=true;fieldDiagActive=true;ensureDefaultsForSimulation();
+if(!document.getElementById("sel-brand").value)document.getElementById("sel-brand").value="Midea";
+if(!document.getElementById("sel-lab-btu").value)document.getElementById("sel-lab-btu").value=String(currentCapacity||12000);
+const bKey=document.getElementById("sel-brand").value,cap=getActiveLabBtu();
+populateBrandsDropdown("");document.getElementById("sel-brand").value=bKey;
+populateVariantsDropdown(bKey,cap,"");updateBrandCodesUI(bKey,cap,currentVariantIndex);
+document.getElementById("sel-symp").value="auto";
+updateSimulation();syncDropdownsWithSimIfAuto();runFieldDiagnostics();
+}
+
+function resetAllOptions(){
+simActive=false;fieldDiagActive=false;
+currentCapacity=null;expansionType=null;pcbType=null;currentVariantIndex=0;
+lastUploadedImage=null;lastVisionData=null;latestNtcSummary="";latestUvwSummary="";
+latestFieldSummaryAr="";latestFieldSummaryFr="";latestFieldSummaryEn="";
+resetImageZoom();
+document.querySelectorAll('[id^="cap-"], [id^="exp-"], [id^="pcb-"]').forEach(btn=>btn.classList.remove('active'));
+document.getElementById("cap-9000").innerText="9,000 BTU";document.getElementById("cap-12000").innerText="12,000 BTU";
+document.getElementById("cap-18000").innerText="18,000 BTU";document.getElementById("cap-24000").innerText="24,000 BTU";
+slider.value=220;document.getElementById("sliderVal").innerText="-- V";
+["card-grid","card-pfc","card-mcu","card-comp"].forEach(id=>document.getElementById(id).className="metric-card");
+document.getElementById("val-grid").innerText="-- V AC";document.getElementById("val-grid").className="metric-value";
+document.getElementById("val-pfc").innerText="-- V DC";document.getElementById("sub-pfc").innerText="--";
+document.getElementById("val-mcu").innerText="STANDBY";document.getElementById("val-mcu").className="metric-value";
+document.getElementById("val-comp").innerText="-- % (-- BTU)";document.getElementById("val-comp").className="metric-value";document.getElementById("sub-comp").innerText="--";
+document.getElementById("val-thermal-badge").innerText="Standby";document.getElementById("val-thermal-badge").style.background="transparent";
+document.getElementById("val-ipm-temp").innerText="-- °C";document.getElementById("bar-ipm-temp").style.width="0%";document.getElementById("sub-ipm-temp").innerText="--";
+document.getElementById("val-cap-temp").innerText="-- °C (--%)";document.getElementById("bar-cap-temp").style.width="0%";document.getElementById("sub-cap-temp").innerText="--";
+document.getElementById("fault-tags-container").innerHTML=`<span class="fault-tag">--</span>`;
+document.getElementById("diag-explain-box").classList.add("hidden");
+document.getElementById("nd-grid-val").innerText="-- V AC";document.getElementById("nd-grid-cur").innerText="-- A";
+document.getElementById("conn-ac-amp").innerText="-- A AC";
+document.getElementById("conn-line-1").classList.add("stopped");document.getElementById("conn-line-2").classList.add("stopped");
+document.getElementById("nd-pfc-val").innerText="-- V DC";document.getElementById("nd-pfc-mode").innerText="Standby";
+document.getElementById("conn-dc-volt").innerText="-- V DC";document.getElementById("nd-comp-btu").innerText="-- BTU/h";
+document.getElementById("cap-bar").style.width="0%";document.getElementById("nd-comp-pct").innerText="--%";
+document.getElementById("nd-comp-hz").innerText="-- Hz | UVW: --V";document.getElementById("nd-mcu-badge").innerText="Standby Mode";
+document.getElementById("searchBrandOrCode").value="";
+populateBrandsDropdown("");document.getElementById("sel-brand").value="";document.getElementById("sel-lab-btu").value="";
+populateVariantsDropdown("","");document.getElementById("sel-dcbus").value="";document.getElementById("sel-led").value="";document.getElementById("sel-symp").value="";
+document.getElementById("specExpansion").innerText="--";document.getElementById("specMcu").innerText="--";
+document.getElementById("specIpm").innerText="--";document.getElementById("specCaps").innerText="--";document.getElementById("specLimits").innerText="--";
+document.getElementById("field-diag-output").classList.add("hidden");document.getElementById("photoTelemetrySection").classList.add("hidden");
+populateNtcDropdown();document.getElementById("ntcBaseSelect").value="";document.getElementById("ntcTempSlider").value=25;document.getElementById("ntcTempLabel").innerText="25°C";
+document.getElementById("inpUV").value="";document.getElementById("inpVW").value="";document.getElementById("inpUW").value="";
+document.getElementById("sel-uvw-gnd").value="ok";
+document.getElementById("customBoardNote").value="";
+const fileInput=document.getElementById("boardPhotoInput");if(fileInput)fileInput.value="";
+updateStandbyLabels();updateUvwRangeHint();calcNtcLab();calcUvwLab();hideCamAlert();stopLiveCamera();renderDiagnosticStamp(null);
+}
+
+function updateBrandCodesUI(bKey,btuCap,varIdx=currentVariantIndex){
+const b=getBrandSpec(bKey,btuCap,varIdx);if(!b)return;
+document.getElementById("cardTitleBrand").innerText=currentLang==='ar'?`بطاقة تعريف الكارت الذكية — ${b.shortName} (${b.seriesName})`:(currentLang==='fr'?`Carte d'Identité PCB — ${b.shortName} (${b.seriesName})`:`Smart PCB ID Card — ${b.shortName} (${b.seriesName})`);
+document.getElementById("cardModelBadge").innerText=b.pcbModel;
+document.getElementById("specBrandBtu").innerText=`${b.shortName} ${b.seriesName} | ${b.btu} BTU`;
+document.getElementById("specExpansion").innerText=b.exp;
+document.getElementById("specMcu").innerText=b.mcu;
+document.getElementById("specIpm").innerText=b.ipm;
+document.getElementById("specCaps").innerText=`${b.caps} | ${b.dcNom}V DC`;
+document.getElementById("specLimits").innerText=`Max: ${b.iMax}A | Thr: ${b.iThrottle}A | UVLO: ${b.uvlo}V`;
+
+const symSel=document.getElementById("sel-symp"),prevVal=symSel.value;
+const pTxt=currentLang==='ar'?"-- تحديد الاختيار --":(currentLang==='fr'?"-- Choisir Symptôme --":"-- Select Symptom --");
+symSel.innerHTML=`
+<option value="">${pTxt}</option>
+<option value="auto">🔄 Auto (${currentLang==='ar'?'تلقائي حسب الجهد':(currentLang==='fr'?'Synchro Auto':'Auto Sync')})</option>
+<option value="comm">${currentLang==='ar'?'خطأ اتصال':(currentLang==='fr'?'Erreur Comm':'Comm Error')} [${b.comm}]</option>
+<option value="ipm">${currentLang==='ar'?'حماية IPM':(currentLang==='fr'?'Sécurité IPM':'IPM Trip')} [${b.ipmCode}]</option>
+<option value="uvlo">${currentLang==='ar'?'حماية الجهد':(currentLang==='fr'?'Coupure UVLO':'Voltage UVLO')} [${b.uvloCode}]</option>
+<option value="crit90">Derating (90V~185V)</option>
+<option value="pfc_start">PFC Fault [${b.pfcCode}]</option>
+<option value="temp_fan">IPM Temp / NTC [${b.tempCode}]</option>
+<option value="dead">0V / Dead SMPS</option>
+<option value="healthy">100% OK</option>
+`;
+if(prevVal)symSel.value=prevVal;
+}
+
+function onBrandOrCapSelectChange(){
+const bKey=document.getElementById("sel-brand").value;
+let btuVal=document.getElementById("sel-lab-btu").value;
+if(!bKey&&!btuVal){resetAllOptions();return}
+const activeBrand=bKey||"Midea";
+if(!bKey)document.getElementById("sel-brand").value=activeBrand;
+if(!btuVal){btuVal=String(currentCapacity||12000);document.getElementById("sel-lab-btu").value=btuVal}
+currentVariantIndex=0;
+populateBrandsDropdown(document.getElementById("searchBrandOrCode").value);
+document.getElementById("sel-brand").value=activeBrand;
+populateVariantsDropdown(activeBrand,Number(btuVal),document.getElementById("searchBrandOrCode").value);
+const b=getBrandSpec(activeBrand,Number(btuVal),currentVariantIndex);
+updateBrandCodesUI(activeBrand,b.btu,currentVariantIndex);
+setCapacity(b.btu);setExpansion(b.rawExp==='eev'?'eev':'capillary');
+setPcbType(b.clim==="T3"?"wide90":"semi130");
+fieldDiagActive=true;
+if(!document.getElementById("sel-dcbus").value)document.getElementById("sel-dcbus").value="normal";
+if(!document.getElementById("sel-led").value)document.getElementById("sel-led").value="on";
+if(!document.getElementById("sel-symp").value)document.getElementById("sel-symp").value="healthy";
+incrementStat("views");runFieldDiagnostics();
+}
+
+function onVariantSelectChange(){
+const varSel=document.getElementById("sel-pcb-variant");
+currentVariantIndex=Number(varSel.value||0);
+const bKey=document.getElementById("sel-brand").value||"Midea",cap=getActiveLabBtu();
+const b=getBrandSpec(bKey,cap,currentVariantIndex);
+updateBrandCodesUI(bKey,cap,currentVariantIndex);
+setExpansion(b.rawExp==='eev'?'eev':'capillary');
+setPcbType(b.clim==="T3"?"wide90":"semi130");
+fieldDiagActive=true;incrementStat("views");runFieldDiagnostics();
+}
+
+function onCustomNoteInput(val){
+const q=val.toLowerCase();
+Object.keys(brandProfiles).forEach(bKey=>{
+const p=brandProfiles[bKey];
+const seriesIdx=p.series.findIndex(s=>q.includes(s.toLowerCase()));
+const isMideaCode=(bKey==="Midea"&&(q.includes("kfr35")||q.includes("bp3n1")||q.includes("17122")));
+const isGreeCode=(bKey==="Gree"&&(q.includes("zq3330")||q.includes("30228")||q.includes("grj")));
+if(q.includes(bKey.toLowerCase())||seriesIdx!==-1||isMideaCode||isGreeCode){
+document.getElementById("sel-brand").value=bKey;
+if(q.includes("24000")||q.includes("24k")||q.includes("70w")||q.includes("zq3330")||q.includes("30228"))document.getElementById("sel-lab-btu").value="24000";
+else if(q.includes("18000")||q.includes("18k")||q.includes("50w")||q.includes("w832"))document.getElementById("sel-lab-btu").value="18000";
+else if(q.includes("12000")||q.includes("12k")||q.includes("35w"))document.getElementById("sel-lab-btu").value="12000";
+else if(q.includes("9000")||q.includes("09k")||q.includes("26w"))document.getElementById("sel-lab-btu").value="9000";
+const cap=getActiveLabBtu();
+if(seriesIdx!==-1)currentVariantIndex=seriesIdx;
+populateVariantsDropdown(bKey,cap,"");fieldDiagActive=true;
+updateBrandCodesUI(bKey,cap,currentVariantIndex);runFieldDiagnostics();
+}
+});
+renderDiagnosticStamp(lastUploadedImage);
+}
+
+function calcNtcLab(){
+const rVal=document.getElementById("ntcBaseSelect").value,tempC=parseFloat(document.getElementById("ntcTempSlider").value||25);
+document.getElementById("ntcTempLabel").innerText=tempC+"°C";
+const box=document.getElementById("ntcResultBox");
+if(!rVal){box.innerHTML=currentLang==='ar'?"-- اختر قيمة الحساس لتحسب المقاومة والفولت --":(currentLang==='fr'?"-- Choisissez la sonde NTC --":"-- Select NTC sensor rating --");return}
+const r25=parseFloat(rVal),rActual=r25*Math.exp(3950*((1/(tempC+273.15))-(1/298.15))),vPinNum=5.0*(r25/(rActual+r25)),vPin=vPinNum.toFixed(2),rFormatted=rActual>=10?rActual.toFixed(1):rActual.toFixed(2);
+const stateHint=currentLang==='ar'?"✅ نطاق فولت سليم للمعالج (0.4V~4.6V)":(currentLang==='fr'?"✅ Tension normale MCU":"✅ Valid MCU Voltage Range");
+latestNtcSummary=currentLang==='ar'?`حساس NTC ${r25}kΩ (عند ${tempC}°C) = ${rFormatted}kΩ | ${vPin}V DC`:(currentLang==='fr'?`Sonde NTC ${r25}kΩ (à ${tempC}°C) = ${rFormatted}kΩ | ${vPin}V DC`:`NTC ${r25}kΩ (at ${tempC}°C) = ${rFormatted}kΩ | ${vPin}V DC`);
+box.innerHTML=`<span>R: <b style="color:var(--status-green);font-family:'JetBrains Mono',monospace;">${rFormatted} kΩ</b></span><span>Pin: <b style="color:var(--accent-cyan);font-family:'JetBrains Mono',monospace;">${vPin}V DC</b></span><span style="font-size:11px;color:#6ee7b7;">${stateHint}</span>`;
+}
+function stampNtcResult(){
+if(!document.getElementById("ntcBaseSelect").value)document.getElementById("ntcBaseSelect").value="10";
+calcNtcLab();document.getElementById("customBoardNote").value=latestNtcSummary;fieldDiagActive=true;renderDiagnosticStamp(lastUploadedImage);
+}
+
+function calcUvwLab(){
+const uvStr=document.getElementById("inpUV").value,vwStr=document.getElementById("inpVW").value,uwStr=document.getElementById("inpUW").value;
+const gndState=document.getElementById("sel-uvw-gnd")?document.getElementById("sel-uvw-gnd").value:"ok";
+const box=document.getElementById("uvwResultBox");
+if(gndState==="leak"){
+latestUvwSummary="UVW GND SHORT! (Earth Leakage to Compressor Body)";
+const leakMsg=currentLang==='ar'?"🚨 شورت أرضي مع جسم الضاغط (GND)! الضاغط تالف وسيفجر أيسي الـ IPM فوراً!":(currentLang==='fr'?"🚨 Fuite à la masse (GND) ! Compresseur HS, risque d'explosion IPM !":"🚨 Ground Short to Body (GND)! Compressor faulty — will blow IPM!");
+box.innerHTML=`<span style="color:var(--status-red);font-weight:800;">${leakMsg}</span>`;return;
+}
+if(!uvStr||!vwStr||!uwStr){box.innerHTML=currentLang==='ar'?"-- أدخل قراءات الأوجه الثلاثة (U-V / V-W / U-W) بالأوم --":(currentLang==='fr'?"-- Entrez les 3 mesures U-V-W (Ω) --":"-- Enter 3-Phase U-V-W readings (Ω) --");return}
+const uv=parseFloat(uvStr),vw=parseFloat(vwStr),uw=parseFloat(uwStr);
+if(uv<0.35||vw<0.35||uw<0.35){
+latestUvwSummary=`UVW Inter-Turn Short (${uv}/${vw}/${uw}Ω)`;
+const shortMsg=currentLang==='ar'?"🚨 شورت داخلي بين اللفات (<0.35Ω) — لا تركب كارت جديد!":(currentLang==='fr'?"🚨 Court-circuit interne (<0.35Ω) — Ne pas brancher l'IPM !":"🚨 Winding Short (<0.35Ω) — Do NOT connect PCB!");
+box.innerHTML=`<span style="color:var(--status-red);font-weight:800;">${shortMsg}</span>`;return;
+}
+if(uv>4.5||vw>4.5||uw>4.5){
+latestUvwSummary=`UVW High R (${uv}/${vw}/${uw}Ω > 4.5Ω)`;
+const highMsg=currentLang==='ar'?`⚠️ مقاومة عالية جداً (${uv}Ω > 4.5Ω)! ضاغط الإنفرتر السليم بين 0.5Ω و 3.0Ω (تحقق من احتراق الملفات أو أنه ضاغط عادي)`:(currentLang==='fr'?`⚠️ Résistance trop élevée (${uv}Ω > 4.5Ω) pour un compresseur Inverter BLDC (0.5Ω~3.0Ω) !`:`⚠️ Abnormally high resistance (${uv}Ω > 4.5Ω) for BLDC Inverter compressor (0.5Ω~3.0Ω)!`);
+box.innerHTML=`<span style="color:var(--status-amber);font-weight:700;">${highMsg}</span>`;return;
+}
+const avg=((uv+vw+uw)/3),maxDiff=Math.max(Math.abs(uv-vw),Math.abs(vw-uw),Math.abs(uv-uw));
+const unbalancePct=((Math.max(Math.abs(uv-avg),Math.abs(vw-avg),Math.abs(uw-avg))/avg)*100).toFixed(1);
+latestUvwSummary=`UVW: ${uv}/${vw}/${uw}Ω | ΔR=${maxDiff.toFixed(2)}Ω | GND:OL`;
+if(maxDiff<=0.11||unbalancePct<=5.0){
+const okMsg=currentLang==='ar'?`✅ ملفات متزنة وعزل سليم (المتوسط: ${avg.toFixed(2)}Ω | الفرق: ${maxDiff.toFixed(2)}Ω) — آمن لتركيب الكارت`:(currentLang==='fr'?`✅ Enroulements équilibrés & Isolement OK (Moy: ${avg.toFixed(2)}Ω | Écart: ${maxDiff.toFixed(2)}Ω)`:`✅ Balanced & Isolated OK (Avg: ${avg.toFixed(2)}Ω | Diff: ${maxDiff.toFixed(2)}Ω) — Safe for IPM`);
+box.innerHTML=`<span style="color:var(--status-green);font-weight:700;">${okMsg}</span>`;
+}else{
+const warnMsg=currentLang==='ar'?`⚠️ عدم اتزان في ملفات الضاغط (الفرق: ${maxDiff.toFixed(2)}Ω = ${unbalancePct}%) — افحص فيشة الضاغط أو الملفات!`:(currentLang==='fr'?`⚠️ Déséquilibre des enroulements (Écart: ${maxDiff.toFixed(2)}Ω = ${unbalancePct}%) !`:`⚠️ Winding Unbalance (Diff: ${maxDiff.toFixed(2)}Ω = ${unbalancePct}%) — Check terminals/coils!`);
+box.innerHTML=`<span style="color:var(--status-amber);font-weight:700;">${warnMsg}</span>`;
+}
+}
+function stampUvwResult(){
+if(!document.getElementById("inpUV").value){
+const defOhm=getActiveLabBtu()>=18000?"0.9":"1.6";
+document.getElementById("inpUV").value=defOhm;document.getElementById("inpVW").value=defOhm;document.getElementById("inpUW").value=defOhm;
+}
+calcUvwLab();document.getElementById("customBoardNote").value=latestUvwSummary;fieldDiagActive=true;renderDiagnosticStamp(lastUploadedImage);
+}
+
+function updateSimulation(){
+if(!simActive)return;
+ensureDefaultsForSimulation();
+const spec=capacitySpecs[currentCapacity];
+const bKey=document.getElementById("sel-brand").value;
+const bVar=bKey?getBrandSpec(bKey,currentCapacity,currentVariantIndex):null;
+const MAX_CURRENT=spec.maxCurrent,DERATE_START=spec.derateStartV,NOMINAL_POWER=spec.nominalPower,MAX_BTU=spec.maxBtuh,MAX_HZ=spec.maxHz;
+const targetDc=bVar?bVar.dcNom:spec.targetBoostDc;
+const cutoffLimit=(bVar&&pcbType==="semi130")?bVar.uvlo:spec.cutoffs[pcbType];
+const v=parseInt(slider.value,10),rt=radarTranslations[currentLang];
+document.getElementById("sliderVal").innerText=v+"V";
+let current=0,capacityPct=100,btuOutput=MAX_BTU,dcVoltage=0,compHz=MAX_HZ,uvwVolt=spec.maxUvw,stateMode="normal",isBoost=false,ipmTemp=45,capTemp=39,capStressPct=16;
+const naturalDc=Math.round(v*1.414);
+
+if(v>252){stateMode="ovlo";current="0.1";capacityPct=0;btuOutput=0;compHz=0;uvwVolt=0;dcVoltage=naturalDc;ipmTemp=38;capTemp=58;capStressPct=92}
+else if(v<cutoffLimit){stateMode="uvlo";current="0.1";capacityPct=0;btuOutput=0;compHz=0;uvwVolt=0;dcVoltage=naturalDc;ipmTemp=35;capTemp=34;capStressPct=10}
+else if(v>=DERATE_START){
+current=(NOMINAL_POWER/v).toFixed(1);stateMode=v>=216?"normal":"compensating";
+if(pcbType!=='passive165'&&naturalDc<targetDc&&v<218){dcVoltage=targetDc;isBoost=true}else{dcVoltage=naturalDc;isBoost=false}
+const mildDrop=Math.max(0,(225-v)/145);
+ipmTemp=Math.round(44+mildDrop*28*spec.thermalMult);capTemp=Math.round(38+mildDrop*24*spec.thermalMult);capStressPct=Math.min(100,Math.round(15+mildDrop*45*spec.thermalMult));
+}else{
+stateMode="derating";current=MAX_CURRENT.toFixed(1);
+let rawFactor=(v*MAX_CURRENT)/NOMINAL_POWER;
+if(v<140&&currentCapacity>=18000)rawFactor*=(currentCapacity===24000?0.78:0.86);
+if(expansionType==='capillary'&&v<185)rawFactor*=(1-((185-v)*0.0016));
+capacityPct=Math.max(18,Math.min(99,Math.round(rawFactor*100)));
+btuOutput=Math.round((capacityPct/100)*MAX_BTU);compHz=Math.max(20,Math.round((capacityPct/100)*MAX_HZ));uvwVolt=Math.max(55,Math.round((capacityPct/100)*spec.maxUvw));
+if(pcbType==='passive165'||(v>=182&&currentCapacity<=12000)){dcVoltage=naturalDc;isBoost=false}
+else{isBoost=true;const sag=v<130?Math.round(((130-v)/50)*(currentCapacity>=18000?38:22)):0;dcVoltage=targetDc-sag}
+const dropFactor=Math.max(0,(225-v)/145);
+ipmTemp=Math.min(108,Math.round(45+Math.pow(dropFactor,1.22)*52*spec.thermalMult));capTemp=Math.min(98,Math.round(39+Math.pow(dropFactor,1.26)*48*spec.thermalMult));capStressPct=Math.min(100,Math.round(18+dropFactor*80*spec.thermalMult));
+}
+
+const ipmBarPct=Math.min(100,Math.max(8,Math.round(((ipmTemp-30)/75)*100))),isCutoff=(stateMode==="uvlo"||stateMode==="ovlo");
+const thColor=stateMode==="ovlo"?"var(--status-red)":(stateMode==="uvlo"?"var(--status-purple)":(v>=210?"var(--status-green)":(v>=160?"var(--status-amber)":"var(--status-red)")));
+document.getElementById("val-ipm-temp").innerText=ipmTemp+"°C";document.getElementById("val-ipm-temp").style.color=thColor;
+document.getElementById("bar-ipm-temp").style.width=ipmBarPct+"%";document.getElementById("bar-ipm-temp").style.background=thColor;
+document.getElementById("val-cap-temp").innerText=`${capTemp}°C (${capStressPct}%)`;document.getElementById("val-cap-temp").style.color=thColor;
+document.getElementById("bar-cap-temp").style.width=capStressPct+"%";document.getElementById("bar-cap-temp").style.background=thColor;
+
+const thBadge=document.getElementById("val-thermal-badge");let faultList=[];
+if(stateMode==="ovlo"){thBadge.innerText="OVERVOLTAGE CUTOFF";thBadge.style.background="rgba(239,68,68,0.25)";thBadge.style.color="#fca5a5";document.getElementById("sub-ipm-temp").innerText=rt.ipmCut;document.getElementById("sub-cap-temp").innerText=rt.capCrit;faultList=rt.fOvlo}
+else if(stateMode==="uvlo"){thBadge.innerText=rt.thCut;thBadge.style.background="rgba(168,85,247,0.25)";thBadge.style.color="#d8b4fe";document.getElementById("sub-ipm-temp").innerText=rt.ipmCut;document.getElementById("sub-cap-temp").innerText=rt.capCut;faultList=rt.fUvlo}
+else if(v>=210){thBadge.innerText=rt.thSafe;thBadge.style.background="rgba(16,185,129,0.2)";thBadge.style.color="#6ee7b7";document.getElementById("sub-ipm-temp").innerText=rt.ipmNorm;document.getElementById("sub-cap-temp").innerText=rt.capNorm;faultList=rt.fSafe}
+else if(v>=160){thBadge.innerText=rt.thWarn;thBadge.style.background="rgba(245,158,11,0.2)";thBadge.style.color="#fcd34d";document.getElementById("sub-ipm-temp").innerText=rt.ipmWarn;document.getElementById("sub-cap-temp").innerText=rt.capWarn;faultList=rt.fWarn}
+else{thBadge.innerText=rt.thCrit;thBadge.style.background="rgba(239,68,68,0.25)";thBadge.style.color="#fca5a5";document.getElementById("sub-ipm-temp").innerText=rt.ipmCrit;document.getElementById("sub-cap-temp").innerText=rt.capCrit;faultList=rt.fCrit}
+document.getElementById("fault-tags-container").innerHTML=faultList.map(item=>`<span class="fault-tag" style="color:${thColor};border:1px solid ${thColor};">${item}</span>`).join('');
+
+const stateCls=stateMode==="normal"?"state-safe":(stateMode==="compensating"?"state-warn":(stateMode==="uvlo"?"state-cutoff":"state-alert"));
+const txtCls=stateMode==="normal"?"text-green":(stateMode==="compensating"?"text-amber":(stateMode==="uvlo"?"text-purple":"text-red"));
+document.getElementById("card-grid").className="metric-card "+stateCls;document.getElementById("val-grid").innerText=v+"V AC";document.getElementById("val-grid").className="metric-value "+txtCls;document.getElementById("sub-grid").innerText=stateMode.toUpperCase();
+document.getElementById("card-pfc").className="metric-card "+(isBoost?"state-warn":"state-safe");document.getElementById("val-pfc").innerText=dcVoltage+"V DC";document.getElementById("sub-pfc").innerText=isBoost?"Active PFC Boost ON":"Passive Rectify";
+document.getElementById("card-mcu").className="metric-card "+stateCls;document.getElementById("val-mcu").innerText=stateMode.toUpperCase();document.getElementById("val-mcu").className="metric-value "+txtCls;document.getElementById("sub-mcu").innerText=`Max: ${MAX_CURRENT}A | UVLO: ${cutoffLimit}V`;
+document.getElementById("card-comp").className="metric-card "+stateCls;document.getElementById("val-comp").innerText=`${capacityPct}% (${btuOutput.toLocaleString()} BTU)`;document.getElementById("val-comp").className="metric-value "+txtCls;document.getElementById("sub-comp").innerText=`${current}A | ${compHz}Hz | UVW: ${uvwVolt}V`;
+document.getElementById("nd-grid-val").innerText=v+"V AC";document.getElementById("nd-grid-cur").innerText=`${current}A`;document.getElementById("conn-ac-amp").innerText=current+"A AC";
+document.getElementById("nd-pfc-val").innerText=dcVoltage+"V DC";document.getElementById("nd-pfc-mode").innerText=isBoost?"Active Boost":"Passive";document.getElementById("conn-dc-volt").innerText=dcVoltage+"V DC";
+document.getElementById("nd-comp-btu").innerText=btuOutput.toLocaleString()+" BTU/h";document.getElementById("nd-comp-pct").innerText=`${capacityPct}%`;document.getElementById("nd-comp-hz").innerText=`${compHz} Hz | UVW: ${uvwVolt}V 3~`;
+document.getElementById("conn-line-1").classList.toggle("stopped",isCutoff);document.getElementById("conn-line-2").classList.toggle("stopped",isCutoff);
+document.getElementById("nd-mcu-limit").innerText=`Limit: ${MAX_CURRENT.toFixed(1)}A | Cutoff: ${cutoffLimit}V`;
+document.getElementById("cap-bar").style.width=capacityPct+"%";document.getElementById("cap-bar").style.background=thColor;document.getElementById("nd-mcu-badge").innerText=stateMode.toUpperCase();
+
+const expBox=document.getElementById("diag-explain-box");expBox.classList.remove("hidden");expBox.style.borderRightColor=thColor;expBox.style.borderLeftColor=thColor;
+expBox.innerHTML=currentLang==='ar'
+?`⚡ <b>تحليل المحاكي (${MAX_BTU.toLocaleString()} BTU عند ${v}V AC):</b> جهد الـ DC Bus = <b>${dcVoltage}V DC</b> | التردد = <b>${compHz}Hz</b> | جهد الأوجه UVW = <b>${uvwVolt}V</b> | التبريد الفعلي = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | حرارة الـ IPM = <b>${ipmTemp}°C</b>.`
+:(currentLang==='fr'?`⚡ <b>Analyse Simulateur (${MAX_BTU.toLocaleString()} BTU à ${v}V AC) :</b> Bus DC = <b>${dcVoltage}V DC</b> | Fréquence = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Capacité = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`
+:`⚡ <b>Simulator Analysis (${MAX_BTU.toLocaleString()} BTU @ ${v}V AC):</b> DC Bus = <b>${dcVoltage}V DC</b> | Freq = <b>${compHz}Hz</b> | UVW = <b>${uvwVolt}V</b> | Cooling = <b>${capacityPct}% (${btuOutput.toLocaleString()} BTU/h)</b> | IPM = <b>${ipmTemp}°C</b>.`);
+
+latestSimState={v,dcVoltage,current,capacityPct,btuOutput,compHz,uvwVolt,ipmTemp,capTemp,capStressPct,stateMode,isBoost,currentCapacity,expansionType,cutoffLimit,pcbType};
+if(fieldDiagActive){syncDropdownsWithSimIfAuto();runFieldDiagnostics()}
+}
+
+function syncDropdownsWithSimIfAuto(){
+const symSel=document.getElementById("sel-symp");if(!symSel||symSel.value!=="auto")return;
+const s=latestSimState,dcSel=document.getElementById("sel-dcbus"),ledSel=document.getElementById("sel-led");
+if(s.stateMode==="ovlo"){dcSel.value="high";ledSel.value="blink"}
+else if(s.stateMode==="uvlo"){dcSel.value=s.v<=108?"crit90":"low";ledSel.value="blink"}
+else if(s.stateMode==="derating"){dcSel.value=s.v<=118?"crit90":"mid";ledSel.value="on"}
+else{dcSel.value="normal";ledSel.value="on"}
+}
+
+function ensureBrandAndCapSelected(){
+if(!document.getElementById("sel-brand").value)document.getElementById("sel-brand").value="Midea";
+if(!document.getElementById("sel-lab-btu").value)document.getElementById("sel-lab-btu").value=String(currentCapacity||12000);
+const bKey=document.getElementById("sel-brand").value,cap=getActiveLabBtu();
+populateBrandsDropdown(document.getElementById("searchBrandOrCode").value);
+document.getElementById("sel-brand").value=bKey;
+populateVariantsDropdown(bKey,cap,document.getElementById("searchBrandOrCode").value);
+updateBrandCodesUI(bKey,cap,currentVariantIndex);
+}
+
+function onDcBusChange(){
+const dc=document.getElementById("sel-dcbus").value;if(!dc)return;
+fieldDiagActive=true;ensureBrandAndCapSelected();
+const ledSel=document.getElementById("sel-led"),symSel=document.getElementById("sel-symp");
+if(dc==="zero"){ledSel.value="off";symSel.value="dead"}
+else if(dc==="high"||dc==="low"){ledSel.value="blink";symSel.value="uvlo"}
+else if(dc==="mid"||dc==="crit90"){ledSel.value="on";symSel.value="crit90"}
+else if(dc==="normal"){ledSel.value="on";symSel.value="healthy"}
+runFieldDiagnostics();
+}
+function onLedChange(){
+const led=document.getElementById("sel-led").value;if(!led)return;
+fieldDiagActive=true;ensureBrandAndCapSelected();
+const symSel=document.getElementById("sel-symp");
+if(led==="off")symSel.value="dead";else if(led==="on"&&!symSel.value)symSel.value="healthy";
+runFieldDiagnostics();
+}
+function onSympChange(){
+const sym=document.getElementById("sel-symp").value;if(!sym)return;
+fieldDiagActive=true;ensureBrandAndCapSelected();
+const dcSel=document.getElementById("sel-dcbus"),ledSel=document.getElementById("sel-led");
+if(sym==="auto"){simActive=true;updateSimulation();syncDropdownsWithSimIfAuto()}
+else if(sym==="dead"){if(!dcSel.value)dcSel.value="zero";ledSel.value="off"}
+else if(["comm","ipm","pfc_start","temp_fan","uvlo"].includes(sym)){if(!dcSel.value||dcSel.value==="zero")dcSel.value="normal";ledSel.value="blink"}
+else if(sym==="crit90"){dcSel.value="mid";ledSel.value="on"}
+else if(sym==="healthy"){dcSel.value="normal";ledSel.value="on"}
+runFieldDiagnostics();
+}
+function autoSyncDiagnosis(){
+simActive=true;fieldDiagActive=true;ensureDefaultsForSimulation();ensureBrandAndCapSelected();
+document.getElementById("sel-symp").value="auto";updateSimulation();syncDropdownsWithSimIfAuto();runFieldDiagnostics();
+}
+function applyQuickFault(preset){
+simActive=true;fieldDiagActive=true;ensureDefaultsForSimulation();ensureBrandAndCapSelected();
+const dcSel=document.getElementById("sel-dcbus"),ledSel=document.getElementById("sel-led"),symSel=document.getElementById("sel-symp");
+if(preset==='dead0v'){dcSel.value="zero";ledSel.value="off";symSel.value="dead"}
+else if(preset==='smps'){dcSel.value="normal";ledSel.value="off";symSel.value="dead"}
+else if(preset==='comm'){dcSel.value="normal";ledSel.value="blink";symSel.value="comm"}
+else if(preset==='ipm'){dcSel.value="normal";ledSel.value="blink";symSel.value="ipm"}
+else if(preset==='healthy'){slider.value=220;symSel.value="healthy";dcSel.value="normal";ledSel.value="on";updateSimulation()}
+runFieldDiagnostics();
+}
+
+function runFieldDiagnostics(){
+const out=document.getElementById("field-diag-output"),ptSection=document.getElementById("photoTelemetrySection");
+const bKey=document.getElementById("sel-brand").value,activeBtu=getActiveLabBtu();
+if(!fieldDiagActive||!bKey){out.classList.add("hidden");ptSection.classList.add("hidden");renderDiagnosticStamp(lastUploadedImage);return}
+const b=getBrandSpec(bKey,activeBtu,currentVariantIndex);
+if(!simActive){setCapacity(b.btu);setExpansion(b.rawExp==='eev'?'eev':'capillary')}
+const dc=document.getElementById("sel-dcbus").value||"normal",led=document.getElementById("sel-led").value||"on",rawSymp=document.getElementById("sel-symp").value||"healthy",s=latestSimState;
+let symp=rawSymp;
+if(rawSymp==="auto"){
+if(dc==="zero")symp="dead";else if(dc==="high"||s.stateMode==="ovlo")symp="ovlo_auto";
+else if(dc==="low"||s.stateMode==="uvlo")symp="uvlo";else if(dc==="mid"||dc==="crit90"||s.stateMode==="derating")symp="crit90";else symp="healthy";
+}
+let stampAr="",stampFr="",stampEn="",activeCode="OK",statusSub="100% OK";
+if(dc==="zero"){
+activeCode="0V DEAD";statusSub="0V Power Cut";
+stampAr=`${b.shortName} (${b.pcbModel}): انعدام 310V DC — افحص الفيوز ومقاومة PTC وقنطرة التوحيد`;
+stampFr=`[${b.shortName} | ${b.pcbModel}] 0V Bus DC — Tester Fusible, PTC et Pont de diodes`;
+stampEn=`[${b.shortName} | ${b.pcbModel}] 0V DC Bus -> Check Main Fuse, PTC & Bridge Rectifier`;
+}else if(dc==="high"||symp==="ovlo_auto"){
+activeCode=b.uvloCode;statusSub="Overvoltage >375V";
+stampAr=`${b.shortName} (كود ${b.uvloCode}): ارتفاع خطير في الجهد (>375V DC) — افحص الفاريستور MOV ومقسم الجهد`;
+stampFr=`[${b.shortName} - Code ${b.uvloCode}] Surtension Bus DC (>375V) — Vérifier Varistance MOV`;
+stampEn=`[${b.shortName} - Code ${b.uvloCode}] Overvoltage (>375V DC) -> Check Varistor MOV`;
+}else if((led==="off"&&dc!=="zero")||symp==="dead"){
+activeCode="SMPS OFF";statusSub="SMPS / 10MHz Clock";
+stampAr=`${b.shortName} (${b.pcbModel}): 310V موجودة والـ LED منطفئ — افحص آيسي الباور (SMPS) ورنان 10MHz`;
+stampFr=`[${b.shortName} | ${b.pcbModel}] 310V OK / LED éteinte — Tester CI SMPS, 7805 et Résonateur 10MHz`;
+stampEn=`[${b.shortName} | ${b.pcbModel}] 310V OK / LED OFF -> Check SMPS IC & 10MHz Resonator`;
+}else if(symp==="comm"){
+activeCode=b.comm;statusSub="Comm Error";
+stampAr=`${b.shortName} (كود ${b.comm}): خطأ اتصال — افحص الأوبتوكبلر (PC817) ومقاومات خط الإشارة SI`;
+stampFr=`[${b.shortName} - Code ${b.comm}] Erreur Comm — Tester Optocoupleurs (PC817) et ligne SI`;
+stampEn=`[${b.shortName} - Code ${b.comm}] Comm Error -> Check Optocouplers (PC817) & SI Line`;
+}else if(symp==="ipm"){
+activeCode=b.ipmCode;statusSub="IPM Protection";
+stampAr=`${b.shortName} (كود ${b.ipmCode}): فصل حماية IPM (${b.ipm}) — افحص مكثفات Bootstrap والشنت وملفات الضاغط`;
+stampFr=`[${b.shortName} - Code ${b.ipmCode}] Sécurité IPM (${b.ipm}) — Tester Bootstrap, Shunt et U-V-W`;
+stampEn=`[${b.shortName} - Code ${b.ipmCode}] IPM Trip (${b.ipm}) -> Check Bootstrap Caps & U-V-W`;
+}else if(symp==="uvlo"||dc==="low"){
+activeCode=b.uvloCode;statusSub=`UVLO < ${b.uvlo}V`;
+stampAr=`${b.shortName} (كود ${b.uvloCode}): فصل حماية انخفاض الجهد (UVLO < ${b.uvlo}V) — افحص المكثفات (${b.caps})`;
+stampFr=`[${b.shortName} - Code ${b.uvloCode}] Coupure Sous-Tension (UVLO < ${b.uvlo}V) — Condos (${b.caps})`;
+stampEn=`[${b.shortName} - Code ${b.uvloCode}] Undervoltage Cutoff (UVLO < ${b.uvlo}V) -> Check Caps (${b.caps})`;
+}else if(symp==="crit90"||dc==="crit90"||dc==="mid"){
+activeCode="DERATING";statusSub=`Derating (${s.capacityPct}%)`;
+stampAr=`${b.shortName} (${b.pcbModel}): هبوط الجهد (${s.v}V AC) — خنق التردد (${s.compHz}Hz | ${s.capacityPct}%)`;
+stampFr=`[${b.shortName} | ${b.pcbModel}] Chute Tension (${s.v}V AC) : Bridage (${s.compHz}Hz | ${s.capacityPct}%)`;
+stampEn=`[${b.shortName} | ${b.pcbModel}] Voltage Sag (${s.v}V AC): Derating (${s.compHz}Hz | ${s.capacityPct}%)`;
+}else if(symp==="pfc_start"){
+activeCode=b.pfcCode;statusSub="PFC / Sync Fault";
+stampAr=`${b.shortName} (كود ${b.pfcCode}): عطل دائرة PFC — افحص IGBT PFC ومضخم العمليات LM324`;
+stampFr=`[${b.shortName} - Code ${b.pfcCode}] Panne PFC — Tester IGBT PFC et LM324`;
+stampEn=`[${b.shortName} - Code ${b.pfcCode}] PFC Fault -> Check PFC IGBT & LM324`;
+}else if(symp==="temp_fan"){
+activeCode=b.tempCode;statusSub="IPM Temp / NTC";
+stampAr=`${b.shortName} (كود ${b.tempCode}): حرارة IPM أو الحساسات — افحص NTC (2.5V DC) ومروحة الخارجية`;
+stampFr=`[${b.shortName} - Code ${b.tempCode}] Temp IPM / Sondes — Tester NTC (2.5V DC) et Fan`;
+stampEn=`[${b.shortName} - Code ${b.tempCode}] IPM Temp / Sensor -> Check NTC (2.5V DC) & Fan`;
+}else{
+activeCode="OK";statusSub="100% Healthy";
+stampAr=`✅ ${b.shortName} (${b.pcbModel}): الكارت سليم 100% — الفولتيات (${b.dcNom}V / 15V / 5V) والإقلاع طبيعي`;
+stampFr=`✅ [${b.shortName} | ${b.pcbModel}] Carte PCB 100% Saine — Tensions (${b.dcNom}V / 15V / 5V) stables`;
+stampEn=`✅ [${b.shortName} | ${b.pcbModel}] 100% Healthy PCB — All Power Rails (${b.dcNom}V / 15V / 5V) Verified`;
+}
+
+out.classList.remove("hidden");
+out.innerHTML=currentLang==='ar'?`<b>🔍 نتيجة الفحص الميداني:</b> ${stampAr}`:(currentLang==='fr'?`<b>🔍 Résultat Diagnostic :</b> ${stampFr}`:`<b>🔍 Field Diagnostic Result:</b> ${stampEn}`);
+ptSection.classList.remove("hidden");
+const dispAmp=activeCode==="OK"?(b.iThrottle*0.88).toFixed(2):s.current,dispDc=activeCode==="OK"?b.dcNom:s.dcVoltage,dispHz=activeCode==="OK"?78:s.compHz,dispUvw=activeCode==="OK"?181:s.uvwVolt,dispIpmTemp=activeCode==="OK"?63:s.ipmTemp;
+document.getElementById("pt-val-amp").innerText=`${dispAmp} A`;document.getElementById("pt-sub-amp").innerText=`Max: ${b.iMax}A | Thr: ${b.iThrottle}A`;
+document.getElementById("pt-val-dc").innerText=`${dispDc} V`;document.getElementById("pt-sub-dc").innerText=`AC: ${s.v}V | UVLO: ${b.uvlo}V`;
+document.getElementById("pt-val-hz").innerText=`${dispHz} Hz`;document.getElementById("pt-sub-hz").innerText=`Exp: ${b.exp}`;
+document.getElementById("pt-val-uvw").innerText=`${dispUvw} V`;
+document.getElementById("pt-val-ipm").innerText=`${dispIpmTemp} °C`;document.getElementById("pt-sub-ipm").innerText=`IPM: ${b.ipm}`;
+document.getElementById("pt-val-code").innerText=activeCode;document.getElementById("pt-val-code").style.color=activeCode==="OK"?"var(--status-green)":"var(--status-amber)";document.getElementById("pt-sub-code").innerText=statusSub;
+
+document.getElementById("ptInstantReportBox").innerHTML=currentLang==='ar'
+?`📋 <b style="color:var(--status-amber);">التقرير الهندسي الفوري:</b> كارت <b>${b.shortName} (${b.pcbModel})</b> — القدرة: <b>${b.btu} BTU (${b.exp})</b> | المعالج: <b>${b.mcu}</b> | أيسي القدرة: <b>${b.ipm}</b> | المكثفات: <b>${b.caps}</b> | جهد الـ DC Bus (<b>${dispDc}V</b>) وتيار الضاغط (<b>${dispAmp}A</b>) — <b>${statusSub}</b>.`
+:(currentLang==='fr'?`📋 <b style="color:var(--status-amber);">Rapport Instantané :</b> Carte <b>${b.shortName} (${b.pcbModel})</b> — <b>${b.btu} BTU (${b.exp})</b> | MCU : <b>${b.mcu}</b> | IPM : <b>${b.ipm}</b> | Condos : <b>${b.caps}</b> | Bus DC (<b>${dispDc}V</b>), Courant (<b>${dispAmp}A</b>) — <b>${statusSub}</b>.`
+:`📋 <b style="color:var(--status-amber);">Instant Engineering Report:</b> Board <b>${b.shortName} (${b.pcbModel})</b> — <b>${b.btu} BTU (${b.exp})</b> | MCU: <b>${b.mcu}</b> | IPM: <b>${b.ipm}</b> | Caps: <b>${b.caps}</b> | DC Bus (<b>${dispDc}V</b>), Current (<b>${dispAmp}A</b>) — <b>${statusSub}</b>.`);
+
+latestFieldSummaryAr=stampAr;latestFieldSummaryFr=stampFr;latestFieldSummaryEn=stampEn;
+renderDiagnosticStamp(lastUploadedImage);
+}
+
+function adjustImageZoom(delta){imgZoom=Math.min(4.0,Math.max(0.4,+(imgZoom+delta).toFixed(2)));document.getElementById("zoomLevelBadge").innerText=Math.round(imgZoom*100)+"%";renderDiagnosticStamp(lastUploadedImage)}
+function panImageByButton(dx,dy){imgPanX+=dx;imgPanY+=dy;renderDiagnosticStamp(lastUploadedImage)}
+function resetImageZoom(){imgZoom=1.0;imgPanX=0;imgPanY=0;initialPinchDist=null;const badge=document.getElementById("zoomLevelBadge");if(badge)badge.innerText="100%";renderDiagnosticStamp(lastUploadedImage)}
+
+const stampCanvasEl=document.getElementById("stampCanvas");
+stampCanvasEl.addEventListener("mousedown",e=>{if(!lastUploadedImage)return;isDraggingImg=true;dragStartX=e.clientX-imgPanX;dragStartY=e.clientY-imgPanY});
+window.addEventListener("mousemove",e=>{if(!isDraggingImg)return;imgPanX=e.clientX-dragStartX;imgPanY=e.clientY-dragStartY;renderDiagnosticStamp(lastUploadedImage)});
+window.addEventListener("mouseup",()=>{isDraggingImg=false});
+stampCanvasEl.addEventListener("touchstart",e=>{
+if(!lastUploadedImage)return;
+const rect=stampCanvasEl.getBoundingClientRect(),scaleY=stampCanvasEl.height/rect.height,touchYOnCanvas=(e.touches[0].clientY-rect.top)*scaleY;
+if(touchYOnCanvas<135||touchYOnCanvas>625)return;
+if(e.touches.length===2){isDraggingImg=false;initialPinchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);initialPinchZoom=imgZoom;e.preventDefault()}
+else if(e.touches.length===1){isDraggingImg=true;const scaleX=stampCanvasEl.width/rect.width;dragStartX=(e.touches[0].clientX*scaleX)-imgPanX;dragStartY=(e.touches[0].clientY*scaleY)-imgPanY;e.preventDefault()}
+},{passive:false});
+stampCanvasEl.addEventListener("touchmove",e=>{
+if(!lastUploadedImage)return;
+if(e.touches.length===2&&initialPinchDist){e.preventDefault();const newDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);imgZoom=Math.min(4.0,Math.max(0.4,+(initialPinchZoom*(newDist/initialPinchDist)).toFixed(2)));document.getElementById("zoomLevelBadge").innerText=Math.round(imgZoom*100)+"%";renderDiagnosticStamp(lastUploadedImage)}
+else if(isDraggingImg&&e.touches.length===1){e.preventDefault();const rect=stampCanvasEl.getBoundingClientRect(),scaleX=stampCanvasEl.width/rect.width,scaleY=stampCanvasEl.height/rect.height;imgPanX=(e.touches[0].clientX*scaleX)-dragStartX;imgPanY=(e.touches[0].clientY*scaleY)-dragStartY;renderDiagnosticStamp(lastUploadedImage)}
+},{passive:false});
+window.addEventListener("touchend",e=>{if(!e.touches||e.touches.length<2)initialPinchDist=null;if(!e.touches||e.touches.length===0)isDraggingImg=false});
+
+function showCamAlert(msg){const alertBox=document.getElementById("camStatusAlert");alertBox.innerHTML=msg;alertBox.style.display="block"}
+function hideCamAlert(){document.getElementById("camStatusAlert").style.display="none"}
+function resetToDefaultCard(){lastUploadedImage=null;lastVisionData=null;resetImageZoom();const fileInput=document.getElementById("boardPhotoInput");if(fileInput)fileInput.value="";hideCamAlert();stopLiveCamera();renderDiagnosticStamp(null)}
+
+function quickSwitchDetectedBrand(bKey,btuCap,varIdx=0){
+currentVariantIndex=varIdx;
+document.getElementById("sel-brand").value=bKey;
+document.getElementById("sel-lab-btu").value=String(btuCap);
+populateBrandsDropdown("");document.getElementById("sel-brand").value=bKey;
+populateVariantsDropdown(bKey,btuCap,"");document.getElementById("sel-pcb-variant").value=String(varIdx);
+if(lastVisionData){lastVisionData.brand=bKey;lastVisionData.btu=btuCap;lastVisionData.varIdx=varIdx;renderVisionAlertBox()}
+const b=getBrandSpec(bKey,btuCap,varIdx);
+updateBrandCodesUI(bKey,btuCap,varIdx);
+setCapacity(b.btu);setExpansion(b.rawExp==='eev'?'eev':'capillary');
+fieldDiagActive=true;runFieldDiagnostics();
+}
+
+function renderVisionAlertBox(){
+if(!lastVisionData)return;
+const b=getBrandSpec(lastVisionData.brand,lastVisionData.btu,lastVisionData.varIdx||0);if(!b)return;
+const desc=currentLang==='ar'?lastVisionData.ar:(currentLang==='fr'?lastVisionData.fr:lastVisionData.en);
+const headTxt=currentLang==='ar'?"🔬 تحليل البصمة البصرية العلمي للكارت (من 5,200 طراز):":(currentLang==='fr'?"🔬 Analyse Visuelle Scientifique PCB (sur 5 200 modèles) :":"🔬 Scientific PCB Visual Analysis (out of 5,200 models):");
+const resTxt=currentLang==='ar'?"✅ الطراز المطابق:":(currentLang==='fr'?"✅ Modèle Identifié :":"✅ Matched PCB Model:");
+const swTxt=currentLang==='ar'?"⚡ تبديل سريع للماركة أو القدرة:":(currentLang==='fr'?"⚡ Changement rapide marque / capacité :":"⚡ Quick Switch Brand / Capacity:");
+showCamAlert(`
+<b>${headTxt}</b> ${desc}<br>
+<b>${resTxt}</b> <b>${b.shortName} — ${b.pcbModel}</b> | Caps: <b>${b.caps}</b><br>
+<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+<span style="font-size:12px;color:#fcd34d;">${swTxt}</span>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 9000, ${lastVisionData.varIdx||0})">9000 BTU</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 12000, ${lastVisionData.varIdx||0})">12000 BTU</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 18000, ${lastVisionData.varIdx||0})">18000 BTU</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('${b.shortName}', 24000, ${lastVisionData.varIdx||0})">24000 BTU</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Midea', ${b.btu}, 1)">Midea</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Gree', ${b.btu}, 0)">Gree</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Condor', ${b.btu}, 0)">Condor</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('LG', ${b.btu}, 0)">LG</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Samsung', ${b.btu}, 0)">Samsung</button>
+<button type="button" class="mini-stamp-btn" onclick="quickSwitchDetectedBrand('Haier', ${b.btu}, 0)">Haier</button>
+</div>
+`);
+}
+
+function handlePhotoUpload(e){
+hideCamAlert();
+const file=e.target.files&&e.target.files[0];if(!file)return;
+const fileNameLower=(file.name||"").toLowerCase();
+const reader=new FileReader();
+reader.onload=function(evt){
+const rawImg=new Image();
+rawImg.onload=function(){
+const maxDim=1024;let w=rawImg.width,h=rawImg.height;
+if(w>maxDim||h>maxDim){if(w>h){h=Math.round((h*maxDim)/w);w=maxDim}else{w=Math.round((w*maxDim)/h);h=maxDim}}
+const offCanvas=document.createElement("canvas");offCanvas.width=w;offCanvas.height=h;
+const offCtx=offCanvas.getContext("2d");offCtx.drawImage(rawImg,0,0,w,h);
+const imgData=offCtx.getImageData(0,0,w,h).data;
+
+let pcbPixels=0,greenMask=0,tealMask=0,blueMask=0,phenolicTan=0;
+let yellowBoxCaps=0,copperToroidCoils=0,darkElectrolyticCaps=0,silverHeatsink=0,whiteCementBlocks=0;
+
+for(let y=Math.floor(h*0.05);y<Math.floor(h*0.92);y+=3){
+for(let x=Math.floor(w*0.05);x<Math.floor(w*0.95);x+=3){
+const idx=(y*w+x)*4,r=imgData[idx],g=imgData[idx+1],b=imgData[idx+2];
+const maxC=Math.max(r,g,b),minC=Math.min(r,g,b),sat=maxC-minC,lum=(r+g+b)/3;
+if((lum>212&&sat<22)||lum<14)continue;
+pcbPixels++;
+if(r>175&&g>140&&b<95&&(r-b)>90&&Math.abs(r-g)<65){yellowBoxCaps++;continue}
+if(r>120&&r>g*1.35&&g>35&&g<130&&b<75&&(r-b)>70){copperToroidCoils++;continue}
+if(g>r*1.18&&g>b*1.14&&g>55&&lum<185){
+if(b>r*1.15&&Math.abs(g-b)<30)tealMask++;else greenMask++;
+}else if(b>r*1.25&&b>g*1.12&&b>65){blueMask++}
+else if(r>140&&g>105&&b<90&&r>b*1.5){phenolicTan++}
+if(lum>=14&&lum<52&&sat<20)darkElectrolyticCaps++;
+if(lum>135&&lum<=210&&sat<18)silverHeatsink++;
+if(lum>195&&sat<12&&g>190)whiteCementBlocks++;
+}
+}
+
+const norm=Math.max(1,pcbPixels),yellowRatio=yellowBoxCaps/norm,copperRatio=copperToroidCoils/norm,capRatio=darkElectrolyticCaps/norm,heatsinkRatio=silverHeatsink/norm;
+let detectedBrand="",detectedBtu=null,detectedVarIdx=0;
+const noteText=(document.getElementById("customBoardNote").value||"").toLowerCase(),combinedText=fileNameLower+" "+noteText;
+Object.keys(brandProfiles).forEach(bKey=>{if(combinedText.includes(bKey.toLowerCase()))detectedBrand=bKey});
+if(combinedText.includes("kfr35")||combinedText.includes("bp3n1")||combinedText.includes("17122000"))detectedBrand="Midea";
+else if(combinedText.includes("zq3330")||combinedText.includes("30228")||combinedText.includes("grj"))detectedBrand="Gree";
+
+let descAr="",descFr="",descEn="";
+if(!detectedBrand){
+if((yellowRatio>0.008&&copperRatio>0.006)||(copperRatio>0.014&&greenMask>blueMask)||(yellowRatio>0.015&&heatsinkRatio>0.08)){
+detectedBrand="Midea";detectedVarIdx=1;
+descAr="مكثفات حماية صفراء (Yellow X2 Caps) + ملفات نحاس دائرية مكشوفة (Copper Toroids) + مشتت ألمنيوم — منصة Midea الأصلية (EU-KFR35W/BP3N1-B01)";
+descFr="Condensateurs jaunes X2 + Bobines cuivre toroïdales + Dissipateur alu — Plateforme Midea (EU-KFR35W/BP3N1-B01)";
+descEn="Yellow X2 Box Caps + Exposed Copper Toroids + Finned Heatsink — Original Midea Platform (EU-KFR35W/BP3N1-B01)";
+}else if(blueMask>greenMask*0.6&&blueMask>phenolicTan){
+detectedBrand="Haier";
+descAr="قناع لحام أزرق (Blue Solder Mask) — منصة Haier / Candy (0011800342)";
+descFr="Vernis bleu — Plateforme Haier / Candy (0011800342)";
+descEn="Blue Solder Mask — Haier / Candy Platform (0011800342)";
+}else if(phenolicTan>greenMask*0.75&&yellowRatio<0.008){
+detectedBrand="LG";
+descAr="بوردة فينولية صفراء/بنية (Phenolic Board) — منصة LG / Samsung (EBR78480 / DB93)";
+descFr="Carte phénolique jaune/brune — Plateforme LG / Samsung (EBR78480 / DB93)";
+descEn="Yellow/Tan Phenolic Board — LG / Samsung Platform (EBR78480 / DB93)";
+}else if(tealMask>greenMask*0.65){
+detectedBrand="Condor";
+descAr="قناع لحام أخضر مزرق (Teal Solder Mask) — منصة Condor / Hisense";
+descFr="Vernis vert-bleu (Teal) — Plateforme Condor / Hisense";
+descEn="Teal Solder Mask — Condor / Hisense Platform";
+}else{
+detectedBrand="Gree";
+descAr="قناع لحام أخضر نقي + مقاومات خزفية بيضاء + علبة PFC سوداء مغلقة — منصة Gree الأصلية (ZQ3330A / GRJ265)";
+descFr="Vernis vert émeraude + Résistances céramiques blanches — Plateforme Gree (ZQ3330A / GRJ265)";
+descEn="Emerald Green Solder Mask + White Cement Resistors — Original Gree Platform (ZQ3330A / GRJ265)";
+}
+}else{
+descAr=`تحديد مباشر لمنصة ${detectedBrand} الهندسية`;descFr=`Identification directe de la plateforme ${detectedBrand}`;descEn=`Direct identification of ${detectedBrand} platform`;
+}
+
+if(document.getElementById("sel-lab-btu").value){detectedBtu=Number(document.getElementById("sel-lab-btu").value)}
+else if(detectedBrand==="Midea"){
+if(capRatio>0.26)detectedBtu=24000;else if(capRatio>0.19)detectedBtu=18000;else detectedBtu=12000;
+}else{
+if(capRatio>0.20||(capRatio>0.15&&whiteCementBlocks/norm>0.02))detectedBtu=24000;
+else if(capRatio>0.14)detectedBtu=18000;else if(capRatio>0.075)detectedBtu=12000;else detectedBtu=9000;
+}
+
+currentVariantIndex=detectedVarIdx;
+populateBrandsDropdown("");
+document.getElementById("sel-brand").value=detectedBrand;
+document.getElementById("sel-lab-btu").value=String(detectedBtu);
+populateVariantsDropdown(detectedBrand,detectedBtu,"");
+document.getElementById("sel-pcb-variant").value=String(currentVariantIndex);
+const b=getBrandSpec(detectedBrand,detectedBtu,currentVariantIndex);
+updateBrandCodesUI(detectedBrand,detectedBtu,currentVariantIndex);
+document.getElementById("sel-dcbus").value="normal";
+document.getElementById("sel-led").value="on";
+document.getElementById("sel-symp").value="healthy";
+setCapacity(b.btu);setExpansion(b.rawExp==='eev'?'eev':'capillary');setPcbType("wide90");
+incrementStat("views");
+lastVisionData={brand:detectedBrand,btu:detectedBtu,varIdx:currentVariantIndex,ar:descAr,fr:descFr,en:descEn};
+const safeImg=new Image();
+safeImg.onload=function(){
+lastUploadedImage=safeImg;resetImageZoom();stopLiveCamera();fieldDiagActive=true;
+runFieldDiagnostics();renderVisionAlertBox();
+document.getElementById("photoTelemetrySection").scrollIntoView({behavior:"smooth",block:"center"});
+e.target.value="";
+};
+safeImg.src=offCanvas.toDataURL("image/jpeg",0.92);
+};
+rawImg.src=evt.target.result;
+};
+reader.readAsDataURL(file);
+}
+
+async function startLiveCamera(){
+hideCamAlert();
+if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){showCamAlert("💡 HTTPS required for Live Camera. Use Upload Photo button.");return}
+try{videoStreamObj=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});document.getElementById("cameraStream").srcObject=videoStreamObj;document.getElementById("liveVideoContainer").style.display="block"}
+catch(err){showCamAlert("💡 Camera access denied. Use Upload Photo button.")}
+}
+function stopLiveCamera(){if(videoStreamObj){videoStreamObj.getTracks().forEach(track=>track.stop());videoStreamObj=null}document.getElementById("liveVideoContainer").style.display="none"}
+function captureFromVideo(){
+const video=document.getElementById("cameraStream");if(!video.videoWidth)return;
+const tempCanvas=document.createElement("canvas");tempCanvas.width=960;tempCanvas.height=Math.round((video.videoHeight/video.videoWidth)*960);
+tempCanvas.getContext("2d").drawImage(video,0,0,tempCanvas.width,tempCanvas.height);
+const img=new Image();
+img.onload=function(){lastUploadedImage=img;stopLiveCamera();ensureBrandAndCapSelected();fieldDiagActive=true;simActive=true;incrementStat("views");updateSimulation();runFieldDiagnostics()};
+img.src=tempCanvas.toDataURL("image/jpeg",0.92);
+}
+
+function fillTextSmartFit(ctx,text,x,y,maxWidth,baseSize,fontFamily,weight="700"){
+let size=baseSize;ctx.font=`${weight} ${size}px ${fontFamily}`;
+while(ctx.measureText(text).width>maxWidth&&size>12){size-=0.5;ctx.font=`${weight} ${size}px ${fontFamily}`}
+ctx.fillText(text,x,y,maxWidth);
+}
+
+function renderDiagnosticStamp(bgImg){
+enforceOwnershipIntegrity();
+const canvas=document.getElementById("stampCanvas");if(!canvas)return;
+const ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height,s=latestSimState;
+const bKey=document.getElementById("sel-brand")?document.getElementById("sel-brand").value:"";
+const b=bKey?getBrandSpec(bKey,getActiveLabBtu(),currentVariantIndex):null;
+const showTelemetryOnPoster=fieldDiagActive||Boolean(bgImg);
+
+ctx.fillStyle="#090f1d";ctx.fillRect(0,0,W,H);
+const hdrGrad=ctx.createLinearGradient(0,0,W,136);hdrGrad.addColorStop(0,"#0f172a");hdrGrad.addColorStop(1,"#1e293b");
+ctx.fillStyle=hdrGrad;ctx.fillRect(0,0,W,136);
+ctx.strokeStyle="#38bdf8";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(0,136);ctx.lineTo(W,136);ctx.stroke();
+
+ctx.direction="rtl";ctx.textAlign="right";ctx.fillStyle="#ffffff";
+fillTextSmartFit(ctx,"تطوير وبرمجة هندسية: م. أحمد زينور 🇩🇿",W-26,48,540,26,"'Cairo', sans-serif","800");
+ctx.fillStyle="#38bdf8";
+fillTextSmartFit(ctx,"مجموعة: إتقان في التبريد والتدفئة M.D.F.CH.É.É",W-26,86,540,18,"'Cairo', sans-serif","700");
+ctx.direction="ltr";ctx.textAlign="right";ctx.fillStyle="#cbd5e1";
+fillTextSmartFit(ctx,"Ing. Ahmed Zinnour | Maîtrise en Froid & Climatisation",W-26,118,540,14.5,"'JetBrains Mono', monospace","700");
+
+const nowStr=new Date().toISOString().slice(0,16).replace('T',' ');
+ctx.direction="ltr";ctx.textAlign="left";ctx.fillStyle="#10b981";ctx.font="800 18px 'JetBrains Mono', monospace";
+ctx.fillText("VERIFIED HVAC LAB",26,46,290);
+ctx.fillStyle="#94a3b8";ctx.font="600 15px 'JetBrains Mono', monospace";ctx.fillText(nowStr,26,80,290);
+
+const noteInput=document.getElementById("customBoardNote"),cleanUserNote=noteInput?sanitizeInput(noteInput.value.trim()):"";
+const autoLabel=b?`${b.shortName} | ${b.pcbModel}`:"Standby / Waiting for PCB";
+ctx.fillStyle="#fcd34d";fillTextSmartFit(ctx,"📌 "+(cleanUserNote||autoLabel),26,116,310,14.5,"'Cairo', sans-serif","700");
+
+const imgX=24,imgY=150,imgW=W-48,imgH=456;
+ctx.fillStyle="#0f172a";ctx.fillRect(imgX,imgY,imgW,imgH);
+if(bgImg){
+ctx.save();ctx.beginPath();ctx.rect(imgX,imgY,imgW,imgH);ctx.clip();
+const containScale=Math.min(imgW/bgImg.width,imgH/bgImg.height)*imgZoom,drawW=bgImg.width*containScale,drawH=bgImg.height*containScale;
+const dx=imgX+(imgW-drawW)/2+imgPanX,dy=imgY+(imgH-drawH)/2+imgPanY;
+ctx.drawImage(bgImg,dx,dy,drawW,drawH);ctx.restore();
+}else{
+ctx.strokeStyle="rgba(56, 189, 248, 0.08)";ctx.lineWidth=1;
+for(let x=imgX;x<imgX+imgW;x+=35){ctx.beginPath();ctx.moveTo(x,imgY);ctx.lineTo(x,imgY+imgH);ctx.stroke()}
+for(let y=imgY;y<imgY+imgH;y+=35){ctx.beginPath();ctx.moveTo(imgX,y);ctx.lineTo(imgX+imgW,y);ctx.stroke()}
+ctx.direction="ltr";ctx.textAlign="center";ctx.fillStyle="#38bdf8";ctx.font="800 24px 'JetBrains Mono', monospace";
+ctx.fillText("[ CARTE INVERTER PCB / 5,200 MODELS VIEWPORT ]",W/2,imgY+200,imgW-40);
+ctx.direction="rtl";ctx.fillStyle="#cbd5e1";ctx.font="700 20px 'Cairo', sans-serif";
+ctx.fillText("اضغط على (📷 إرفاق صورة الكارت) لوضع صورة البوردة وإظهار الحسابات تلقائياً",W/2,imgY+255,imgW-40);
+}
+ctx.strokeStyle="#38bdf8";ctx.lineWidth=3;ctx.strokeRect(imgX,imgY,imgW,imgH);
+
+const refY=616,refH=40;
+ctx.fillStyle="#111c30";ctx.fillRect(imgX,refY,imgW,refH);
+ctx.strokeStyle="rgba(56, 189, 248, 0.45)";ctx.lineWidth=1.5;ctx.strokeRect(imgX,refY,imgW,refH);
+ctx.direction="ltr";ctx.textAlign="center";ctx.fillStyle="#38bdf8";
+fillTextSmartFit(ctx,"📏 5 GOLDEN PCB VOLTAGES:  [1] DC Bus: 310~365V   [2] IPM: 15V   [3] MCU: 5V/3.3V   [4] NTC: 2.2~2.8V   [5] SI-N: 0↔24/56V",W/2,refY+26,imgW-24,14.5,"'JetBrains Mono', monospace","700");
+
+if(!showTelemetryOnPoster){
+ctx.fillStyle="#111827";ctx.fillRect(imgX,672,imgW,620);
+ctx.strokeStyle="rgba(56, 189, 248, 0.3)";ctx.lineWidth=2;ctx.strokeRect(imgX,672,imgW,620);
+ctx.direction="rtl";ctx.textAlign="center";ctx.fillStyle="#94a3b8";ctx.font="700 22px 'Cairo', sans-serif";
+ctx.fillText("⏳ المستطيلات الحسابية والتشخيص مخفية في وضع الاستعداد",W/2,955,imgW-40);
+ctx.fillStyle="#38bdf8";ctx.font="700 18px 'Cairo', sans-serif";
+ctx.fillText("ارفع صورة الكارت أو اختر الماركة والقدرة والطراز (من 5,200 كارت) لتظهر القيم تلقائياً",W/2,1005,imgW-40);
+return;
+}
+
+const isCut=(s.stateMode==='uvlo'||s.stateMode==='ovlo');
+const cards=[
+{titleAr:"جهد الشبكة",titleFr:"TENSION RÉSEAU",val:`${s.v}V AC`,sub:`Courant / Current: ${s.current}A RMS`,col:"#38bdf8"},
+{titleAr:"الجهد المستمر",titleFr:"BUS CONTINU PFC",val:`${s.dcVoltage}V DC`,sub:s.isBoost?"Active PFC: ON":"Passive Rectifier",col:"#fcd34d"},
+{titleAr:"أداء الضاغط",titleFr:"COMPRESSEUR",val:isCut?`STOP (0 Hz)`:`${s.capacityPct}% (${s.compHz}Hz)`,sub:isCut?`Cutoff Protection`:`${s.btuOutput.toLocaleString()} BTU/h | UVW: ${s.uvwVolt}V`,col:isCut?"#c084fc":(s.stateMode==='derating'?"#ef4444":"#10b981")},
+{titleAr:"الإجهاد الحراري",titleFr:"STRESS THERMIQUE",val:`IPM: ${s.ipmTemp}°C`,sub:`Condos DC: ${s.capTemp}°C (Stress: ${s.capStressPct}%)`,col:s.ipmTemp>75?"#ef4444":"#10b981"}
+];
+const gridStartY=668,cardW=(imgW-20)/2,cardH=146;
+cards.forEach((c,idx)=>{
+const cx=imgX+(idx%2)*(cardW+20),cy=gridStartY+Math.floor(idx/2)*(cardH+14);
+ctx.fillStyle="#151f32";ctx.fillRect(cx,cy,cardW,cardH);
+ctx.strokeStyle=c.col;ctx.lineWidth=2.5;ctx.strokeRect(cx,cy,cardW,cardH);
+ctx.fillStyle=c.col;ctx.fillRect(cx,cy,cardW,6);
+ctx.direction="rtl";ctx.textAlign="center";ctx.fillStyle="#cbd5e1";ctx.font="700 17.5px 'Cairo', sans-serif";
+ctx.fillText(`${c.titleAr} (${c.titleFr})`,cx+cardW/2,cy+34,cardW-20);
+ctx.direction="ltr";ctx.fillStyle=c.col;ctx.font="800 34px 'JetBrains Mono', monospace";
+ctx.fillText(c.val,cx+cardW/2,cy+86,cardW-20);
+ctx.fillStyle="#f8fafc";ctx.font="700 15.5px 'JetBrains Mono', monospace";
+ctx.fillText(c.sub,cx+cardW/2,cy+125,cardW-20);
+});
+
+const diagY=992,diagH=304,maxTextW=imgW-36;
+ctx.fillStyle="#111827";ctx.fillRect(imgX,diagY,imgW,diagH);
+ctx.strokeStyle="#10b981";ctx.lineWidth=3;ctx.strokeRect(imgX,diagY,imgW,diagH);
+ctx.direction="rtl";ctx.textAlign="right";ctx.fillStyle="#6ee7b7";
+fillTextSmartFit(ctx,"🔍 "+latestFieldSummaryAr,W-40,diagY+48,maxTextW,18.5,"'Cairo', sans-serif","800");
+ctx.direction="ltr";ctx.textAlign="left";ctx.fillStyle="#fcd34d";
+fillTextSmartFit(ctx,"🇫🇷 "+latestFieldSummaryFr,40,diagY+98,maxTextW,17,"'Cairo', sans-serif","700");
+ctx.fillStyle="#38bdf8";
+fillTextSmartFit(ctx,"🇬🇧 "+latestFieldSummaryEn,40,diagY+146,maxTextW,16,"'JetBrains Mono', monospace","700");
+ctx.strokeStyle="rgba(148, 163, 184, 0.28)";ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(40,diagY+172);ctx.lineTo(W-40,diagY+172);ctx.stroke();
+
+const bInfo=b?`${b.shortName} — ${b.pcbModel} — IPM: ${b.ipm}`:`${s.currentCapacity} BTU`;
+ctx.direction="rtl";ctx.textAlign="right";ctx.fillStyle="#ffffff";
+fillTextSmartFit(ctx,`📌 بطاقة الكارت: ${bInfo}`,W-40,diagY+218,maxTextW,18,"'Cairo', sans-serif","800");
+ctx.direction="ltr";ctx.textAlign="left";ctx.fillStyle="#cbd5e1";
+fillTextSmartFit(ctx,`⚡ Telemetry (${s.v}V AC) : DC Bus = ${s.dcVoltage}V | Freq = ${s.compHz}Hz | UVW = ${s.uvwVolt}V | IPM = ${s.ipmTemp}°C`,40,diagY+266,maxTextW,16,"'JetBrains Mono', monospace","700");
+}
+
+function openApkModal(dataUrl){document.getElementById("apkModalImg").src=dataUrl;document.getElementById("apkModal").style.display="block"}
+function closeApkModal(){document.getElementById("apkModal").style.display="none"}
+
+function downloadStampedImage(){
+incrementStat("shares");
+const canvas=document.getElementById("stampCanvas"),fileName=`Inverter_PCB_Report_Zinnour_${latestSimState.v}V.png`;
+if(canvas.toBlob){
+canvas.toBlob(function(blob){
+if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement("a");
+link.download=fileName;link.href=url;document.body.appendChild(link);link.click();document.body.removeChild(link);
+setTimeout(()=>URL.revokeObjectURL(url),4000);
+},"image/png");
+}else{openApkModal(canvas.toDataURL("image/png"))}
+}
+
+async function shareStampedImage(){
+incrementStat("shares");
+const canvas=document.getElementById("stampCanvas"),fileName=`Inverter_PCB_Report_Zinnour_${latestSimState.v}V.png`;
+if(!canvas.toBlob){openApkModal(canvas.toDataURL("image/png"));return}
+canvas.toBlob(async function(blob){
+if(!blob)return;const file=new File([blob],fileName,{type:"image/png"});
+if(navigator.canShare&&navigator.canShare({files:[file]})){
+try{await navigator.share({title:"Inverter PCB Report | Eng. Ahmed Zinnour",text:latestFieldSummaryAr,files:[file]});return}catch(err){}
+}
+openApkModal(canvas.toDataURL("image/png"));
+},"image/png");
+}
+
+initLiveStats();
+applyStaticTranslations();
+populateNtcDropdown();
+resetAllOptions();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
